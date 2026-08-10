@@ -3,155 +3,205 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Alınca Köyü Portalı</title>
 
 <style>
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f5f7f4;
-    color: #243024;
+html {
+    scroll-behavior: smooth;
 }
 
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f8;
+    color: #263238;
+    line-height: 1.6;
+}
+
+/* ÜST MENÜ */
+
 header {
-    background: linear-gradient(135deg, #315c3a, #6f8f55);
+    background: linear-gradient(135deg, #214d3a, #38735a);
     color: white;
-    padding: 18px 6%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.18);
+}
+
+.navbar {
+    max-width: 1150px;
+    margin: auto;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 10;
 }
 
 .logo {
-    font-size: 24px;
+    font-size: 23px;
     font-weight: bold;
 }
 
 .logo span {
-    font-size: 13px;
     display: block;
-    opacity: .85;
-    margin-top: 3px;
+    font-size: 12px;
+    font-weight: normal;
+    opacity: 0.85;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
 }
 
 nav a {
     color: white;
     text-decoration: none;
-    margin-left: 22px;
-    font-size: 15px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 nav a:hover {
-    text-decoration: underline;
+    opacity: 0.7;
 }
 
+/* HERO */
+
 .hero {
-    min-height: 430px;
-    display: flex;
-    align-items: center;
-    padding: 60px 8%;
-    color: white;
+    min-height: 480px;
     background:
-        linear-gradient(rgba(20,45,25,.55), rgba(20,45,25,.55)),
-        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80")
+        linear-gradient(rgba(20,45,35,0.65), rgba(20,45,35,0.55)),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80")
         center/cover;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 40px 20px;
 }
 
 .hero-content {
-    max-width: 700px;
+    max-width: 800px;
 }
 
 .hero h1 {
-    font-size: 52px;
+    font-size: 54px;
     margin-bottom: 15px;
 }
 
 .hero p {
     font-size: 20px;
-    line-height: 1.6;
+    margin-bottom: 25px;
 }
 
+.button {
+    display: inline-block;
+    padding: 12px 25px;
+    background: white;
+    color: #285b44;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
+
+/* GENEL */
+
 .container {
-    width: 88%;
-    max-width: 1200px;
-    margin: 45px auto;
+    max-width: 1150px;
+    margin: auto;
+    padding: 60px 20px;
 }
 
 .section-title {
-    font-size: 28px;
-    margin-bottom: 22px;
-    color: #315c3a;
+    text-align: center;
+    margin-bottom: 35px;
 }
+
+.section-title h2 {
+    font-size: 32px;
+    color: #285b44;
+}
+
+.section-title p {
+    color: #777;
+    margin-top: 5px;
+}
+
+/* KARTLAR */
 
 .cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 22px;
 }
 
 .card {
     background: white;
-    border-radius: 15px;
+    border-radius: 14px;
     padding: 25px;
-    box-shadow: 0 5px 18px rgba(0,0,0,.08);
-    transition: .2s;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: 0.25s;
 }
 
 .card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.13);
 }
 
-.card-icon {
+.icon {
     font-size: 38px;
     margin-bottom: 12px;
 }
 
 .card h3 {
-    margin-bottom: 10px;
-    color: #315c3a;
+    color: #285b44;
+    margin-bottom: 8px;
 }
 
-.card p {
-    color: #687268;
-    line-height: 1.5;
-}
+/* HABERLER */
 
 .news {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 25px;
+    background: #ffffff;
 }
 
-.news-main,
-.news-side {
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 5px 18px rgba(0,0,0,.08);
+.news-card {
+    border-left: 5px solid #38735a;
 }
 
-.news-main h3 {
-    font-size: 24px;
-    margin-bottom: 12px;
+.date {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 8px;
 }
 
-.news-main p {
-    line-height: 1.7;
-    color: #626b62;
+/* KÖYÜMÜZ */
+
+.about {
+    background: #edf3ef;
 }
 
-.news-side div {
-    padding: 15px 0;
-    border-bottom: 1px solid #e4e8e3;
+.about-content {
+    max-width: 850px;
+    margin: auto;
+    text-align: center;
+    font-size: 17px;
 }
+
+/* GALERİ */
 
 .gallery {
     display: grid;
@@ -159,161 +209,503 @@ nav a:hover {
     gap: 15px;
 }
 
-.gallery img {
-    width: 100%;
-    height: 210px;
-    object-fit: cover;
+.gallery div {
+    height: 220px;
     border-radius: 14px;
+    overflow: hidden;
+    background: #dce5df;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #65756b;
+    font-size: 18px;
 }
+
+/* DUYURU */
+
+.notice {
+    background: #fff8e8;
+    border-left: 5px solid #d79b28;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.notice strong {
+    color: #8c641b;
+}
+
+/* İLETİŞİM */
+
+.contact {
+    text-align: center;
+}
+
+/* FOOTER */
 
 footer {
-    background: #263b2b;
+    background: #1e3429;
     color: white;
     text-align: center;
-    padding: 35px 20px;
-    margin-top: 60px;
+    padding: 30px 20px;
 }
 
+footer p {
+    opacity: 0.8;
+    font-size: 14px;
+}
+
+/* TELEFON */
+
 @media (max-width: 800px) {
-    header {
+
+    .navbar {
         flex-direction: column;
         gap: 12px;
     }
 
-    nav a {
-        margin: 0 7px;
-        font-size: 13px;
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
     }
 
     .hero {
-        min-height: 380px;
+        min-height: 400px;
     }
 
     .hero h1 {
         font-size: 38px;
     }
 
-    .cards,
-    .gallery,
-    .news {
+    .hero p {
+        font-size: 17px;
+    }
+
+    .cards {
         grid-template-columns: 1fr;
     }
+
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
 }
+
 </style>
 </head>
 
 <body>
 
-<header>
-    <div class="logo">
-        🏡 Alınca Köyü
-        <span>Köyümüzün dijital buluşma noktası</span>
-    </div>
+<!-- MENÜ -->
 
-    <nav>
-        <a href="#haberler">Haberler</a>
-        <a href="#duyurular">Duyurular</a>
-        <a href="#galeri">Galeri</a>
-        <a href="#iletisim">İletişim</a>
-    </nav>
+<header>
+
+<div class="navbar">
+
+<div class="logo">
+🌿 Alınca Köyü
+<span>Haber • Duyuru • Fotoğraf • Etkinlik</span>
+</div>
+
+<nav>
+<a href="#anasayfa">Ana Sayfa</a>
+<a href="#haberler">Haberler</a>
+<a href="#duyurular">Duyurular</a>
+<a href="#galeri">Galeri</a>
+<a href="#etkinlikler">Etkinlikler</a>
+<a href="#koyumuz">Köyümüz</a>
+</nav>
+
+</div>
+
 </header>
 
-<section class="hero">
-    <div class="hero-content">
-        <h1>Alınca Köyü Portalı</h1>
-        <p>
-            Köyümüzden haberler, duyurular, fotoğraflar,
-            etkinlikler ve daha fazlası.
-        </p>
-    </div>
+
+<!-- ANA SAYFA -->
+
+<section class="hero" id="anasayfa">
+
+<div class="hero-content">
+
+<h1>Alınca Köyü Portalı</h1>
+
+<p>
+Köyümüzden haberler, duyurular, fotoğraflar ve etkinlikler.
+</p>
+
+<a href="#haberler" class="button">
+Köyümüzden Haberler
+</a>
+
+</div>
+
 </section>
+
+
+<!-- PORTAL -->
+
+<section class="container">
+
+<div class="section-title">
+
+<h2>Köy Portalımız</h2>
+
+<p>Alınca'dan gelişmeleri tek yerde takip edin.</p>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+
+<div class="icon">📰</div>
+
+<h3>Haberler</h3>
+
+<p>
+Köyümüzle ilgili güncel haberleri ve gelişmeleri burada paylaşacağız.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">📢</div>
+
+<h3>Duyurular</h3>
+
+<p>
+Köyümüzü ilgilendiren önemli duyuru ve bilgilendirmeler.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">📸</div>
+
+<h3>Fotoğraf Galerisi</h3>
+
+<p>
+Alınca'nın geçmişten bugüne fotoğraflarını bir araya getireceğiz.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">🎉</div>
+
+<h3>Etkinlikler</h3>
+
+<p>
+Köyümüzde düzenlenen etkinlikleri ve organizasyonları takip edin.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">🌳</div>
+
+<h3>Köyümüz</h3>
+
+<p>
+Alınca Köyü'nün tarihi, doğası ve kültürü hakkında bilgiler.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">🤝</div>
+
+<h3>Hemşehrilerimiz</h3>
+
+<p>
+Köyümüzden uzakta yaşayan Alıncalılarla iletişim ve dayanışma.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- HABERLER -->
+
+<section class="news" id="haberler">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>📰 Son Haberler</h2>
+
+<p>Alınca Köyü'nden güncel gelişmeler</p>
+
+</div>
+
+
+<div class="cards">
+
+<div class="card news-card">
+
+<div class="date">10 Ağustos 2026</div>
+
+<h3>Alınca Köyü Portalı Açıldı!</h3>
+
+<p>
+Köyümüzün haber, duyuru, fotoğraf ve etkinliklerini paylaşacağımız
+Alınca Köyü Portalı yayın hayatına başladı.
+</p>
+
+</div>
+
+
+<div class="card news-card">
+
+<div class="date">Yakında</div>
+
+<h3>Köyümüzden Haberler</h3>
+
+<p>
+Köyümüzle ilgili güncel haberleri burada paylaşacağız.
+</p>
+
+</div>
+
+
+<div class="card news-card">
+
+<div class="date">Yakında</div>
+
+<h3>Alınca'dan Kareler</h3>
+
+<p>
+Köyümüzün güzelliklerini fotoğraflarla hep birlikte arşivleyeceğiz.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- DUYURULAR -->
 
 <section class="container" id="duyurular">
 
-    <h2 class="section-title">Köy Portalımız</h2>
+<div class="section-title">
 
-    <div class="cards">
+<h2>📢 Duyurular</h2>
 
-        <div class="card">
-            <div class="card-icon">📰</div>
-            <h3>Haberler</h3>
-            <p>Köyümüzde yaşanan gelişmeleri ve önemli haberleri takip edin.</p>
-        </div>
+<p>Köyümüzü ilgilendiren önemli duyurular</p>
 
-        <div class="card">
-            <div class="card-icon">📢</div>
-            <h3>Duyurular</h3>
-            <p>Köyümüzle ilgili önemli duyurular burada paylaşılacak.</p>
-        </div>
+</div>
 
-        <div class="card">
-            <div class="card-icon">📅</div>
-            <h3>Etkinlikler</h3>
-            <p>Düğünler, toplantılar ve köy etkinliklerinden haberdar olun.</p>
-        </div>
+<div class="notice">
 
-        <div class="card">
-            <div class="card-icon">📸</div>
-            <h3>Fotoğraf Galerisi</h3>
-            <p>Alınca Köyü'nden geçmişten bugüne fotoğraflar.</p>
-        </div>
+<strong>📌 Portalımız yayında!</strong>
 
-        <div class="card">
-            <div class="card-icon">🎥</div>
-            <h3>Videolar</h3>
-            <p>Köyümüzden videolar ve özel görüntüler.</p>
-        </div>
+<p>
+Alınca Köyü Portalı artık hemşehrilerimizin kullanımına açık.
+</p>
 
-        <div class="card">
-            <div class="card-icon">🌳</div>
-            <h3>Köyümüzün Tarihi</h3>
-            <p>Alınca Köyü'nün geçmişi, kültürü ve değerleri.</p>
-        </div>
+</div>
 
-    </div>
+<div class="notice">
+
+<strong>📌 Fotoğraf arşivimizi büyütüyoruz</strong>
+
+<p>
+Eski ve yeni Alınca fotoğraflarınızı paylaşarak köyümüzün dijital
+arşivine katkıda bulunabilirsiniz.
+</p>
+
+</div>
+
 </section>
 
-<section class="container" id="haberler">
 
-    <h2 class="section-title">Son Haberler</h2>
-
-    <div class="news">
-
-        <div class="news-main">
-            <h3>Alınca Köyü Portalı Açılıyor</h3>
-            <p>
-                Köyümüzden uzakta yaşayan hemşehrilerimizin de
-                köyümüzden haberdar olabilmesi için dijital portalımız
-                hazırlanıyor.
-            </p>
-        </div>
-
-        <div class="news-side">
-            <div>📢 Yakında yeni duyurular</div>
-            <div>📸 Fotoğraf arşivi hazırlanıyor</div>
-            <div>📅 Etkinlik takvimi oluşturuluyor</div>
-        </div>
-
-    </div>
-</section>
+<!-- GALERİ -->
 
 <section class="container" id="galeri">
 
-    <h2 class="section-title">Alınca'dan Kareler</h2>
+<div class="section-title">
 
-    <div class="gallery">
+<h2>📸 Fotoğraf Galerisi</h2>
 
-        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=800&q=80">
+<p>Alınca Köyü'nden güzel kareler</p>
 
-    </div>
+</div>
+
+<div class="gallery">
+
+<div>📷 Fotoğraf 1</div>
+
+<div>📷 Fotoğraf 2</div>
+
+<div>📷 Fotoğraf 3</div>
+
+<div>📷 Fotoğraf 4</div>
+
+<div>📷 Fotoğraf 5</div>
+
+<div>📷 Fotoğraf 6</div>
+
+</div>
+
 </section>
 
-<footer id="iletisim">
-    <h3>🏡 Alınca Köyü Portalı</h3>
-    <p style="margin-top:10px;">Köyümüzün dijital buluşma noktası</p>
-    <p style="margin-top:20px; opacity:.7;">© 2026 Alınca Köyü</p>
+
+<!-- ETKİNLİKLER -->
+
+<section class="news" id="etkinlikler">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>🎉 Etkinlikler</h2>
+
+<p>Köyümüzde gerçekleşen ve gerçekleşecek etkinlikler</p>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+
+<div class="icon">📅</div>
+
+<h3>Yakında</h3>
+
+<p>
+Köyümüzde yapılacak etkinlikleri burada paylaşacağız.
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="icon">🎊</div>
+
+<h3>Köy Buluşmaları</h3>
+
+<p>
+Hemşehrilerimizle bir araya geldiğimiz etkinlikler.
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="icon">🌿</div>
+
+<h3>Köy Günleri</h3>
+
+<p>
+Alınca'nın geleneklerini ve kültürünü yaşatacağımız etkinlikler.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- KÖYÜMÜZ -->
+
+<section class="about" id="koyumuz">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>🌳 Köyümüz</h2>
+
+<p>Alınca Köyü hakkında</p>
+
+</div>
+
+<div class="about-content">
+
+<p>
+<strong>Alınca Köyü</strong>, geçmişi, doğası, kültürü ve
+insanlarıyla bizim için özel bir yer.
+
+</p>
+
+<br>
+
+<p>
+Bu bölümde ilerleyen zamanda köyümüzün tarihi, gelenekleri,
+önemli yerleri ve köyümüzle ilgili bilgiler yer alacak.
+</p>
+
+<br>
+
+<p>
+Amacımız Alınca'nın geçmişini geleceğe aktarmak ve
+köyümüzden uzakta yaşayan hemşehrilerimizi de bu portalda
+bir araya getirmek.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- İLETİŞİM -->
+
+<section class="container contact">
+
+<div class="section-title">
+
+<h2>🤝 Alınca'dan Haber Ver</h2>
+
+<p>
+Köyümüzle ilgili haber, fotoğraf veya duyurularınızı
+ileride bu bölüm üzerinden paylaşabileceğiz.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<h3>🌿 Alınca Köyü Portalı</h3>
+
+<p>
+Köyümüzün haber, duyuru, fotoğraf ve etkinlik portalı
+</p>
+
+<br>
+
+<p>
+© 2026 Alınca Köyü • Tüm hakları saklıdır.
+</p>
+
 </footer>
 
 </body>
