@@ -957,25 +957,82 @@ Köyümüzün haber, duyuru, fotoğraf ve anı arşivi
 
 const SUPABASE_URL = "https://eyqpegahskmqvwtojlxw.supabase.co";
 
-const imageUrl =
-    `${SUPABASE_URL}/storage/v1/object/public/galeri/alincakoyu.jpeg`;
-
 const gallery = document.getElementById("gallery-container");
 
-gallery.innerHTML = `
-    <div class="gallery-item" style="height:220px;">
-        <img
-            src="${imageUrl}"
-            alt="Alınca Köyü"
-            style="
-                width:100%;
-                height:100%;
-                object-fit:cover;
-                display:block;
-            "
-        >
-    </div>
-`;
+async function loadGallery() {
+
+    try {
+
+        const response = await fetch(
+            `${SUPABASE_URL}/storage/v1/object/list/galeri`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    prefix: "",
+                    limit: 100,
+                    sortBy: {
+                        column: "created_at",
+                        order: "desc"
+                    }
+                })
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Galerideki fotoğraflar alınamadı.");
+        }
+
+        const files = await response.json();
+
+        gallery.innerHTML = "";
+
+        if (!files.length) {
+            gallery.innerHTML =
+                '<div class="gallery-item">Henüz fotoğraf yok 📸</div>';
+            return;
+        }
+
+        files.forEach(file => {
+
+            if (!file.name) return;
+
+            const imageUrl =
+                `${SUPABASE_URL}/storage/v1/object/public/galeri/${encodeURIComponent(file.name)}`;
+
+            const item = document.createElement("div");
+
+            item.className = "gallery-item";
+
+            item.innerHTML = `
+                <img
+                    src="${imageUrl}"
+                    alt="Alınca Köyü"
+                    style="
+                        width:100%;
+                        height:100%;
+                        object-fit:cover;
+                        display:block;
+                    "
+                >
+            `;
+
+            gallery.appendChild(item);
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        gallery.innerHTML =
+            '<div class="gallery-item">Galeride fotoğraflar yüklenemedi.</div>';
+    }
+}
+
+loadGallery();
 
 </script>
     
