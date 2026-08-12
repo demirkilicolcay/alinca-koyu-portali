@@ -956,7 +956,7 @@ Köyümüzün haber, duyuru, fotoğraf ve anı arşivi
 <script>
 
 const SUPABASE_URL = "https://eyqpegahskmqvwtojlxw.supabase.co";
-
+const SUPABASE_KEY ="sb_publishable_xhj_vA_46DIlOkgrbTTeqQ_hsstSUYG";
 const gallery = document.getElementById("gallery-container");
 
 async function loadGallery() {
@@ -968,8 +968,11 @@ async function loadGallery() {
             {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+    "apikey": SUPABASE_KEY,
+    "Authorization": `Bearer ${SUPABASE_KEY}`
                 },
+                
                 body: JSON.stringify({
                     prefix: "",
                     limit: 100,
