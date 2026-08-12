@@ -62,7 +62,7 @@ header {
 
 nav {
     display: flex;
-    gap: 18px;
+    gap: 16px;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -129,7 +129,7 @@ nav a:hover {
 }
 
 /* =========================
-   GENEL BÖLÜMLER
+   GENEL
 ========================= */
 
 section {
@@ -181,7 +181,6 @@ section {
 
 .card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
 
 .card-icon {
@@ -270,204 +269,97 @@ section {
 .gallery-item:hover {
     transform: scale(1.03);
 }
-<!-- =========================
-     KÖYÜMÜZ
-========================= -->
-
-<section class="about" id="koyumuz">
-
-<div class="container">
-
-<div class="section-title">
-
-<h2>🌿 Köyümüz</h2>
-
-<p>Alınca Köyü hakkında bilgiler</p>
-
-</div>
-
-<div class="about-box">
-
-<p>
-
-<strong>Alınca Köyü</strong>, geçmişi, doğası, insanları
-ve güçlü komşuluk ilişkileriyle bizler için sadece bir
-köy değil, ortak bir değerdir.
-
-</p>
-
-<br>
-
-<p>
-
-Bu bölümde zaman içerisinde köyümüzün tarihçesini,
-coğrafi özelliklerini, geleneklerini, önemli yerlerini
-ve köyümüzle ilgili merak edilen bilgileri
-bir araya getireceğiz.
-
-</p>
-
-</div>
-
-
-<div class="cards" style="margin-top:25px;">
-
-<div class="card">
-
-<div class="card-icon">📜</div>
-
-<h3>Köyümüzün Tarihi</h3>
-
-<p>
-Alınca Köyü'nün geçmişi, kuruluşu ve
-tarih boyunca yaşadığı değişimleri
-burada anlatacağız.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">🌲</div>
-
-<h3>Doğamız</h3>
-
-<p>
-Köyümüzün doğal güzellikleri, yaylaları,
-ormanları, dereleri ve önemli doğal
-alanlarını tanıtacağız.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">🏡</div>
-
-<h3>Köy Yaşamı</h3>
-
-<p>
-Geleneklerimiz, bayramlarımız, düğünlerimiz,
-imece kültürümüz ve köy yaşamına dair
-güzel anıları burada paylaşacağız.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">📍</div>
-
-<h3>Konum ve Ulaşım</h3>
-
-<p>
-Alınca Köyü'nün konumu, ulaşım bilgileri
-ve çevremizde bulunan önemli yerleri
-burada bulabilirsiniz.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">👨‍👩‍👧‍👦</div>
-
-<h3>Köyümüzün İnsanları</h3>
-
-<p>
-Köyümüze emek vermiş, iz bırakmış ve
-köyümüzün geçmişinde önemli yeri olan
-insanlarımızı tanıtacağız.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">❤️</div>
-
-<h3>Alınca'ya Dair</h3>
-
-<p>
-Köyümüzden anılar, eski fotoğraflar,
-hikâyeler ve hemşehrilerimizin
-paylaşmak istediği güzel hatıralar.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
 
 /* =========================
-   MUHTARIMIZ
+   KÖYÜMÜZ
 ========================= */
 
-.muhtar {
+.about {
+    background: #eef5f2;
+}
+
+.about-box {
+    background: white;
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+}
+
+.about-box p {
+    color: #59636a;
+    margin-bottom: 18px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-top: 30px;
+}
+
+.info-card {
+    background: #f7faf8;
+    border-radius: 14px;
+    padding: 22px;
+    text-align: center;
+    border: 1px solid #e2ebe6;
+}
+
+.info-card .icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.info-card h3 {
+    color: #176b52;
+    font-size: 17px;
+    margin-bottom: 6px;
+}
+
+.info-card p {
+    font-size: 14px;
+    margin: 0;
+}
+
+/* =========================
+   MUHTAR
+========================= */
+
+.mukhtar {
     background: white;
 }
 
-.muhtar-box {
-    max-width: 850px;
+.mukhtar-card {
+    max-width: 800px;
     margin: auto;
-    background: #f4f7f6;
-    border-radius: 18px;
+    background: linear-gradient(135deg, #176b52, #2e8b68);
+    color: white;
+    border-radius: 20px;
     padding: 40px;
     text-align: center;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.07);
-    border: 1px solid #e1e8e4;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
 }
 
-.muhtar-photo {
-    width: 130px;
-    height: 130px;
-    margin: 0 auto 20px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #176b52, #8bb69a);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 60px;
-    color: white;
+.mukhtar-icon {
+    font-size: 70px;
+    margin-bottom: 15px;
 }
 
-.muhtar-box h3 {
-    color: #176b52;
+.mukhtar-card h3 {
     font-size: 28px;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
-.muhtar-title {
-    color: #777;
-    margin-bottom: 20px;
+.mukhtar-card p {
+    opacity: 0.9;
+    margin-bottom: 8px;
 }
 
-.muhtar-info {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-top: 25px;
-}
-
-.muhtar-info div {
-    background: white;
+.mukhtar-note {
+    margin-top: 20px;
     padding: 15px;
+    background: rgba(255,255,255,0.12);
     border-radius: 12px;
-    border: 1px solid #e5ebe8;
-}
-
-.muhtar-info strong {
-    display: block;
-    color: #176b52;
-    margin-bottom: 4px;
 }
 
 /* =========================
@@ -505,7 +397,7 @@ paylaşmak istediği güzel hatıralar.
 }
 
 /* =========================
-   ALT BİLGİ
+   FOOTER
 ========================= */
 
 footer {
@@ -557,8 +449,8 @@ footer p {
         min-height: 130px;
     }
 
-    .muhtar-info {
-        grid-template-columns: 1fr;
+    .info-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -580,12 +472,12 @@ footer p {
         grid-template-columns: 1fr;
     }
 
-    section {
-        padding: 50px 15px;
+    .info-grid {
+        grid-template-columns: 1fr;
     }
 
-    .muhtar-box {
-        padding: 25px 18px;
+    section {
+        padding: 50px 15px;
     }
 }
 
@@ -668,7 +560,7 @@ Haberleri Gör
 
 <div class="card-icon">📢</div>
 
-<h3>Alınca Köyü Portalı Açılıyor</h3>
+<h3>Alınca Köyü Portalı Yayında</h3>
 
 <p>
 Köyümüzün haberlerini, duyurularını,
@@ -805,15 +697,10 @@ etkinlikler burada yayınlanacak.
 <div class="gallery-grid">
 
 <div class="gallery-item">🏡</div>
-
 <div class="gallery-item">🌲</div>
-
 <div class="gallery-item">🌄</div>
-
 <div class="gallery-item">🌿</div>
-
 <div class="gallery-item">☀️</div>
-
 <div class="gallery-item">📷</div>
 
 </div>
@@ -835,7 +722,7 @@ etkinlikler burada yayınlanacak.
 
 <h2>🌿 Köyümüz</h2>
 
-<p>Alınca Köyü hakkında</p>
+<p>Alınca Köyü hakkında bilgiler</p>
 
 </div>
 
@@ -843,25 +730,86 @@ etkinlikler burada yayınlanacak.
 <div class="about-box">
 
 <p>
-
-Alınca Köyü Portalı, köyümüzden uzakta yaşayan
-hemşehrilerimizi de köyümüzle buluşturmak,
-haberleri ve duyuruları paylaşmak,
-geçmişten günümüze fotoğraflarımızı
-korumak amacıyla oluşturulmuştur.
-
+<strong>Alınca Köyü</strong>, Giresun ilinin Merkez ilçesine
+bağlı bir köydür. Karadeniz Bölgesi'nde yer alan köy,
+Giresun şehir merkezine yaklaşık 6 kilometre uzaklıktadır.
 </p>
-
-<br>
 
 <p>
-
-Bu portal hepimizin ortak alanıdır.
-Köyümüzle ilgili haber, fotoğraf, anı ve
-duyuruları zaman içerisinde burada
-bir araya getireceğiz.
-
+Köyün doğal yapısında özellikle <strong>Sakallıdağ mevkii</strong>
+öne çıkmaktadır. Sakallıdağ'dan çevredeki doğal manzaralar
+izlenebilmektedir.
 </p>
+
+<p>
+Alınca'da geleneksel köy yaşamı günümüzde de devam etmektedir.
+Köy ekonomisinde özellikle <strong>fındık tarımı</strong> önemli
+bir yere sahiptir. Tarım ve hayvancılık da köy yaşamının
+parçaları arasında yer almaktadır.
+</p>
+
+<p>
+Karadeniz ikliminin etkisindeki Alınca'da doğayla iç içe
+bir yaşam görülmektedir. Köyümüzün geçmişten gelen
+gelenekleri, yemekleri, düğünleri ve hemşehrilik bağları
+portalımızın ilerleyen dönemlerinde daha ayrıntılı şekilde
+yer alacaktır.
+</p>
+
+<div class="info-grid">
+
+<div class="info-card">
+
+<div class="icon">📍</div>
+
+<h3>Konum</h3>
+
+<p>
+Giresun / Merkez
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<div class="icon">👥</div>
+
+<h3>Nüfus</h3>
+
+<p>
+2025 yılı verilerine göre 739 kişi
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<div class="icon">⛰️</div>
+
+<h3>Sakallıdağ</h3>
+
+<p>
+Köyün öne çıkan yüksek ve doğal bölgelerinden biri
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<div class="icon">🌰</div>
+
+<h3>Geçim Kaynakları</h3>
+
+<p>
+Başta fındık tarımı olmak üzere tarım ve hayvancılık
+</p>
+
+</div>
+
+</div>
 
 </div>
 
@@ -874,7 +822,7 @@ bir araya getireceğiz.
      MUHTARIMIZ
 ========================= -->
 
-<section class="muhtar" id="muhtar">
+<section class="mukhtar" id="muhtar">
 
 <div class="container">
 
@@ -887,47 +835,25 @@ bir araya getireceğiz.
 </div>
 
 
-<div class="muhtar-box">
+<div class="mukhtar-card">
 
-<div class="muhtar-photo">
+<div class="mukhtar-icon">
 👤
 </div>
 
-<h3>Alınca Köyü Muhtarı</h3>
-
-<div class="muhtar-title">
-Görevdeki Muhtarımız
-</div>
+<h3>Alınca Köyü Muhtarlığı</h3>
 
 <p>
-Köyümüzün yönetimi, ihtiyaçları ve
-hemşehrilerimizin talepleri için
-görev yapan muhtarımız hakkında
-bilgiler burada yer alacaktır.
+Köyümüzün mevcut muhtarı hakkında bilgiler
+burada yer alacaktır.
 </p>
 
+<div class="mukhtar-note">
 
-<div class="muhtar-info">
-
-<div>
-<strong>📅 Görev Dönemi</strong>
-Bilgi eklenecek
-</div>
-
-<div>
-<strong>📍 Görev Yeri</strong>
-Alınca Köyü
-</div>
-
-<div>
-<strong>📞 Telefon</strong>
-Bilgi eklenecek
-</div>
-
-<div>
-<strong>📧 E-posta</strong>
-Bilgi eklenecek
-</div>
+<p>
+📌 Muhtarımızın adı, fotoğrafı, görev dönemi
+ve iletişim bilgileri daha sonra eklenecektir.
+</p>
 
 </div>
 
