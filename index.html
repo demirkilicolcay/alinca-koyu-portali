@@ -480,7 +480,132 @@ footer p {
         padding: 50px 15px;
     }
 }
+/* =========================
+   MUHTAR
+========================= */
 
+.mukhtar {
+    background: #eef5f2;
+}
+
+.mukhtar-card {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.10);
+    border: 1px solid #e1e9e5;
+}
+
+.mukhtar-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #176b52, #2e8b68);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+}
+
+.mukhtar-card h3 {
+    color: #176b52;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.mukhtar-nickname {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+    margin-bottom: 25px;
+}
+
+.mukhtar-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.mukhtar-details div {
+    background: #f4f7f6;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.mukhtar-details strong {
+    display: block;
+    color: #176b52;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.mukhtar-details p {
+    color: #555;
+    font-size: 14px;
+    margin: 0;
+}
+
+.mukhtar-details a {
+    color: #176b52;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.mukhtar-about {
+    border-top: 1px solid #e5ebe8;
+    padding-top: 20px;
+    margin-bottom: 25px;
+}
+
+.mukhtar-about h4 {
+    color: #176b52;
+    font-size: 19px;
+    margin-bottom: 8px;
+}
+
+.mukhtar-about p {
+    color: #59636a;
+    line-height: 1.7;
+}
+
+.mukhtar-button {
+    display: block;
+    width: fit-content;
+    margin: auto;
+    background: #176b52;
+    color: white;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.mukhtar-button:hover {
+    background: #2e8b68;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 700px) {
+
+    .mukhtar-card {
+        padding: 25px;
+    }
+
+    .mukhtar-details {
+        grid-template-columns: 1fr;
+    }
+
+    .mukhtar-about {
+        text-align: left;
+    }
+
+}
 </style>
 </head>
 
@@ -875,28 +1000,57 @@ gelecek nesillere aktarabilmektir.
 
 </div>
 
-
 <div class="mukhtar-card">
 
 <div class="mukhtar-icon">
 👤
 </div>
 
-<h3>Alınca Köyü Muhtarlığı</h3>
+<h3>Hüseyin BAYRAKTAR</h3>
 
+<div class="mukhtar-nickname">
+“Terzi Hüseyin”
+</div>
+
+<div class="mukhtar-details">
+
+<div>
+<strong>📅 Görev Dönemi</strong>
+<p>2014 – Günümüz</p>
+</div>
+
+<div>
+<strong>📍 Görev Yeri</strong>
+<p>Alınca Köyü Muhtarlığı</p>
+</div>
+
+<div>
+<strong>📞 Telefon</strong>
 <p>
-Köyümüzün mevcut muhtarı hakkında bilgiler
-burada yer alacaktır.
+<a href="tel:+905356902422">
+0535 690 24 22
+</a>
 </p>
+</div>
 
-<div class="mukhtar-note">
+</div>
+
+<div class="mukhtar-about">
+
+<h4>Muhtarımız Hakkında</h4>
 
 <p>
-📌 Muhtarımızın adı, fotoğrafı, görev dönemi
-ve iletişim bilgileri daha sonra eklenecektir.
+Hayatını Alınca Köyü, Giresun ve Giresunspor’a adayan,
+özü sözü bir insan olarak bilinen ve doğru bildiğini
+söylemekten asla çekinmeyen Hüseyin Bayraktar,
+yerelde ve basında “Terzi Hüseyin” olarak tanınmaktadır.
 </p>
 
 </div>
+
+<a href="tel:+905356902422" class="mukhtar-button">
+📞 Muhtarı Ara
+</a>
 
 </div>
 
