@@ -1,0 +1,39 @@
+<script>
+  const SUPABASE_URL = "https://eyqpegahskmqvwtojlxw.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5cXBlZ2Foc2ttcXZ3dG9qbHh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1MzgzMzksImV4cCI6MjEwMjExNDMzOX0.FUahdj_o5zovqfBdNZ2p3mXuqS2W7Ha6Bum1to_kHvQ"; 
+  const BUCKET_NAME = "galeri"; // Bucket adınız
+
+  const { createClient } = supabase;
+  const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  async function yukleGaleriyi() {
+    try {
+      const { data, error } = await _supabase.storage.from(BUCKET_NAME).list();
+      if (error) throw error;
+
+      const loading = document.getElementById('gallery-loading');
+      const grid = document.getElementById('gallery-grid');
+      
+      if (loading) loading.style.display = 'none';
+      if (grid) grid.classList.remove('hidden');
+
+      const fotoDosyalari = data.filter(f => f.name !== '.emptyFolderPlaceholder');
+
+      fotoDosyalari.forEach(file => {
+        const { data: urlData } = _supabase.storage.from(BUCKET_NAME).getPublicUrl(file.name);
+        
+        const kart = document.createElement('div');
+        kart.className = "bg-white p-2 rounded-lg shadow border border-slate-200 overflow-hidden";
+        kart.innerHTML = `
+          <img src="${urlData.publicUrl}" alt="${file.name}" class="w-full h-48 object-cover rounded-md hover:scale-105 transition-transform duration-200">
+          <p class="text-xs text-slate-600 mt-2 truncate text-center">${file.name}</p>
+        `;
+        grid.appendChild(kart);
+      });
+    } catch (e) {
+      console.error("Galeri yüklenirken hata oluştu:", e);
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', yukleGaleriyi);
+</script>
