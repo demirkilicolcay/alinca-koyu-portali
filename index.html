@@ -954,90 +954,30 @@ Köyümüzün haber, duyuru, fotoğraf ve anı arşivi
 </footer>
     
 <script>
+
 const SUPABASE_URL = "https://eyqpegahskmqvwtojlxw.supabase.co";
 
-const SUPABASE_KEY = "sb_publishable_xhj_vA_46DIlOkgrbTTeqQ_hsstSUYG";
+const imageUrl =
+    `${SUPABASE_URL}/storage/v1/object/public/galeri/alincakoyu.jpeg`;
 
-const BUCKET_NAME = "Galeri";
+const gallery = document.getElementById("gallery-container");
 
-async function loadGallery() {
+gallery.innerHTML = `
+    <div class="gallery-item" style="height:220px;">
+        <img
+            src="${imageUrl}"
+            alt="Alınca Köyü"
+            style="
+                width:100%;
+                height:100%;
+                object-fit:cover;
+                display:block;
+            "
+        >
+    </div>
+`;
 
-    const gallery = document.getElementById("gallery-container");
-
-    try {
-
-        const response = await fetch(
-            `${SUPABASE_URL}/storage/v1/object/list/${BUCKET_NAME}`,
-            {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${SUPABASE_KEY}`,
-                    "apikey": SUPABASE_KEY,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    prefix: "",
-                    limit: 100,
-                    sortBy: {
-                        column: "created_at",
-                        order: "desc"
-                    }
-                })
-            }
-        );
-
-        if (!response.ok) {
-            throw new Error("Fotoğraflar alınamadı.");
-        }
-
-        const files = await response.json();
-
-        gallery.innerHTML = "";
-
-        if (files.length === 0) {
-            gallery.innerHTML =
-                '<div class="gallery-item">Henüz fotoğraf yok 📸</div>';
-            return;
-        }
-
-        files.forEach(file => {
-
-            if (!file.name) return;
-
-            const imageUrl =
-                `${SUPABASE_URL}/storage/v1/object/public/${BUCKET_NAME}/${encodeURIComponent(file.name)}`;
-
-            const item = document.createElement("div");
-            item.className = "gallery-item";
-            item.style.height = "220px";
-
-            item.innerHTML = `
-                <img
-                    src="${imageUrl}"
-                    alt="Alınca Köyü"
-                    style="
-                        width:100%;
-                        height:100%;
-                        object-fit:cover;
-                        display:block;
-                    "
-                >
-            `;
-
-            gallery.appendChild(item);
-
-        });
-
-    } catch (error) {
-
-        console.error(error);
-
-        gallery.innerHTML =
-            '<div class="gallery-item">Galeride fotoğraflar yüklenemedi.</div>';
-    }
-}
-
-loadGallery();
 </script>
+    
 </body>
 </html>
