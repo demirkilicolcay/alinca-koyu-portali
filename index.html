@@ -1028,6 +1028,10 @@ async function loadGallery() {
             `;
 item.addEventListener("click", function() {
 
+    let currentIndex = files.findIndex(
+        f => f.name === file.name
+    );
+
     const viewer = document.createElement("div");
 
     viewer.style.position = "fixed";
@@ -1035,14 +1039,52 @@ item.addEventListener("click", function() {
     viewer.style.left = "0";
     viewer.style.width = "100%";
     viewer.style.height = "100%";
-    viewer.style.background = "rgba(0,0,0,0.9)";
+    viewer.style.background = "rgba(0,0,0,0.92)";
     viewer.style.display = "flex";
     viewer.style.alignItems = "center";
     viewer.style.justifyContent = "center";
     viewer.style.zIndex = "9999";
-    viewer.style.cursor = "pointer";
+    viewer.style.padding = "20px";
+
     viewer.innerHTML = `
-        <img
+
+        <button id="closeGallery"
+            style="
+                position:absolute;
+                top:20px;
+                right:20px;
+                width:45px;
+                height:45px;
+                border:none;
+                border-radius:50%;
+                background:rgba(255,255,255,0.9);
+                color:#222;
+                font-size:28px;
+                cursor:pointer;
+                z-index:2;
+            ">
+            ×
+        </button>
+
+        <button id="prevPhoto"
+            style="
+                position:absolute;
+                left:15px;
+                top:50%;
+                transform:translateY(-50%);
+                width:50px;
+                height:50px;
+                border:none;
+                border-radius:50%;
+                background:rgba(255,255,255,0.85);
+                font-size:30px;
+                cursor:pointer;
+                z-index:2;
+            ">
+            ‹
+        </button>
+
+        <img id="largeGalleryImage"
             src="${imageUrl}"
             alt="Alınca Köyü"
             style="
@@ -1050,16 +1092,83 @@ item.addEventListener("click", function() {
                 max-height:90%;
                 object-fit:contain;
                 border-radius:10px;
-                box-shadow:0 10px 40px rgba(0,0,0,0.5);
-            "
-        >
+                box-shadow:0 10px 40px rgba(0,0,0,0.6);
+            ">
+
+        <button id="nextPhoto"
+            style="
+                position:absolute;
+                right:15px;
+                top:50%;
+                transform:translateY(-50%);
+                width:50px;
+                height:50px;
+                border:none;
+                border-radius:50%;
+                background:rgba(255,255,255,0.85);
+                font-size:30px;
+                cursor:pointer;
+                z-index:2;
+            ">
+            ›
+        </button>
+
     `;
 
-    viewer.addEventListener("click", function() {
-        viewer.remove();
-    });
-
     document.body.appendChild(viewer);
+
+    const largeImage =
+        document.getElementById("largeGalleryImage");
+
+    function showPhoto(index) {
+
+        if (index < 0) {
+            index = files.length - 1;
+        }
+
+        if (index >= files.length) {
+            index = 0;
+        }
+
+        currentIndex = index;
+
+        const selectedFile = files[currentIndex];
+
+        largeImage.src =
+            `${SUPABASE_URL}/storage/v1/object/public/galeri/${encodeURIComponent(selectedFile.name)}`;
+    }
+
+    document.getElementById("prevPhoto").onclick = function(e) {
+
+        e.stopPropagation();
+
+        showPhoto(currentIndex - 1);
+
+    };
+
+    document.getElementById("nextPhoto").onclick = function(e) {
+
+        e.stopPropagation();
+
+        showPhoto(currentIndex + 1);
+
+    };
+
+    document.getElementById("closeGallery").onclick = function(e) {
+
+        e.stopPropagation();
+
+        viewer.remove();
+
+    };
+
+    viewer.onclick = function(e) {
+
+        if (e.target === viewer) {
+            viewer.remove();
+        }
+
+    };
 
 });
             gallery.appendChild(item);
