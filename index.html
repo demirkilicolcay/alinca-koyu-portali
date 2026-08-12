@@ -1026,7 +1026,42 @@ async function loadGallery() {
                     "
                 >
             `;
+item.addEventListener("click", function() {
 
+    const viewer = document.createElement("div");
+
+    viewer.style.position = "fixed";
+    viewer.style.top = "0";
+    viewer.style.left = "0";
+    viewer.style.width = "100%";
+    viewer.style.height = "100%";
+    viewer.style.background = "rgba(0,0,0,0.9)";
+    viewer.style.display = "flex";
+    viewer.style.alignItems = "center";
+    viewer.style.justifyContent = "center";
+    viewer.style.zIndex = "9999";
+    viewer.style.cursor = "pointer";
+    viewer.innerHTML = `
+        <img
+            src="${imageUrl}"
+            alt="Alınca Köyü"
+            style="
+                max-width:90%;
+                max-height:90%;
+                object-fit:contain;
+                border-radius:10px;
+                box-shadow:0 10px 40px rgba(0,0,0,0.5);
+            "
+        >
+    `;
+
+    viewer.addEventListener("click", function() {
+        viewer.remove();
+    });
+
+    document.body.appendChild(viewer);
+
+});
             gallery.appendChild(item);
 
         });
