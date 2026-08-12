@@ -294,6 +294,69 @@ section {
 }
 
 /* =========================
+   MUHTARIMIZ
+========================= */
+
+.muhtar {
+    background: white;
+}
+
+.muhtar-box {
+    max-width: 850px;
+    margin: auto;
+    background: #f4f7f6;
+    border-radius: 18px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    border: 1px solid #e1e8e4;
+}
+
+.muhtar-photo {
+    width: 130px;
+    height: 130px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #176b52, #8bb69a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    color: white;
+}
+
+.muhtar-box h3 {
+    color: #176b52;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.muhtar-title {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.muhtar-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.muhtar-info div {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #e5ebe8;
+}
+
+.muhtar-info strong {
+    display: block;
+    color: #176b52;
+    margin-bottom: 4px;
+}
+
+/* =========================
    İLETİŞİM
 ========================= */
 
@@ -379,6 +442,10 @@ footer p {
     .news-image {
         min-height: 130px;
     }
+
+    .muhtar-info {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 500px) {
@@ -401,6 +468,10 @@ footer p {
 
     section {
         padding: 50px 15px;
+    }
+
+    .muhtar-box {
+        padding: 25px 18px;
     }
 }
 
@@ -428,6 +499,7 @@ footer p {
     <a href="#haberler">Haberler</a>
     <a href="#galeri">Galeri</a>
     <a href="#koyumuz">Köyümüz</a>
+    <a href="#muhtar">Muhtarımız</a>
     <a href="#iletisim">İletişim</a>
 </nav>
 
@@ -676,6 +748,74 @@ duyuruları zaman içerisinde burada
 bir araya getireceğiz.
 
 </p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     MUHTARIMIZ
+========================= -->
+
+<section class="muhtar" id="muhtar">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>👤 Muhtarımız</h2>
+
+<p>Alınca Köyü Muhtarlığı</p>
+
+</div>
+
+
+<div class="muhtar-box">
+
+<div class="muhtar-photo">
+👤
+</div>
+
+<h3>Alınca Köyü Muhtarı</h3>
+
+<div class="muhtar-title">
+Görevdeki Muhtarımız
+</div>
+
+<p>
+Köyümüzün yönetimi, ihtiyaçları ve
+hemşehrilerimizin talepleri için
+görev yapan muhtarımız hakkında
+bilgiler burada yer alacaktır.
+</p>
+
+
+<div class="muhtar-info">
+
+<div>
+<strong>📅 Görev Dönemi</strong>
+Bilgi eklenecek
+</div>
+
+<div>
+<strong>📍 Görev Yeri</strong>
+Alınca Köyü
+</div>
+
+<div>
+<strong>📞 Telefon</strong>
+Bilgi eklenecek
+</div>
+
+<div>
+<strong>📧 E-posta</strong>
+Bilgi eklenecek
+</div>
+
+</div>
 
 </div>
 
