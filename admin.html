@@ -119,19 +119,37 @@ body {
     font-weight: bold;
 }
 
+.logout-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 20px;
+    background: #b33;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 </style>
 
 </head>
 
 <body>
-<div id="login-screen" style="
-    max-width:500px;
-    margin:50px auto;
-    background:white;
-    padding:30px;
-    border-radius:18px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.08);
-">
+
+<!-- =========================
+     GİRİŞ EKRANI
+========================= -->
+
+<div id="login-screen"
+     style="
+        max-width:500px;
+        margin:50px auto;
+        background:white;
+        padding:30px;
+        border-radius:18px;
+        box-shadow:0 5px 20px rgba(0,0,0,0.08);
+     ">
 
     <h2 style="color:#176b52; margin-bottom:20px;">
         🔐 Yönetici Girişi
@@ -185,7 +203,15 @@ body {
     </p>
 
 </div>
-<div class="admin-container">
+
+
+<!-- =========================
+     YÖNETİM PANELİ
+========================= -->
+
+<div class="admin-container"
+     id="admin-container"
+     style="display:none;">
 
     <div class="admin-header">
 
@@ -271,16 +297,24 @@ body {
 
             <div
                 id="status"
-                class="status"
-            ></div>
+                class="status">
+            </div>
 
         </form>
 
 
+        <button
+            id="logout-button"
+            class="logout-button">
+            Çıkış Yap
+        </button>
+
+
+        <br>
+
         <a
             href="index.html"
-            class="back-link"
-        >
+            class="back-link">
             ← Ana sayfaya dön
         </a>
 
@@ -297,71 +331,12 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_xhj_vA_46DIlOkgrbTTeqQ_hsstSUYG";
 
-    let currentUser = null;
 
-async function checkAdmin() {
-
-    const token =
-        localStorage.getItem("supabase_access_token");
-
-    if (!token) {
-        return false;
-    }
-
-    try {
-const accessToken =
-    localStorage.getItem("supabase_access_token");
-
-if (!accessToken) {
-    throw new Error("Oturum bulunamadı. Lütfen tekrar giriş yapın.");
-}
-        const response = await fetch(
-            `${SUPABASE_URL}/auth/v1/user`,
-            {
-                headers: {
-                    "apikey": SUPABASE_KEY,
-                    "Authorization": `Bearer ${token}`
-                }
-            }
-        );
-
-        if (!response.ok) {
-            return false;
-        }
-
-        const user = await response.json();
-
-        currentUser = user;
-
-        return !!user.id;
-
-    } catch (error) {
-
-        console.error(error);
-
-        return false;
-    }
-}
-    checkAdmin().then(isAdmin => {
-
-    if (isAdmin) {
-
-        loginScreen.style.display = "none";
-        adminContainer.style.display = "block";
-
-    } else {
-
-        loginScreen.style.display = "block";
-        adminContainer.style.display = "none";
-
-    }
-
-});
 const loginScreen =
     document.getElementById("login-screen");
 
 const adminContainer =
-    document.querySelector(".admin-container");
+    document.getElementById("admin-container");
 
 const loginButton =
     document.getElementById("login-button");
@@ -369,97 +344,9 @@ const loginButton =
 const loginStatus =
     document.getElementById("login-status");
 
+const logoutButton =
+    document.getElementById("logout-button");
 
-adminContainer.style.display = "none";
-
-
-loginButton.addEventListener("click", async function() {
-
-    const email =
-        document.getElementById("login-email").value.trim();
-
-    const password =
-        document.getElementById("login-password").value;
-
-
-    if (!email || !password) {
-
-        loginStatus.textContent =
-            "⚠️ E-posta ve şifre gerekli.";
-
-        loginStatus.style.color = "#a33";
-
-        return;
-    }
-
-
-    loginStatus.textContent =
-        "Giriş yapılıyor...";
-
-
-    try {
-
-        const response = await fetch(
-            `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json",
-                    "apikey": SUPABASE_KEY
-                },
-
-                body: JSON.stringify({
-                    email: email,
-                    password: password
-                })
-            }
-        );
-
-
-        const data = await response.json();
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                data.msg ||
-                data.error_description ||
-                "Giriş başarısız."
-            );
-
-        }
-
-
-        localStorage.setItem(
-            "supabase_access_token",
-            data.access_token
-        );
-
-
-        currentUser = data.user;
-
-
-        loginScreen.style.display =
-            "none";
-
-        adminContainer.style.display =
-            "block";
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        loginStatus.textContent =
-            "❌ E-posta veya şifre hatalı.";
-
-        loginStatus.style.color =
-            "#a33";
-
-    }
-
-});
 const newsForm =
     document.getElementById("newsForm");
 
@@ -467,85 +354,399 @@ const statusBox =
     document.getElementById("status");
 
 
-newsForm.addEventListener("submit", async function(event) {
+/* =========================
+   TOKEN
+========================= */
 
-    event.preventDefault();
+function getToken() {
 
-    statusBox.className = "status";
-    statusBox.textContent = "Haber yayınlanıyor...";
+    return localStorage.getItem(
+        "supabase_access_token"
+    );
 
-    const baslik =
-        document.getElementById("baslik").value.trim();
+}
 
-    const icerik =
-        document.getElementById("icerik").value.trim();
 
-    const tarih =
-        document.getElementById("tarih").value;
+/* =========================
+   OTURUM KONTROLÜ
+========================= */
 
-    const resim =
-        document.getElementById("resim").value.trim();
+async function checkAdmin() {
+
+    const token = getToken();
+
+    if (!token) {
+
+        return false;
+
+    }
 
 
     try {
 
         const response = await fetch(
-            `${SUPABASE_URL}/rest/v1/haberler`,
+            `${SUPABASE_URL}/auth/v1/user`,
             {
-                method: "POST",
+                method: "GET",
 
                 headers: {
-                    "Content-Type": "application/json",
                     "apikey": SUPABASE_KEY,
                     "Authorization":
-                        `Bearer ${SUPABASE_KEY}`,
-                    "Prefer": "return=minimal"
-                },
-
-                body: JSON.stringify({
-                    baslik: baslik,
-                    icerik: icerik,
-                    tarih: tarih,
-                    resim: resim || null
-                })
+                        `Bearer ${token}`
+                }
             }
         );
 
 
         if (!response.ok) {
 
-            const errorText =
-                await response.text();
+            localStorage.removeItem(
+                "supabase_access_token"
+            );
 
-            throw new Error(errorText);
+            return false;
 
         }
 
 
-        statusBox.className =
-            "status success";
-
-        statusBox.textContent =
-            "✅ Haber başarıyla yayınlandı!";
+        const user =
+            await response.json();
 
 
-        newsForm.reset();
+        return !!user.id;
 
 
     } catch (error) {
 
         console.error(error);
 
-        statusBox.className =
-            "status error";
+        return false;
 
-    statusBox.textContent =
-    "❌ Haber yayınlanamadı: " + error.message;
-        
+    }
+
+}
+
+
+/* =========================
+   EKRANLARI GÖSTER
+========================= */
+
+function showAdminPanel() {
+
+    loginScreen.style.display =
+        "none";
+
+    adminContainer.style.display =
+        "block";
+
+}
+
+
+function showLoginScreen() {
+
+    loginScreen.style.display =
+        "block";
+
+    adminContainer.style.display =
+        "none";
+
+}
+
+
+/* =========================
+   SAYFA AÇILIŞI
+========================= */
+
+checkAdmin().then(isAdmin => {
+
+    if (isAdmin) {
+
+        showAdminPanel();
+
+    } else {
+
+        showLoginScreen();
 
     }
 
 });
+
+
+/* =========================
+   GİRİŞ
+========================= */
+
+loginButton.addEventListener(
+    "click",
+    async function() {
+
+        const email =
+            document
+            .getElementById("login-email")
+            .value
+            .trim();
+
+
+        const password =
+            document
+            .getElementById("login-password")
+            .value;
+
+
+        if (!email || !password) {
+
+            loginStatus.textContent =
+                "⚠️ E-posta ve şifre gerekli.";
+
+            loginStatus.style.color =
+                "#a33";
+
+            return;
+
+        }
+
+
+        loginStatus.textContent =
+            "Giriş yapılıyor...";
+
+
+        try {
+
+            const response = await fetch(
+                `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+
+                        "apikey":
+                            SUPABASE_KEY
+                    },
+
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                }
+            );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.msg ||
+                    data.error_description ||
+                    data.message ||
+                    "Giriş başarısız."
+                );
+
+            }
+
+
+            localStorage.setItem(
+                "supabase_access_token",
+                data.access_token
+            );
+
+
+            showAdminPanel();
+
+
+            loginStatus.textContent = "";
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            loginStatus.textContent =
+                "❌ " + error.message;
+
+            loginStatus.style.color =
+                "#a33";
+
+        }
+
+    }
+);
+
+
+/* =========================
+   HABER YAYINLAMA
+========================= */
+
+newsForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const accessToken =
+            getToken();
+
+
+        if (!accessToken) {
+
+            statusBox.className =
+                "status error";
+
+            statusBox.textContent =
+                "❌ Oturum bulunamadı. Lütfen tekrar giriş yapın.";
+
+            showLoginScreen();
+
+            return;
+
+        }
+
+
+        statusBox.className =
+            "status";
+
+        statusBox.textContent =
+            "Haber yayınlanıyor...";
+
+
+        const baslik =
+            document
+            .getElementById("baslik")
+            .value
+            .trim();
+
+
+        const icerik =
+            document
+            .getElementById("icerik")
+            .value
+            .trim();
+
+
+        const tarih =
+            document
+            .getElementById("tarih")
+            .value;
+
+
+        const resim =
+            document
+            .getElementById("resim")
+            .value
+            .trim();
+
+
+        try {
+
+            const response = await fetch(
+                `${SUPABASE_URL}/rest/v1/haberler`,
+                {
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Authorization":
+                            `Bearer ${accessToken}`,
+
+                        "Prefer":
+                            "return=minimal"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        baslik:
+                            baslik,
+
+                        icerik:
+                            icerik,
+
+                        tarih:
+                            tarih,
+
+                        resim:
+                            resim || null
+
+                    })
+
+                }
+            );
+
+
+            if (!response.ok) {
+
+                const errorText =
+                    await response.text();
+
+                throw new Error(
+                    errorText
+                );
+
+            }
+
+
+            statusBox.className =
+                "status success";
+
+            statusBox.textContent =
+                "✅ Haber başarıyla yayınlandı!";
+
+
+            newsForm.reset();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            statusBox.className =
+                "status error";
+
+            statusBox.textContent =
+                "❌ Haber yayınlanamadı: " +
+                error.message;
+
+        }
+
+    }
+);
+
+
+/* =========================
+   ÇIKIŞ
+========================= */
+
+logoutButton.addEventListener(
+    "click",
+    function() {
+
+        localStorage.removeItem(
+            "supabase_access_token"
+        );
+
+        newsForm.reset();
+
+        showLoginScreen();
+
+        loginStatus.textContent =
+            "Çıkış yapıldı.";
+
+        loginStatus.style.color =
+            "#176b52";
+
+    }
+);
 
 </script>
 
