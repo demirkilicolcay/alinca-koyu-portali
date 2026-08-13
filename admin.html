@@ -534,8 +534,9 @@ newsForm.addEventListener("submit", async function(event) {
         statusBox.className =
             "status error";
 
-        statusBox.textContent =
-            "❌ Haber yayınlanamadı. Supabase izinlerini kontrol et.";
+    statusBox.textContent =
+    "❌ Haber yayınlanamadı: " + error.message;
+        
 
     }
 
