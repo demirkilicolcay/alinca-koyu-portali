@@ -237,6 +237,31 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_xhj_vA_46DIlOkgrbTTeqQ_hsstSUYG";
 
+    let currentUser = null;
+
+async function checkAdmin() {
+
+    const response = await fetch(
+        `${SUPABASE_URL}/auth/v1/user`,
+        {
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization":
+                    `Bearer ${SUPABASE_KEY}`
+            }
+        }
+    );
+
+    if (!response.ok) {
+        return false;
+    }
+
+    const user = await response.json();
+
+    currentUser = user;
+
+    return !!user.id;
+}
 
 const newsForm =
     document.getElementById("newsForm");
