@@ -309,7 +309,12 @@ async function checkAdmin() {
     }
 
     try {
+const accessToken =
+    localStorage.getItem("supabase_access_token");
 
+if (!accessToken) {
+    throw new Error("Oturum bulunamadı. Lütfen tekrar giriş yapın.");
+}
         const response = await fetch(
             `${SUPABASE_URL}/auth/v1/user`,
             {
