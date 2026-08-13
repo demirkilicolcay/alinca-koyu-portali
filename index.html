@@ -739,7 +739,6 @@ fotoğraflarını bir araya getireceğiz.
 
 </section>
 
-
 <!-- =========================
      HABERLER
 ========================= -->
@@ -756,54 +755,16 @@ fotoğraflarını bir araya getireceğiz.
 
 </div>
 
+<div id="news-container">
 
-<div class="news-card">
+    <div class="news-card">
+        <div class="news-image">📰</div>
 
-<div class="news-image">
-🏡
-</div>
-
-<div class="news-content">
-
-<div class="date">
-10 Ağustos 2026
-</div>
-
-<h3>Alınca Köyü Portalı Yayında</h3>
-
-<p>
-Köyümüzün dijital buluşma noktası olan
-Alınca Köyü Portalı yayın hayatına başladı.
-Bundan sonra köyümüzle ilgili haberleri,
-duyuruları ve fotoğrafları burada
-paylaşacağız.
-</p>
-
-</div>
-
-</div>
-
-
-<div class="news-card">
-
-<div class="news-image">
-🌳
-</div>
-
-<div class="news-content">
-
-<div class="date">
-Yakında
-</div>
-
-<h3>Köyümüzden Yeni Haberler</h3>
-
-<p>
-Köyümüzde yaşanan gelişmeler ve
-etkinlikler burada yayınlanacak.
-</p>
-
-</div>
+        <div class="news-content">
+            <h3>Haberler yükleniyor...</h3>
+            <p>Lütfen bekleyin...</p>
+        </div>
+    </div>
 
 </div>
 
@@ -1353,6 +1314,119 @@ item.addEventListener("click", function() {
 
 loadGallery();
 
+// =========================
+// HABERLERİ SUPABASE'DEN ÇEK
+// =========================
+
+const newsContainer = document.getElementById("news-container");
+
+async function loadNews() {
+
+    try {
+
+        const response = await fetch(
+            `${SUPABASE_URL}/rest/v1/haberler?select=*&order=tarih.desc`,
+            {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${SUPABASE_KEY}`
+                }
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Haberler alınamadı.");
+        }
+
+        const news = await response.json();
+
+        newsContainer.innerHTML = "";
+
+        if (!news.length) {
+
+            newsContainer.innerHTML = `
+                <div class="news-card">
+                    <div class="news-image">📰</div>
+
+                    <div class="news-content">
+                        <h3>Henüz haber yok</h3>
+                        <p>Köyümüzden haberler burada yayınlanacak.</p>
+                    </div>
+                </div>
+            `;
+
+            return;
+        }
+
+        news.forEach(item => {
+
+            const newsCard = document.createElement("div");
+            newsCard.className = "news-card";
+
+            let formattedDate = "";
+
+            if (item.tarih) {
+
+                const date = new Date(item.tarih);
+
+                formattedDate = date.toLocaleDateString("tr-TR", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                });
+
+            }
+
+            newsCard.innerHTML = `
+
+                <div class="news-image">
+                    📰
+                </div>
+
+                <div class="news-content">
+
+                    <div class="date">
+                        ${formattedDate}
+                    </div>
+
+                    <h3>
+                        ${item.baslik || ""}
+                    </h3>
+
+                    <p>
+                        ${item.icerik || ""}
+                    </p>
+
+                </div>
+
+            `;
+
+            newsContainer.appendChild(newsCard);
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        newsContainer.innerHTML = `
+            <div class="news-card">
+                <div class="news-image">⚠️</div>
+
+                <div class="news-content">
+                    <h3>Haberler yüklenemedi</h3>
+                    <p>Haberler şu anda alınamıyor.</p>
+                </div>
+            </div>
+        `;
+
+    }
+
+}
+
+loadNews();
+    
 </script>
     
 </body>
