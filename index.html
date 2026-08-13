@@ -1359,52 +1359,75 @@ async function loadNews() {
             return;
         }
 
-        news.forEach(item => {
+news.forEach(item => {
 
-            const newsCard = document.createElement("div");
-            newsCard.className = "news-card";
+    const newsCard = document.createElement("div");
+    newsCard.className = "news-card";
 
-            let formattedDate = "";
+    let formattedDate = "";
 
-            if (item.tarih) {
+    if (item.tarih) {
 
-                const date = new Date(item.tarih);
+        const date = new Date(item.tarih);
 
-                formattedDate = date.toLocaleDateString("tr-TR", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric"
-                });
-
-            }
-
-            newsCard.innerHTML = `
-
-                <div class="news-image">
-                    📰
-                </div>
-
-                <div class="news-content">
-
-                    <div class="date">
-                        ${formattedDate}
-                    </div>
-
-                    <h3>
-                        ${item.baslik || ""}
-                    </h3>
-
-                    <p>
-                        ${item.icerik || ""}
-                    </p>
-
-                </div>
-
-            `;
-
-            newsContainer.appendChild(newsCard);
-
+        formattedDate = date.toLocaleDateString("tr-TR", {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
         });
+
+    }
+
+    let imageContent = `
+        📰
+    `;
+
+    if (item.resim && item.resim !== ".") {
+
+        const imageUrl =
+            `${SUPABASE_URL}/storage/v1/object/public/haberler/${encodeURIComponent(item.resim)}`;
+
+        imageContent = `
+            <img
+                src="${imageUrl}"
+                alt="${item.baslik || "Alınca Köyü haberi"}"
+                style="
+                    width:100%;
+                    height:100%;
+                    object-fit:cover;
+                    display:block;
+                "
+            >
+        `;
+    }
+
+    newsCard.innerHTML = `
+
+        <div class="news-image">
+            ${imageContent}
+        </div>
+
+        <div class="news-content">
+
+            <div class="date">
+                ${formattedDate}
+            </div>
+
+            <h3>
+                ${item.baslik || ""}
+            </h3>
+
+            <p>
+                ${item.icerik || ""}
+            </p>
+
+        </div>
+
+    `;
+
+    newsContainer.appendChild(newsCard);
+
+});
 
     } catch (error) {
 
