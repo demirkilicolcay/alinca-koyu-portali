@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Alınca Köyü Yönetim Paneli</title>
 
 <style>
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -88,10 +86,6 @@ body {
     cursor: pointer;
 }
 
-.publish-button:hover {
-    background: #2e8b68;
-}
-
 .status {
     margin-top: 20px;
     padding: 14px;
@@ -130,196 +124,183 @@ body {
     font-weight: bold;
     cursor: pointer;
 }
-
 </style>
-
 </head>
 
 <body>
 
-<!-- =========================
-     GİRİŞ EKRANI
-========================= -->
+<!-- GİRİŞ -->
 
 <div id="login-screen"
-     style="
-        max-width:500px;
-        margin:50px auto;
-        background:white;
-        padding:30px;
-        border-radius:18px;
-        box-shadow:0 5px 20px rgba(0,0,0,0.08);
-     ">
+style="
+max-width:500px;
+margin:50px auto;
+background:white;
+padding:30px;
+border-radius:18px;
+box-shadow:0 5px 20px rgba(0,0,0,0.08);
+">
 
-    <h2 style="color:#176b52; margin-bottom:20px;">
-        🔐 Yönetici Girişi
-    </h2>
+<h2 style="color:#176b52; margin-bottom:20px;">
+🔐 Yönetici Girişi
+</h2>
 
-    <input
-        type="email"
-        id="login-email"
-        placeholder="E-posta adresiniz"
-        style="
-            width:100%;
-            padding:13px;
-            margin-bottom:12px;
-            border:1px solid #d8e1dd;
-            border-radius:10px;
-        "
-    >
+<input
+type="email"
+id="login-email"
+placeholder="E-posta adresiniz"
+style="
+width:100%;
+padding:13px;
+margin-bottom:12px;
+border:1px solid #d8e1dd;
+border-radius:10px;
+">
 
-    <input
-        type="password"
-        id="login-password"
-        placeholder="Şifreniz"
-        style="
-            width:100%;
-            padding:13px;
-            margin-bottom:15px;
-            border:1px solid #d8e1dd;
-            border-radius:10px;
-        "
-    >
+<input
+type="password"
+id="login-password"
+placeholder="Şifreniz"
+style="
+width:100%;
+padding:13px;
+margin-bottom:15px;
+border:1px solid #d8e1dd;
+border-radius:10px;
+">
 
-    <button
-        id="login-button"
-        style="
-            width:100%;
-            padding:14px;
-            border:none;
-            border-radius:10px;
-            background:#176b52;
-            color:white;
-            font-size:16px;
-            font-weight:bold;
-            cursor:pointer;
-        "
-    >
-        Giriş Yap
-    </button>
+<button
+id="login-button"
+style="
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+background:#176b52;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+">
+Giriş Yap
+</button>
 
-    <p id="login-status"
-       style="margin-top:15px;">
-    </p>
+<p id="login-status" style="margin-top:15px;"></p>
 
 </div>
 
 
-<!-- =========================
-     YÖNETİM PANELİ
-========================= -->
+<!-- ADMIN PANELİ -->
 
-<div class="admin-container"
-     id="admin-container"
-     style="display:none;">
-
-    <div class="admin-header">
-
-        <h1>🛠️ Alınca Köyü Yönetim Paneli</h1>
-
-        <p>Yeni haber yayınlama alanı</p>
-
-    </div>
-
-
-    <div class="admin-card">
-
-        <form id="newsForm">
-
-            <div class="form-group">
-
-                <label for="baslik">
-                    Haber Başlığı
-                </label>
-
-                <input
-                    type="text"
-                    id="baslik"
-                    placeholder="Haber başlığını yazın"
-                    required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="icerik">
-                    Haber İçeriği
-                </label>
-
-                <textarea
-                    id="icerik"
-                    placeholder="Haber içeriğini yazın"
-                    required
-                ></textarea>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="tarih">
-                    Haber Tarihi
-                </label>
-
-                <input
-                    type="date"
-                    id="tarih"
-                    required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="resim">
-                    Fotoğraf Dosya Adı
-                </label>
-
-                <input
-    type="file"
-    id="resim"
-    accept="image/jpeg,image/png,image/webp"
+<div
+class="admin-container"
+id="admin-container"
+style="display:none;"
 >
-                
 
-            </div>
+<div class="admin-header">
 
+<h1>🛠️ Alınca Köyü Yönetim Paneli</h1>
 
-            <button
-                type="submit"
-                class="publish-button"
-            >
-                📰 Haberi Yayınla
-            </button>
+<p>Yeni haber yayınlama alanı</p>
+
+</div>
 
 
-            <div
-                id="status"
-                class="status">
-            </div>
+<div class="admin-card">
 
-        </form>
+<form id="newsForm">
+
+<div class="form-group">
+
+<label for="baslik">
+Haber Başlığı
+</label>
+
+<input
+type="text"
+id="baslik"
+placeholder="Haber başlığını yazın"
+required
+>
+
+</div>
 
 
-        <button
-            id="logout-button"
-            class="logout-button">
-            Çıkış Yap
-        </button>
+<div class="form-group">
+
+<label for="icerik">
+Haber İçeriği
+</label>
+
+<textarea
+id="icerik"
+placeholder="Haber içeriğini yazın"
+required
+></textarea>
+
+</div>
 
 
-        <br>
+<div class="form-group">
 
-        <a
-            href="index.html"
-            class="back-link">
-            ← Ana sayfaya dön
-        </a>
+<label for="tarih">
+Haber Tarihi
+</label>
 
-    </div>
+<input
+type="date"
+id="tarih"
+required
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label for="resim">
+Haber Fotoğrafı
+</label>
+
+<input
+type="file"
+id="resim"
+accept="image/jpeg,image/png,image/webp"
+required
+>
+
+</div>
+
+
+<button
+type="submit"
+class="publish-button"
+>
+📰 Haberi Yayınla
+</button>
+
+
+<div id="status" class="status"></div>
+
+</form>
+
+
+<button
+id="logout-button"
+class="logout-button"
+>
+Çıkış Yap
+</button>
+
+
+<br>
+
+<a href="index.html" class="back-link">
+← Ana sayfaya dön
+</a>
+
+</div>
 
 </div>
 
@@ -327,461 +308,441 @@ body {
 <script>
 
 const SUPABASE_URL =
-    "https://eyqpegahskmqvwtojlxw.supabase.co";
+"https://eyqpegahskmqvwtojlxw.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_xhj_vA_46DIlOkgrbTTeqQ_hsstSUYG";
+"sb_publishable_xhj_vA_46DIlOkgrbTTeqQ_hsstSUYG";
 
 
 const loginScreen =
-    document.getElementById("login-screen");
+document.getElementById("login-screen");
 
 const adminContainer =
-    document.getElementById("admin-container");
+document.getElementById("admin-container");
 
 const loginButton =
-    document.getElementById("login-button");
+document.getElementById("login-button");
 
 const loginStatus =
-    document.getElementById("login-status");
+document.getElementById("login-status");
 
 const logoutButton =
-    document.getElementById("logout-button");
+document.getElementById("logout-button");
 
 const newsForm =
-    document.getElementById("newsForm");
+document.getElementById("newsForm");
 
 const statusBox =
-    document.getElementById("status");
+document.getElementById("status");
 
-
-/* =========================
-   TOKEN
-========================= */
 
 function getToken() {
 
-    return localStorage.getItem(
-        "supabase_access_token"
-    );
+return localStorage.getItem(
+"supabase_access_token"
+);
 
 }
 
-
-/* =========================
-   OTURUM KONTROLÜ
-========================= */
-
-async function checkAdmin() {
-
-    const token = getToken();
-
-    if (!token) {
-
-        return false;
-
-    }
-
-
-    try {
-
-        const response = await fetch(
-            `${SUPABASE_URL}/auth/v1/user`,
-            {
-                method: "GET",
-
-                headers: {
-                    "apikey": SUPABASE_KEY,
-                    "Authorization":
-                        `Bearer ${token}`
-                }
-            }
-        );
-
-
-        if (!response.ok) {
-
-            localStorage.removeItem(
-                "supabase_access_token"
-            );
-
-            return false;
-
-        }
-
-
-        const user =
-            await response.json();
-
-
-        return !!user.id;
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        return false;
-
-    }
-
-}
-
-
-/* =========================
-   EKRANLARI GÖSTER
-========================= */
 
 function showAdminPanel() {
 
-    loginScreen.style.display =
-        "none";
+loginScreen.style.display = "none";
 
-    adminContainer.style.display =
-        "block";
+adminContainer.style.display = "block";
 
 }
 
 
 function showLoginScreen() {
 
-    loginScreen.style.display =
-        "block";
+loginScreen.style.display = "block";
 
-    adminContainer.style.display =
-        "none";
+adminContainer.style.display = "none";
 
 }
 
 
-/* =========================
-   SAYFA AÇILIŞI
-========================= */
+/* OTURUM KONTROLÜ */
 
-checkAdmin().then(isAdmin => {
+async function checkAdmin() {
 
-    if (isAdmin) {
+const token = getToken();
 
-        showAdminPanel();
+if (!token) {
 
-    } else {
+return false;
 
-        showLoginScreen();
+}
 
-    }
+try {
+
+const response = await fetch(
+`${SUPABASE_URL}/auth/v1/user`,
+{
+headers: {
+"apikey": SUPABASE_KEY,
+"Authorization": `Bearer ${token}`
+}
+}
+);
+
+if (!response.ok) {
+
+localStorage.removeItem(
+"supabase_access_token"
+);
+
+return false;
+
+}
+
+const user =
+await response.json();
+
+return !!user.id;
+
+} catch (error) {
+
+console.error(error);
+
+return false;
+
+}
+
+}
+
+
+checkAdmin().then(function(isAdmin) {
+
+if (isAdmin) {
+
+showAdminPanel();
+
+} else {
+
+showLoginScreen();
+
+}
 
 });
 
 
-/* =========================
-   GİRİŞ
-========================= */
+/* GİRİŞ */
 
 loginButton.addEventListener(
-    "click",
-    async function() {
+"click",
+async function() {
 
-        const email =
-            document
-            .getElementById("login-email")
-            .value
-            .trim();
+const email =
+document
+.getElementById("login-email")
+.value
+.trim();
 
+const password =
+document
+.getElementById("login-password")
+.value;
 
-        const password =
-            document
-            .getElementById("login-password")
-            .value;
+if (!email || !password) {
 
+loginStatus.textContent =
+"⚠️ E-posta ve şifre gerekli.";
 
-        if (!email || !password) {
+loginStatus.style.color = "#a33";
 
-            loginStatus.textContent =
-                "⚠️ E-posta ve şifre gerekli.";
+return;
 
-            loginStatus.style.color =
-                "#a33";
-
-            return;
-
-        }
-
-
-        loginStatus.textContent =
-            "Giriş yapılıyor...";
-
-
-        try {
-
-            const response = await fetch(
-                `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json",
-
-                        "apikey":
-                            SUPABASE_KEY
-                    },
-
-                    body: JSON.stringify({
-                        email: email,
-                        password: password
-                    })
-                }
-            );
-
-
-            const data =
-                await response.json();
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    data.msg ||
-                    data.error_description ||
-                    data.message ||
-                    "Giriş başarısız."
-                );
-
-            }
-
-
-            localStorage.setItem(
-                "supabase_access_token",
-                data.access_token
-            );
-
-
-            showAdminPanel();
-
-
-            loginStatus.textContent = "";
-
-
-        } catch (error) {
-
-            console.error(error);
-
-            loginStatus.textContent =
-                "❌ " + error.message;
-
-            loginStatus.style.color =
-                "#a33";
-
-        }
-
-    }
-);
-
-
-/* =========================
-   HABER YAYINLAMA
-========================= */
-
-newsForm.addEventListener(
-    "submit",
-    async function(event) {
-
-        event.preventDefault();
-
-
-        const accessToken =
-            getToken();
-
-
-        if (!accessToken) {
-
-            statusBox.className =
-                "status error";
-
-            statusBox.textContent =
-                "❌ Oturum bulunamadı. Lütfen tekrar giriş yapın.";
-
-            showLoginScreen();
-
-            return;
-
-        }
-
-
-        statusBox.className =
-            "status";
-
-        statusBox.textContent =
-            "Haber yayınlanıyor...";
-
-
-        const baslik =
-            document
-            .getElementById("baslik")
-            .value
-            .trim();
-
-
-        const icerik =
-            document
-            .getElementById("icerik")
-            .value
-            .trim();
-
-
-        const tarih =
-            document
-            .getElementById("tarih")
-            .value;
-
-
-       const resimDosyasi =
-            document.getElementById("resim").files[0];
-let resimUrl = null;
-
-if (resimDosyasi) {
-
-    const dosyaAdi =
-        Date.now() + "-" + resimDosyasi.name;
-
-    const uploadResponse = await fetch(
-        `${SUPABASE_URL}/storage/v1/object/haberler/${dosyaAdi}`,
-        {
-            method: "POST",
-
-            headers: {
-                "apikey": SUPABASE_KEY,
-                "Authorization":
-                    `Bearer ${accessToken}`,
-                "Content-Type":
-                    resimDosyasi.type
-            },
-
-            body: resimDosyasi
-        }
-    );
-
-    if (!uploadResponse.ok) {
-
-        const uploadError =
-            await uploadResponse.text();
-
-        throw new Error(
-            "Fotoğraf yüklenemedi: " +
-            uploadError
-        );
-    }
-
-    resimUrl =
-        `${SUPABASE_URL}/storage/v1/object/public/haberler/${dosyaAdi}`;
 }
 
-        try {
+loginStatus.textContent =
+"Giriş yapılıyor...";
 
-            const response = await fetch(
-                `${SUPABASE_URL}/rest/v1/haberler`,
-                {
-                    method: "POST",
+try {
 
-                    headers: {
+const response = await fetch(
+`${SUPABASE_URL}/auth/v1/token?grant_type=password`,
+{
+method: "POST",
 
-                        "Content-Type":
-                            "application/json",
+headers: {
+"Content-Type": "application/json",
+"apikey": SUPABASE_KEY
+},
 
-                        "apikey":
-                            SUPABASE_KEY,
+body: JSON.stringify({
+email: email,
+password: password
+})
+}
+);
 
-                        "Authorization":
-                            `Bearer ${accessToken}`,
+const data =
+await response.json();
 
-                        "Prefer":
-                            "return=minimal"
+if (!response.ok) {
 
-                    },
+throw new Error(
+data.msg ||
+data.error_description ||
+data.message ||
+"Giriş başarısız."
+);
 
-                    body: JSON.stringify({
+}
 
-                        baslik:
-                            baslik,
+localStorage.setItem(
+"supabase_access_token",
+data.access_token
+);
 
-                        icerik:
-                            icerik,
+showAdminPanel();
 
-                        tarih:
-                            tarih,
+loginStatus.textContent = "";
 
-                        resim:
-                            resimUrl
+} catch (error) {
 
-                    })
+console.error(error);
 
-                }
-            );
+loginStatus.textContent =
+"❌ " + error.message;
 
+loginStatus.style.color = "#a33";
 
-            if (!response.ok) {
+}
 
-                const errorText =
-                    await response.text();
-
-                throw new Error(
-                    errorText
-                );
-
-            }
-
-
-            statusBox.className =
-                "status success";
-
-            statusBox.textContent =
-                "✅ Haber başarıyla yayınlandı!";
+});
 
 
-            newsForm.reset();
+/* HABER YAYINLAMA */
+
+newsForm.addEventListener(
+"submit",
+async function(event) {
+
+event.preventDefault();
+
+statusBox.className = "status";
+
+statusBox.textContent =
+"📤 Fotoğraf yükleniyor...";
 
 
-        } catch (error) {
+const accessToken =
+getToken();
 
-            console.error(error);
+if (!accessToken) {
 
-            statusBox.className =
-                "status error";
+statusBox.className =
+"status error";
 
-            statusBox.textContent =
-                "❌ Haber yayınlanamadı: " +
-                error.message;
+statusBox.textContent =
+"❌ Oturum bulunamadı. Tekrar giriş yapın.";
 
-        }
+showLoginScreen();
 
-    }
+return;
+
+}
+
+
+const baslik =
+document
+.getElementById("baslik")
+.value
+.trim();
+
+const icerik =
+document
+.getElementById("icerik")
+.value
+.trim();
+
+const tarih =
+document
+.getElementById("tarih")
+.value;
+
+const resimDosyasi =
+document
+.getElementById("resim")
+.files[0];
+
+
+try {
+
+/* FOTOĞRAF */
+
+if (!resimDosyasi) {
+
+throw new Error(
+"Lütfen bir fotoğraf seçin."
+);
+
+}
+
+
+const dosyaAdi =
+Date.now() + "-" +
+resimDosyasi.name;
+
+
+/* STORAGE'A YÜKLE */
+
+const uploadResponse =
+await fetch(
+`${SUPABASE_URL}/storage/v1/object/haberler/${dosyaAdi}`,
+{
+method: "POST",
+
+headers: {
+
+"apikey":
+SUPABASE_KEY,
+
+"Authorization":
+`Bearer ${accessToken}`,
+
+"Content-Type":
+resimDosyasi.type
+
+},
+
+body:
+resimDosyasi
+}
 );
 
 
-/* =========================
-   ÇIKIŞ
-========================= */
+if (!uploadResponse.ok) {
+
+const uploadError =
+await uploadResponse.text();
+
+throw new Error(
+"Fotoğraf yüklenemedi: " +
+uploadError
+);
+
+}
+
+
+/* FOTOĞRAF URL */
+
+const resimUrl =
+`${SUPABASE_URL}/storage/v1/object/public/haberler/${dosyaAdi}`;
+
+
+/* HABERİ SUPABASE'E EKLE */
+
+statusBox.textContent =
+"📰 Haber yayınlanıyor...";
+
+
+const response =
+await fetch(
+`${SUPABASE_URL}/rest/v1/haberler`,
+{
+method: "POST",
+
+headers: {
+
+"Content-Type":
+"application/json",
+
+"apikey":
+SUPABASE_KEY,
+
+"Authorization":
+`Bearer ${accessToken}`,
+
+"Prefer":
+"return=minimal"
+
+},
+
+body:
+JSON.stringify({
+
+baslik:
+baslik,
+
+icerik:
+icerik,
+
+tarih:
+tarih,
+
+resim:
+resimUrl
+
+})
+
+}
+);
+
+
+if (!response.ok) {
+
+const errorText =
+await response.text();
+
+throw new Error(
+errorText
+);
+
+}
+
+
+/* BAŞARILI */
+
+statusBox.className =
+"status success";
+
+statusBox.textContent =
+"✅ Haber başarıyla yayınlandı!";
+
+newsForm.reset();
+
+
+} catch (error) {
+
+console.error(error);
+
+statusBox.className =
+"status error";
+
+statusBox.textContent =
+"❌ Haber yayınlanamadı: " +
+error.message;
+
+}
+
+});
+
+
+/* ÇIKIŞ */
 
 logoutButton.addEventListener(
-    "click",
-    function() {
+"click",
+function() {
 
-        localStorage.removeItem(
-            "supabase_access_token"
-        );
-
-        newsForm.reset();
-
-        showLoginScreen();
-
-        loginStatus.textContent =
-            "Çıkış yapıldı.";
-
-        loginStatus.style.color =
-            "#176b52";
-
-    }
+localStorage.removeItem(
+"supabase_access_token"
 );
+
+newsForm.reset();
+
+showLoginScreen();
+
+loginStatus.textContent =
+"Çıkış yapıldı.";
+
+loginStatus.style.color =
+"#176b52";
+
+});
 
 </script>
 
