@@ -1382,24 +1382,29 @@ news.forEach(item => {
         📰
     `;
 
-    if (item.resim && item.resim !== ".") {
+    let imageContent = `
+    📰
+`;
 
-        const imageUrl =
-            `${SUPABASE_URL}/storage/v1/object/public/haberler/${encodeURIComponent(item.resim)}`;
+if (item.resim && item.resim !== ".") {
 
-        imageContent = `
-            <img
-                src="${imageUrl}"
-                alt="${item.baslik || "Alınca Köyü haberi"}"
-                style="
-                    width:100%;
-                    height:100%;
-                    object-fit:cover;
-                    display:block;
-                "
-            >
-        `;
-    }
+    const imageUrl = item.resim.startsWith("http")
+        ? item.resim
+        : `${SUPABASE_URL}/storage/v1/object/public/haberler/${encodeURIComponent(item.resim)}`;
+
+    imageContent = `
+        <img
+            src="${imageUrl}"
+            alt="${item.baslik || "Alınca Köyü haberi"}"
+            style="
+                width:100%;
+                height:100%;
+                object-fit:cover;
+                display:block;
+            "
+        >
+    `;
+}
 
     newsCard.innerHTML = `
 
