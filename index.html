@@ -170,19 +170,22 @@ section {
     gap: 22px;
     align-items: start;
 }
-    #announcements-container {
+#announcements-container {
     display: flex !important;
     flex-direction: column !important;
     gap: 22px;
-    width: 100%;
-    max-width: 900px;
-    margin: 25px auto 0;
+
+    width: min(900px, calc(100vw - 40px)) !important;
+    max-width: 900px !important;
+
+    margin: 30px auto 0 !important;
+    align-items: stretch !important;
 }
 
 #announcements-container .card {
     width: 100% !important;
-    max-width: 900px;
-    padding: 25px;
+    max-width: none !important;
+    padding: 28px;
 }
 
 .card {
