@@ -691,17 +691,21 @@ Haberleri Gör
 
 <div class="cards">
 
-<div class="card">
+<div class="cards" id="announcements-container">
 
-<div class="card-icon">📢</div>
+    <div class="card">
 
-<h3>Alınca Köyü Portalı Yayında</h3>
+        <div class="card-icon">📢</div>
 
-<p>
-Köyümüzün haberlerini, duyurularını,
-fotoğraflarını ve etkinliklerini artık
-tek bir platformda paylaşacağız.
-</p>
+        <h3>Duyurular yükleniyor...</h3>
+
+        <p>
+            Lütfen bekleyin.
+        </p>
+
+    </div>
+
+</div>
 
 </div>
 
@@ -1450,6 +1454,154 @@ news.forEach(item => {
 }
 
 loadNews();
+    // =========================
+// DUYURULARI SUPABASE'DEN ÇEK
+// =========================
+
+const announcementsContainer =
+    document.getElementById("announcements-container");
+
+async function loadAnnouncements() {
+
+    try {
+
+        const response = await fetch(
+            `${SUPABASE_URL}/rest/v1/duyurular?select=*&order=tarih.desc`,
+            {
+                method: "GET",
+
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${SUPABASE_KEY}`
+                }
+            }
+        );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Duyurular alınamadı."
+            );
+
+        }
+
+        const announcements =
+            await response.json();
+
+        announcementsContainer.innerHTML = "";
+
+        if (!announcements.length) {
+
+            announcementsContainer.innerHTML = `
+                <div class="card">
+
+                    <div class="card-icon">
+                        📢
+                    </div>
+
+                    <h3>
+                        Henüz duyuru yok
+                    </h3>
+
+                    <p>
+                        Köyümüzle ilgili önemli duyurular
+                        burada yayınlanacak.
+                    </p>
+
+                </div>
+            `;
+
+            return;
+        }
+
+        announcements.forEach(item => {
+
+            const card =
+                document.createElement("div");
+
+            card.className = "card";
+
+            let formattedDate = "";
+
+            if (item.tarih) {
+
+                const date =
+                    new Date(item.tarih);
+
+                formattedDate =
+                    date.toLocaleDateString(
+                        "tr-TR",
+                        {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric"
+                        }
+                    );
+
+            }
+
+            card.innerHTML = `
+
+                <div class="card-icon">
+                    📢
+                </div>
+
+                ${
+                    formattedDate
+                    ? `<small style="
+                            display:block;
+                            margin-bottom:8px;
+                            opacity:0.7;
+                        ">
+                            ${formattedDate}
+                       </small>`
+                    : ""
+                }
+
+                <h3>
+                    ${item.baslik || ""}
+                </h3>
+
+                <p>
+                    ${item.icerik || ""}
+                </p>
+
+            `;
+
+            announcementsContainer.appendChild(card);
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Duyuru hatası:",
+            error
+        );
+
+        announcementsContainer.innerHTML = `
+            <div class="card">
+
+                <div class="card-icon">
+                    ⚠️
+                </div>
+
+                <h3>
+                    Duyurular yüklenemedi
+                </h3>
+
+                <p>
+                    Duyurular şu anda alınamıyor.
+                </p>
+
+            </div>
+        `;
+
+    }
+
+}
+
+loadAnnouncements();
     
 </script>
     
