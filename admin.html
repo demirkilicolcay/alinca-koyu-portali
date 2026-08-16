@@ -637,31 +637,41 @@ async function deleteNews(id) {
         =========================
         */
 
-        let dosyaAdi = null;
+let dosyaAdi = null;
 
-        if (haber.resim) {
+if (haber.resim) {
 
-            try {
+    try {
 
-                const imageUrl =
-                    new URL(haber.resim);
+        const imageUrl =
+            new URL(haber.resim);
 
-                dosyaAdi =
-                    decodeURIComponent(
-                        imageUrl.pathname
-                            .split("/object/public/haberler/")
-                            [1]
-                    );
+        const marker =
+            "/storage/v1/object/public/haberler/";
 
-            } catch (error) {
+        const index =
+            imageUrl.pathname.indexOf(marker);
 
-                console.warn(
-                    "Fotoğraf URL'si çözülemedi:",
-                    haber.resim
+        if (index !== -1) {
+
+            dosyaAdi =
+                decodeURIComponent(
+                    imageUrl.pathname.substring(
+                        index + marker.length
+                    )
                 );
 
-            }
         }
+
+    } catch (error) {
+
+        console.warn(
+            "Fotoğraf URL'si çözülemedi:",
+            haber.resim
+        );
+
+    }
+}
 
         /*
         =========================
