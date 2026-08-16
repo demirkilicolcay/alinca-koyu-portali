@@ -411,6 +411,130 @@ class="publish-button"
 <div id="admin-announcements">
     Duyurular yükleniyor...
 </div>
+    <hr style="
+    margin:40px 0;
+    border:none;
+    border-top:1px solid #e0e6e3;
+">
+
+<h2 style="
+    color:#176b52;
+    margin-bottom:20px;
+">
+    📅 Etkinlik Yönetimi
+</h2>
+
+<form id="eventForm">
+
+    <input
+        type="hidden"
+        id="editing-event-id"
+    >
+
+    <div class="form-group">
+
+        <label for="event-baslik">
+            Etkinlik Başlığı
+        </label>
+
+        <input
+            type="text"
+            id="event-baslik"
+            placeholder="Örn: Köy Bayramlaşması"
+            required
+        >
+
+    </div>
+
+    <div class="form-group">
+
+        <label for="event-aciklama">
+            Açıklama
+        </label>
+
+        <textarea
+            id="event-aciklama"
+            placeholder="Etkinlik hakkında bilgi yazın"
+        ></textarea>
+
+    </div>
+
+    <div class="form-group">
+
+        <label for="event-tarih">
+            Etkinlik Tarihi
+        </label>
+
+        <input
+            type="date"
+            id="event-tarih"
+            required
+        >
+
+    </div>
+
+    <div class="form-group">
+
+        <label for="event-saat">
+            Saat
+        </label>
+
+        <input
+            type="time"
+            id="event-saat"
+        >
+
+    </div>
+
+    <div class="form-group">
+
+        <label for="event-yer">
+            Yer
+        </label>
+
+        <input
+            type="text"
+            id="event-yer"
+            placeholder="Örn: Alınca Köyü Camii"
+        >
+
+    </div>
+
+    <button
+        type="submit"
+        id="event-submit"
+        class="publish-button"
+    >
+        📅 Etkinliği Yayınla
+    </button>
+
+    <button
+        type="button"
+        id="cancel-event-edit"
+        class="logout-button"
+        style="display:none;"
+    >
+        Düzenlemeyi İptal Et
+    </button>
+
+    <div
+        id="event-status"
+        class="status">
+    </div>
+
+</form>
+
+<h3 style="
+    margin-top:35px;
+    margin-bottom:15px;
+    color:#176b52;
+">
+    📋 Yayındaki Etkinlikler
+</h3>
+
+<div id="admin-events">
+    Etkinlikler yükleniyor...
+</div>
 <button
 id="logout-button"
 class="logout-button"
@@ -2048,7 +2172,737 @@ cancelAnnouncementEdit.addEventListener(
 ========================= */
 
 loadAnnouncements();
-    
+    //
+// =========================
+// ETKİNLİK YÖNETİMİ
+// =========================
+//
+
+const eventForm =
+    document.getElementById("eventForm");
+
+const eventStatus =
+    document.getElementById("event-status");
+
+const adminEvents =
+    document.getElementById("admin-events");
+
+const eventSubmit =
+    document.getElementById("event-submit");
+
+const cancelEventEdit =
+    document.getElementById("cancel-event-edit");
+
+const editingEventId =
+    document.getElementById("editing-event-id");
+
+
+//
+// =========================
+// ETKİNLİKLERİ YÜKLE
+// =========================
+//
+
+async function loadAdminEvents() {
+
+    try {
+
+        const accessToken =
+            getToken();
+
+        if (!accessToken) {
+
+            return;
+
+        }
+
+        const response =
+            await fetch(
+                `${SUPABASE_URL}/rest/v1/etkinlikler?select=*&order=tarih.desc,saat.desc`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "apikey": SUPABASE_KEY,
+                        "Authorization":
+                            `Bearer ${accessToken}`
+                    }
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Etkinlikler alınamadı."
+            );
+
+        }
+
+
+        const events =
+            await response.json();
+
+
+        adminEvents.innerHTML = "";
+
+
+        if (!events.length) {
+
+            adminEvents.innerHTML = `
+                <div class="card">
+
+                    <div class="card-icon">
+                        📅
+                    </div>
+
+                    <h3>
+                        Henüz etkinlik yok
+                    </h3>
+
+                    <p>
+                        Henüz yayınlanmış bir etkinlik bulunmuyor.
+                    </p>
+
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        events.forEach(event => {
+
+            const card =
+                document.createElement("div");
+
+            card.className = "card";
+
+            let formattedDate = "";
+
+            if (event.tarih) {
+
+                formattedDate =
+                    new Date(
+                        event.tarih
+                    ).toLocaleDateString(
+                        "tr-TR",
+                        {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric"
+                        }
+                    );
+
+            }
+
+
+            card.innerHTML = `
+
+                <div class="card-icon">
+                    📅
+                </div>
+
+                <small style="
+                    display:block;
+                    margin-bottom:8px;
+                    color:#777;
+                ">
+                    ${formattedDate}
+                </small>
+
+                <h3>
+                    ${event.baslik || ""}
+                </h3>
+
+                ${
+                    event.saat
+                    ? `
+                        <p>
+                            🕐 <strong>Saat:</strong>
+                            ${event.saat.substring(0,5)}
+                        </p>
+                    `
+                    : ""
+                }
+
+                ${
+                    event.yer
+                    ? `
+                        <p>
+                            📍 <strong>Yer:</strong>
+                            ${event.yer}
+                        </p>
+                    `
+                    : ""
+                }
+
+                ${
+                    event.aciklama
+                    ? `
+                        <p>
+                            ${event.aciklama}
+                        </p>
+                    `
+                    : ""
+                }
+
+                <div style="
+                    display:flex;
+                    gap:10px;
+                    margin-top:20px;
+                ">
+
+                    <button
+                        type="button"
+                        class="publish-button"
+                        style="
+                            flex:1;
+                            background:#176b52;
+                        "
+                        onclick="editEvent('${event.id}')"
+                    >
+                        ✏️ Düzenle
+                    </button>
+
+                    <button
+                        type="button"
+                        class="logout-button"
+                        style="
+                            flex:1;
+                            margin-top:0;
+                        "
+                        onclick="deleteEvent('${event.id}')"
+                    >
+                        🗑️ Sil
+                    </button>
+
+                </div>
+
+            `;
+
+
+            adminEvents.appendChild(
+                card
+            );
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Etkinlik yükleme hatası:",
+            error
+        );
+
+        adminEvents.innerHTML = `
+            <div class="card">
+
+                <div class="card-icon">
+                    ⚠️
+                </div>
+
+                <h3>
+                    Etkinlikler yüklenemedi
+                </h3>
+
+                <p>
+                    ${error.message}
+                </p>
+
+            </div>
+        `;
+
+    }
+
+}
+
+
+//
+// =========================
+// ETKİNLİK EKLE / GÜNCELLE
+// =========================
+//
+
+eventForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const accessToken =
+            getToken();
+
+
+        if (!accessToken) {
+
+            eventStatus.className =
+                "status error";
+
+            eventStatus.textContent =
+                "❌ Oturum bulunamadı.";
+
+            return;
+
+        }
+
+
+        eventStatus.className =
+            "status";
+
+        eventStatus.textContent =
+            "Etkinlik kaydediliyor...";
+
+
+        const baslik =
+            document
+            .getElementById("event-baslik")
+            .value
+            .trim();
+
+
+        const aciklama =
+            document
+            .getElementById("event-aciklama")
+            .value
+            .trim();
+
+
+        const tarih =
+            document
+            .getElementById("event-tarih")
+            .value;
+
+
+        const saat =
+            document
+            .getElementById("event-saat")
+            .value;
+
+
+        const yer =
+            document
+            .getElementById("event-yer")
+            .value
+            .trim();
+
+
+        const editingId =
+            editingEventId.value;
+
+
+        const eventData = {
+
+            baslik:
+                baslik,
+
+            aciklama:
+                aciklama || null,
+
+            tarih:
+                tarih,
+
+            saat:
+                saat || null,
+
+            yer:
+                yer || null
+
+        };
+
+
+        try {
+
+            let response;
+
+
+            //
+            // GÜNCELLEME
+            //
+
+            if (editingId) {
+
+                response =
+                    await fetch(
+                        `${SUPABASE_URL}/rest/v1/etkinlikler?id=eq.${editingId}`,
+                        {
+                            method: "PATCH",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                "apikey":
+                                    SUPABASE_KEY,
+
+                                "Authorization":
+                                    `Bearer ${accessToken}`,
+
+                                "Prefer":
+                                    "return=minimal"
+
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    eventData
+                                )
+
+                        }
+                    );
+
+
+            }
+
+
+            //
+            // YENİ ETKİNLİK
+            //
+
+            else {
+
+                response =
+                    await fetch(
+                        `${SUPABASE_URL}/rest/v1/etkinlikler`,
+                        {
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                "apikey":
+                                    SUPABASE_KEY,
+
+                                "Authorization":
+                                    `Bearer ${accessToken}`,
+
+                                "Prefer":
+                                    "return=minimal"
+
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    eventData
+                                )
+
+                        }
+                    );
+
+            }
+
+
+            if (!response.ok) {
+
+                const errorText =
+                    await response.text();
+
+                throw new Error(
+                    errorText
+                );
+
+            }
+
+
+            eventStatus.className =
+                "status success";
+
+
+            eventStatus.textContent =
+                editingId
+                ? "✅ Etkinlik güncellendi!"
+                : "✅ Etkinlik başarıyla yayınlandı!";
+
+
+            eventForm.reset();
+
+            editingEventId.value = "";
+
+            eventSubmit.textContent =
+                "📅 Etkinliği Yayınla";
+
+            cancelEventEdit.style.display =
+                "none";
+
+
+            await loadAdminEvents();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            eventStatus.className =
+                "status error";
+
+            eventStatus.textContent =
+                "❌ Etkinlik kaydedilemedi: " +
+                error.message;
+
+        }
+
+    }
+);
+
+
+//
+// =========================
+// ETKİNLİK DÜZENLE
+// =========================
+//
+
+async function editEvent(id) {
+
+    try {
+
+        const accessToken =
+            getToken();
+
+
+        const response =
+            await fetch(
+                `${SUPABASE_URL}/rest/v1/etkinlikler?id=eq.${id}&select=*`,
+                {
+                    method: "GET",
+
+                    headers: {
+
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Authorization":
+                            `Bearer ${accessToken}`
+
+                    }
+
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Etkinlik bilgileri alınamadı."
+            );
+
+        }
+
+
+        const events =
+            await response.json();
+
+
+        if (!events.length) {
+
+            throw new Error(
+                "Etkinlik bulunamadı."
+            );
+
+        }
+
+
+        const event =
+            events[0];
+
+
+        editingEventId.value =
+            event.id;
+
+
+        document
+            .getElementById("event-baslik")
+            .value =
+                event.baslik || "";
+
+
+        document
+            .getElementById("event-aciklama")
+            .value =
+                event.aciklama || "";
+
+
+        document
+            .getElementById("event-tarih")
+            .value =
+                event.tarih || "";
+
+
+        document
+            .getElementById("event-saat")
+            .value =
+                event.saat
+                ? event.saat.substring(0,5)
+                : "";
+
+
+        document
+            .getElementById("event-yer")
+            .value =
+                event.yer || "";
+
+
+        eventSubmit.textContent =
+            "💾 Değişiklikleri Kaydet";
+
+
+        cancelEventEdit.style.display =
+            "inline-block";
+
+
+        eventStatus.className =
+            "status";
+
+
+        eventStatus.textContent =
+            "✏️ Düzenleme modu aktif.";
+
+
+        window.scrollTo({
+            top: eventForm.offsetTop - 30,
+            behavior: "smooth"
+        });
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        eventStatus.className =
+            "status error";
+
+        eventStatus.textContent =
+            "❌ " + error.message;
+
+    }
+
+}
+
+
+//
+// =========================
+// DÜZENLEMEYİ İPTAL ET
+// =========================
+//
+
+cancelEventEdit.addEventListener(
+    "click",
+    function() {
+
+        eventForm.reset();
+
+        editingEventId.value = "";
+
+        eventSubmit.textContent =
+            "📅 Etkinliği Yayınla";
+
+        cancelEventEdit.style.display =
+            "none";
+
+        eventStatus.className =
+            "status";
+
+        eventStatus.textContent = "";
+
+    }
+);
+
+
+//
+// =========================
+// ETKİNLİK SİL
+// =========================
+//
+
+async function deleteEvent(id) {
+
+    if (
+        !confirm(
+            "Bu etkinliği silmek istediğinizden emin misiniz?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    const accessToken =
+        getToken();
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${SUPABASE_URL}/rest/v1/etkinlikler?id=eq.${id}`,
+                {
+                    method: "DELETE",
+
+                    headers: {
+
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Authorization":
+                            `Bearer ${accessToken}`
+
+                    }
+
+                }
+            );
+
+
+        if (!response.ok) {
+
+            const errorText =
+                await response.text();
+
+            throw new Error(
+                errorText
+            );
+
+        }
+
+
+        eventStatus.className =
+            "status success";
+
+        eventStatus.textContent =
+            "✅ Etkinlik silindi!";
+
+
+        await loadAdminEvents();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        eventStatus.className =
+            "status error";
+
+        eventStatus.textContent =
+            "❌ Etkinlik silinemedi: " +
+            error.message;
+
+    }
+
+}
+
+
+//
+// =========================
+// SAYFA AÇILIŞINDA YÜKLE
+// =========================
+//
+
+loadAdminEvents();
 /* ÇIKIŞ */
 
 logoutButton.addEventListener(
