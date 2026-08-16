@@ -1,13 +1,20 @@
-```html
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Alınca Köyü Portalı</title>
 
+
 <style>
+
+/* =====================================================
+   GENEL
+===================================================== */
 
 * {
     box-sizing: border-box;
@@ -26,9 +33,10 @@ body {
     line-height: 1.6;
 }
 
-/* =========================
+
+/* =====================================================
    ÜST MENÜ
-========================= */
+===================================================== */
 
 header {
     position: sticky;
@@ -80,9 +88,10 @@ nav a:hover {
     opacity: 0.7;
 }
 
-/* =========================
+
+/* =====================================================
    KAPAK
-========================= */
+===================================================== */
 
 .hero {
     min-height: 520px;
@@ -129,9 +138,10 @@ nav a:hover {
     transform: translateY(-3px);
 }
 
-/* =========================
-   GENEL
-========================= */
+
+/* =====================================================
+   GENEL BÖLÜMLER
+===================================================== */
 
 section {
     padding: 70px 20px;
@@ -157,9 +167,10 @@ section {
     color: #667;
 }
 
-/* =========================
+
+/* =====================================================
    DUYURULAR
-========================= */
+===================================================== */
 
 .announcements {
     background: white;
@@ -206,45 +217,103 @@ section {
 .card p {
     color: #667;
 }
-<!-- =========================
-     ETKİNLİKLER
-========================= -->
 
-<section class="events" id="etkinlikler">
 
-```
-<div class="container">
+/* =====================================================
+   ETKİNLİKLER
+===================================================== */
 
-    <div class="section-title">
+.events {
+    background: #eef5f2;
+}
 
-        <h2>🎉 Etkinlikler</h2>
+#events-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
-        <p>Alınca Köyü'nde yaklaşan etkinlikler</p>
+    width: min(900px, calc(100vw - 40px));
+    max-width: 900px;
 
-    </div>
+    margin: 0 auto;
+}
 
-    <div id="events-container">
+.event-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
 
-        <div class="card">
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
 
-            <div class="card-icon">🎉</div>
+    border: 1px solid #e1e9e5;
 
-            <h3>Etkinlikler yükleniyor...</h3>
+    transition: 0.3s;
+}
 
-            <p>Lütfen bekleyin.</p>
+.event-card:hover {
+    transform: translateY(-4px);
+}
 
-        </div>
+.event-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 
-    </div>
+    gap: 15px;
 
-</div>
-```
+    margin-bottom: 12px;
+}
 
-</section>
+.event-card h3 {
+    color: #176b52;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
 
-/* =========================
+.event-info {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin: 15px 0;
+}
+
+.event-info span {
+    background: #f1f6f3;
+    color: #176b52;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.event-card p {
+    color: #59636a;
+    margin-top: 10px;
+}
+
+.event-new {
+    background: #176b52;
+    color: white;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
    HABERLER
-========================= */
+===================================================== */
 
 .news {
     background: #eef5f2;
@@ -253,29 +322,46 @@ section {
 .news-card {
     display: grid;
     grid-template-columns: 180px 1fr;
+
     gap: 0;
+
     background: white;
+
     border-radius: 14px;
+
     overflow: hidden;
+
     margin-bottom: 20px;
+
     box-shadow: 0 5px 18px rgba(0,0,0,0.07);
 }
 
 .news-image {
     min-height: 180px;
-    background: linear-gradient(135deg, #38735a, #a4c7b5);
+
+    background: linear-gradient(
+        135deg,
+        #38735a,
+        #a4c7b5
+    );
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     font-size: 55px;
+
     overflow: hidden;
 }
 
 .news-image img {
     width: 100%;
     height: 100%;
+
     min-height: 180px;
+
     object-fit: cover;
+
     display: block;
 }
 
@@ -294,53 +380,16 @@ section {
 
 .date {
     color: #888;
+
     font-size: 13px;
+
     margin-bottom: 8px;
 }
-<!-- =========================
-     ETKİNLİKLER
-========================= -->
 
-<section class="events" id="etkinlikler">
 
-    <div class="container">
-
-        <div class="section-title">
-
-            <h2>🎉 Etkinlikler</h2>
-
-            <p>
-                Alınca Köyü'nde yaklaşan etkinlikler
-            </p>
-
-        </div>
-
-        <div id="events-container">
-
-            <div class="card">
-
-                <div class="card-icon">
-                    🎉
-                </div>
-
-                <h3>
-                    Etkinlikler yükleniyor...
-                </h3>
-
-                <p>
-                    Lütfen bekleyin.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-/* =========================
+/* =====================================================
    GALERİ
-========================= */
+===================================================== */
 
 .gallery {
     background: white;
@@ -348,20 +397,34 @@ section {
 
 .gallery-grid {
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 18px;
 }
 
 .gallery-item {
     height: 220px;
+
     border-radius: 14px;
+
     overflow: hidden;
-    background: linear-gradient(135deg, #527d68, #b5cdbd);
+
+    background: linear-gradient(
+        135deg,
+        #527d68,
+        #b5cdbd
+    );
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     font-size: 55px;
+
     transition: 0.3s;
+
     cursor: pointer;
 }
 
@@ -372,13 +435,16 @@ section {
 .gallery-item img {
     width: 100%;
     height: 100%;
+
     object-fit: cover;
+
     display: block;
 }
 
-/* =========================
+
+/* =====================================================
    KÖYÜMÜZ
-========================= */
+===================================================== */
 
 .about {
     background: #eef5f2;
@@ -386,50 +452,66 @@ section {
 
 .about-box {
     background: white;
+
     padding: 35px;
+
     border-radius: 16px;
+
     box-shadow: 0 5px 20px rgba(0,0,0,0.07);
 }
 
 .about-box p {
     color: #59636a;
+
     margin-bottom: 18px;
 }
 
 .info-grid {
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 18px;
+
     margin-top: 30px;
 }
 
 .info-card {
     background: #f7faf8;
+
     border-radius: 14px;
+
     padding: 22px;
+
     text-align: center;
+
     border: 1px solid #e2ebe6;
 }
 
 .info-card .icon {
     font-size: 32px;
+
     margin-bottom: 8px;
 }
 
 .info-card h3 {
     color: #176b52;
+
     font-size: 17px;
+
     margin-bottom: 6px;
 }
 
 .info-card p {
     font-size: 14px;
+
     margin: 0;
 }
 
-/* =========================
+
+/* =====================================================
    MUHTAR
-========================= */
+===================================================== */
 
 .mukhtar {
     background: #eef5f2;
@@ -437,126 +519,177 @@ section {
 
 .mukhtar-card {
     max-width: 900px;
+
     margin: auto;
+
     background: white;
+
     border-radius: 20px;
+
     padding: 35px;
+
     box-shadow: 0 8px 25px rgba(0,0,0,0.10);
+
     border: 1px solid #e1e9e5;
 }
 
 .mukhtar-icon {
     width: 220px;
     height: 260px;
+
     margin: 0 auto 25px;
 
     border-radius: 16px;
+
     overflow: hidden;
 
-    background: linear-gradient(135deg, #176b52, #2e8b68);
+    background: linear-gradient(
+        135deg,
+        #176b52,
+        #2e8b68
+    );
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     font-size: 48px;
 
     border: 4px solid white;
+
     box-shadow: 0 5px 18px rgba(0,0,0,0.18);
 }
 
 .mukhtar-icon img {
     width: 100%;
     height: 100%;
+
     object-fit: cover;
+
     object-position: center top;
+
     display: block;
 }
 
 .mukhtar-card h3 {
     color: #176b52;
+
     font-size: 28px;
+
     text-align: center;
+
     margin-bottom: 4px;
 }
 
 .mukhtar-nickname {
     text-align: center;
+
     color: #777;
+
     font-style: italic;
+
     margin-bottom: 25px;
 }
 
 .mukhtar-details {
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 15px;
+
     margin-bottom: 25px;
 }
 
 .mukhtar-details div {
     background: #f4f7f6;
+
     padding: 15px;
+
     border-radius: 12px;
 }
 
 .mukhtar-details strong {
     display: block;
+
     color: #176b52;
+
     margin-bottom: 5px;
+
     font-size: 14px;
 }
 
 .mukhtar-details p {
     color: #555;
+
     font-size: 14px;
+
     margin: 0;
 }
 
 .mukhtar-details a {
     color: #176b52;
+
     text-decoration: none;
+
     font-weight: bold;
 }
 
 .mukhtar-about {
     border-top: 1px solid #e5ebe8;
+
     padding-top: 20px;
+
     margin-bottom: 25px;
 }
 
 .mukhtar-about h4 {
     color: #176b52;
+
     font-size: 19px;
+
     margin-bottom: 8px;
 }
 
 .mukhtar-about p {
     color: #59636a;
+
     line-height: 1.7;
 }
 
 .mukhtar-button {
     display: block;
+
     width: fit-content;
+
     margin: auto;
+
     background: #176b52;
+
     color: white;
+
     text-decoration: none;
+
     padding: 12px 22px;
+
     border-radius: 25px;
+
     font-weight: bold;
+
     transition: 0.3s;
 }
 
 .mukhtar-button:hover {
     background: #2e8b68;
+
     transform: translateY(-2px);
 }
 
-/* =========================
+
+/* =====================================================
    İLETİŞİM
-========================= */
+===================================================== */
 
 .contact {
     background: white;
@@ -564,9 +697,17 @@ section {
 
 .contact-box {
     text-align: center;
-    background: linear-gradient(135deg, #176b52, #2e8b68);
+
+    background: linear-gradient(
+        135deg,
+        #176b52,
+        #2e8b68
+    );
+
     color: white;
+
     padding: 45px 20px;
+
     border-radius: 18px;
 }
 
@@ -580,44 +721,59 @@ section {
 
 .contact-button {
     display: inline-block;
+
     background: white;
+
     color: #176b52;
+
     padding: 12px 25px;
+
     border-radius: 25px;
+
     text-decoration: none;
+
     font-weight: bold;
 }
 
-/* =========================
+
+/* =====================================================
    FOOTER
-========================= */
+===================================================== */
 
 footer {
     background: #16382d;
+
     color: white;
+
     text-align: center;
+
     padding: 30px 20px;
 }
 
 footer p {
     opacity: 0.8;
+
     font-size: 14px;
 }
 
 .footer-logo {
     font-size: 22px;
+
     font-weight: bold;
+
     margin-bottom: 8px;
 }
 
-/* =========================
+
+/* =====================================================
    MOBİL
-========================= */
+===================================================== */
 
 @media (max-width: 800px) {
 
     .navbar {
         flex-direction: column;
+
         gap: 12px;
     }
 
@@ -648,7 +804,22 @@ footer p {
     .mukhtar-details {
         grid-template-columns: 1fr;
     }
+
 }
+
+
+@media (max-width: 600px) {
+
+    .event-card {
+        padding: 20px;
+    }
+
+    .event-top {
+        flex-direction: column;
+    }
+
+}
+
 
 @media (max-width: 500px) {
 
@@ -679,603 +850,667 @@ footer p {
     .mukhtar-card {
         padding: 25px;
     }
-}
-/* =========================
-ETKİNLİKLER
-========================= */
 
-.events {
-background: #eef5f2;
 }
 
-#events-container {
-max-width: 900px;
-margin: 30px auto 0;
-}
 
-.event-card {
-background: white;
-border-radius: 16px;
-padding: 25px;
-margin-bottom: 18px;
-box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-border: 1px solid #e1e9e5;
-}
-
-.event-top {
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
-gap: 15px;
-margin-bottom: 12px;
-}
-
-.event-card h3 {
-color: #176b52;
-font-size: 22px;
-margin-bottom: 8px;
-}
-
-.event-info {
-display: flex;
-flex-wrap: wrap;
-gap: 10px;
-margin: 15px 0;
-}
-
-.event-info span {
-background: #f1f6f3;
-color: #176b52;
-padding: 7px 12px;
-border-radius: 20px;
-font-size: 14px;
-font-weight: bold;
-}
-
-.event-card p {
-color: #59636a;
-}
-
-.event-new {
-background: #176b52;
-color: white;
-padding: 6px 12px;
-border-radius: 20px;
-font-size: 12px;
-font-weight: bold;
-white-space: nowrap;
-}
+/* =====================================================
+   ETKİNLİKLER MOBİL
+===================================================== */
 
 @media (max-width: 600px) {
 
-```
-.event-card {
-    padding: 20px;
+    .event-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .event-new {
+        align-self: flex-start;
+    }
+
 }
 
-.event-top {
-    flex-direction: column;
-}
-```
-
-}
-/* =========================
-   ETKİNLİKLER
-========================= */
-
-.events {
-    background: #eef5f2;
-}
-
-#events-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: min(900px, calc(100vw - 40px));
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.event-card {
-    background: white;
-    border-radius: 14px;
-    padding: 25px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-    border: 1px solid #e7ece9;
-}
-
-.event-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 15px;
-}
-
-.event-card h3 {
-    color: #176b52;
-    margin-bottom: 12px;
-    font-size: 22px;
-}
-
-.event-info {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin: 10px 0 15px;
-    color: #555;
-    font-size: 14px;
-}
-
-.event-card p {
-    color: #59636a;
-    margin-top: 10px;
-}
-
-.event-new {
-    background: #176b52;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: bold;
-    white-space: nowrap;
-}
 </style>
+
 </head>
+
 
 <body>
 
-<!-- =========================
+
+<!-- =====================================================
      MENÜ
-========================= -->
+===================================================== -->
 
 <header>
 
-<div class="navbar">
+    <div class="navbar">
 
-<a href="#anasayfa" class="logo">
-    Alınca Köyü
-    <span>Alınca Köyü Portalı</span>
-</a>
+        <a href="#anasayfa" class="logo">
 
-<nav>
-    <a href="#anasayfa">Ana Sayfa</a>
-    <a href="#duyurular">Duyurular</a>
-    <a href="#etkinlikler">Etkinlikler</a>
-    <a href="#haberler">Haberler</a>
-    <a href="#galeri">Galeri</a>
-    <a href="#koyumuz">Köyümüz</a>
-    <a href="#muhtar">Muhtarımız</a>
-    <a href="#iletisim">İletişim</a>
-</nav>
+            Alınca Köyü
 
-</div>
+            <span>
+                Alınca Köyü Portalı
+            </span>
+
+        </a>
+
+
+        <nav>
+
+            <a href="#anasayfa">
+                Ana Sayfa
+            </a>
+
+            <a href="#duyurular">
+                Duyurular
+            </a>
+
+            <a href="#etkinlikler">
+                Etkinlikler
+            </a>
+
+            <a href="#haberler">
+                Haberler
+            </a>
+
+            <a href="#galeri">
+                Galeri
+            </a>
+
+            <a href="#koyumuz">
+                Köyümüz
+            </a>
+
+            <a href="#muhtar">
+                Muhtarımız
+            </a>
+
+            <a href="#iletisim">
+                İletişim
+            </a>
+
+        </nav>
+
+    </div>
 
 </header>
 
 
-<!-- =========================
+<!-- =====================================================
      ANA SAYFA
-========================= -->
+===================================================== -->
 
 <section class="hero" id="anasayfa">
 
-<div class="hero-content">
+    <div class="hero-content">
 
-<h1>Alınca Köyü</h1>
-
-<p>
-Köyümüzden haberler, duyurular, fotoğraflar
-ve anılar...
-</p>
-
-<a href="#haberler" class="hero-button">
-Haberleri Gör
-</a>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     DUYURULAR
-========================= -->
-
-<section class="announcements" id="duyurular">
-
-<div class="container">
-
-<div class="section-title">
-
-<h2>📢 Duyurular</h2>
-
-<p>Köyümüzle ilgili önemli duyurular</p>
-
-</div>
-
-<div id="announcements-container">
-
-    <div class="card">
-
-        <div class="card-icon">📢</div>
-
-        <h3>Duyurular yükleniyor...</h3>
+        <h1>
+            Alınca Köyü
+        </h1>
 
         <p>
-            Lütfen bekleyin.
+            Köyümüzden haberler, duyurular,
+            fotoğraflar ve anılar...
         </p>
+
+        <a href="#haberler" class="hero-button">
+            Haberleri Gör
+        </a>
 
     </div>
 
-</div>
+</section>
 
-</div>
+
+<!-- =====================================================
+     DUYURULAR
+===================================================== -->
+
+<section class="announcements" id="duyurular">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                📢 Duyurular
+            </h2>
+
+            <p>
+                Köyümüzle ilgili önemli duyurular
+            </p>
+
+        </div>
+
+
+        <div id="announcements-container">
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📢
+                </div>
+
+                <h3>
+                    Duyurular yükleniyor...
+                </h3>
+
+                <p>
+                    Lütfen bekleyin.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
+     ETKİNLİKLER
+===================================================== -->
+
+<section class="events" id="etkinlikler">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                🎉 Etkinlikler
+            </h2>
+
+            <p>
+                Alınca Köyü'nde yaklaşan etkinlikler
+            </p>
+
+        </div>
+
+
+        <div id="events-container">
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🎉
+                </div>
+
+                <h3>
+                    Etkinlikler yükleniyor...
+                </h3>
+
+                <p>
+                    Lütfen bekleyin.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
      HABERLER
-========================= -->
+===================================================== -->
 
 <section class="news" id="haberler">
 
-<div class="container">
+    <div class="container">
 
-<div class="section-title">
+        <div class="section-title">
 
-<h2>📰 Son Haberler</h2>
+            <h2>
+                📰 Son Haberler
+            </h2>
 
-<p>Alınca Köyü'nden güncel haberler</p>
+            <p>
+                Alınca Köyü'nden güncel haberler
+            </p>
 
-</div>
-
-<div id="news-container">
-
-    <div class="news-card">
-
-        <div class="news-image">
-            📰
         </div>
 
-        <div class="news-content">
+
+        <div id="news-container">
+
+            <div class="news-card">
+
+                <div class="news-image">
+                    📰
+                </div>
+
+                <div class="news-content">
+
+                    <h3>
+                        Haberler yükleniyor...
+                    </h3>
+
+                    <p>
+                        Lütfen bekleyin...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     GALERİ
+===================================================== -->
+
+<section class="gallery" id="galeri">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                📸 Fotoğraf Galerisi
+            </h2>
+
+            <p>
+                Alınca Köyü'nden güzel kareler
+            </p>
+
+        </div>
+
+
+        <div
+            class="gallery-grid"
+            id="gallery-container"
+        >
+
+            <div class="gallery-item">
+                📸 Fotoğraflar yükleniyor...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     KÖYÜMÜZ
+===================================================== -->
+
+<section class="about" id="koyumuz">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                🌿 Köyümüz
+            </h2>
+
+            <p>
+                Alınca Köyü hakkında
+            </p>
+
+        </div>
+
+
+        <div class="about-box">
 
             <h3>
-                Haberler yükleniyor...
+                🏡 Alınca Köyü
             </h3>
 
             <p>
-                Lütfen bekleyin...
+                Alınca Köyü, Giresun ilinin Merkez ilçesine
+                bağlı Karadeniz'in doğal güzellikleri
+                içerisinde yer alan köylerimizden biridir.
+            </p>
+
+            <p>
+                Giresun şehir merkezine yaklaşık 6 kilometre
+                uzaklıkta bulunan köyümüz, doğası, tarım
+                alanları ve köy yaşamıyla kendine özgü
+                bir yapıya sahiptir.
+            </p>
+
+        </div>
+
+
+        <div class="info-grid">
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    📍
+                </div>
+
+                <h3>
+                    Konum
+                </h3>
+
+                <p>
+                    Giresun<br>
+                    Merkez / Alınca
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    👥
+                </div>
+
+                <h3>
+                    Nüfus
+                </h3>
+
+                <p>
+                    2021 verilerine göre<br>
+                    739 kişi
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    🌰
+                </div>
+
+                <h3>
+                    Geçim Kaynakları
+                </h3>
+
+                <p>
+                    Başta fındık olmak üzere
+                    tarım ve hayvancılık
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            class="about-box"
+            style="margin-top:25px;"
+        >
+
+            <h3>
+                📜 Köyümüzün Tarihi
+            </h3>
+
+            <p>
+                Alınca Köyü'nün geçmişi ve köyümüzün
+                oluşumuyla ilgili bilgileri zaman içerisinde
+                hemşehrilerimizden ve güvenilir kaynaklardan
+                derleyerek burada paylaşacağız.
+            </p>
+
+            <p>
+                Özellikle büyüklerimizin anlatacağı eski
+                hikâyeler, köyümüzün geçmişine ait bilgiler
+                ve eski fotoğraflar gelecek nesillere
+                aktarılmak üzere bu bölümde arşivlenecektir.
+            </p>
+
+        </div>
+
+
+        <div
+            class="about-box"
+            style="margin-top:25px;"
+        >
+
+            <h3>
+                🌳 Doğamız ve Köy Yaşamı
+            </h3>
+
+            <p>
+                Karadeniz'in doğal yapısının hissedildiği
+                köyümüzde fındık bahçeleri, yeşil alanlar
+                ve doğal güzellikler köy yaşamının önemli
+                parçalarıdır.
+            </p>
+
+            <p>
+                Köyümüzdeki bayramlar, düğünler, imece
+                kültürü, gelenekler ve günlük yaşamdan
+                güzel anıları da zaman içerisinde bu
+                portalda bir araya getireceğiz.
+            </p>
+
+        </div>
+
+
+        <div
+            class="about-box"
+            style="margin-top:25px; text-align:center;"
+        >
+
+            <h3>
+                ❤️ Bizim İçin Alınca
+            </h3>
+
+            <p>
+                Alınca bizim için yalnızca bir yerleşim
+                yeri değil; çocukluğumuzun, anılarımızın,
+                dostluklarımızın ve aile büyüklerimizin
+                izlerini taşıyan ortak bir değerdir.
+            </p>
+
+            <p>
+                Bu portalın amacı da geçmişten günümüze
+                Alınca'nın hikâyesini, insanlarını,
+                fotoğraflarını ve haberlerini gelecek
+                nesillere aktarabilmektir.
             </p>
 
         </div>
 
     </div>
 
-</div>
-
-</div>
-
 </section>
 
 
-<!-- =========================
-     GALERİ
-========================= -->
-
-<section class="gallery" id="galeri">
-
-<div class="container">
-
-<div class="section-title">
-
-<h2>📸 Fotoğraf Galerisi</h2>
-
-<p>Alınca Köyü'nden güzel kareler</p>
-
-</div>
-
-<div class="gallery-grid" id="gallery-container">
-
-    <div class="gallery-item">
-        📸 Fotoğraflar yükleniyor...
-    </div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     KÖYÜMÜZ
-========================= -->
-
-<section class="about" id="koyumuz">
-
-<div class="container">
-
-<div class="section-title">
-
-<h2>🌿 Köyümüz</h2>
-
-<p>Alınca Köyü hakkında</p>
-
-</div>
-
-<div class="about-box">
-
-<h3>🏡 Alınca Köyü</h3>
-
-<p>
-Alınca Köyü, Giresun ilinin Merkez ilçesine bağlı
-Karadeniz'in doğal güzellikleri içerisinde yer alan
-köylerimizden biridir.
-</p>
-
-<p>
-Giresun şehir merkezine yaklaşık 6 kilometre uzaklıkta
-bulunan köyümüz, doğası, tarım alanları ve köy yaşamıyla
-kendine özgü bir yapıya sahiptir.
-</p>
-
-</div>
-
-
-<div class="info-grid">
-
-<div class="info-card">
-
-<div class="icon">📍</div>
-
-<h3>Konum</h3>
-
-<p>
-Giresun<br>
-Merkez / Alınca
-</p>
-
-</div>
-
-
-<div class="info-card">
-
-<div class="icon">👥</div>
-
-<h3>Nüfus</h3>
-
-<p>
-2021 verilerine göre<br>
-739 kişi
-</p>
-
-</div>
-
-
-<div class="info-card">
-
-<div class="icon">🌰</div>
-
-<h3>Geçim Kaynakları</h3>
-
-<p>
-Başta fındık olmak üzere
-tarım ve hayvancılık
-</p>
-
-</div>
-
-</div>
-
-
-<div class="about-box" style="margin-top:25px;">
-
-<h3>📜 Köyümüzün Tarihi</h3>
-
-<p>
-Alınca Köyü'nün geçmişi ve köyümüzün oluşumuyla ilgili
-bilgileri zaman içerisinde hemşehrilerimizden ve
-güvenilir kaynaklardan derleyerek burada paylaşacağız.
-</p>
-
-<p>
-Özellikle büyüklerimizin anlatacağı eski hikâyeler,
-köyümüzün geçmişine ait bilgiler ve eski fotoğraflar
-gelecek nesillere aktarılmak üzere bu bölümde
-arşivlenecektir.
-</p>
-
-</div>
-
-
-<div class="about-box" style="margin-top:25px;">
-
-<h3>🌳 Doğamız ve Köy Yaşamı</h3>
-
-<p>
-Karadeniz'in doğal yapısının hissedildiği köyümüzde
-fındık bahçeleri, yeşil alanlar ve doğal güzellikler
-köy yaşamının önemli parçalarıdır.
-</p>
-
-<p>
-Köyümüzdeki bayramlar, düğünler, imece kültürü,
-gelenekler ve günlük yaşamdan güzel anıları da
-zaman içerisinde bu portalda bir araya getireceğiz.
-</p>
-
-</div>
-
-
-<div class="about-box" style="margin-top:25px; text-align:center;">
-
-<h3>❤️ Bizim İçin Alınca</h3>
-
-<p>
-Alınca bizim için yalnızca bir yerleşim yeri değil;
-çocukluğumuzun, anılarımızın, dostluklarımızın ve
-aile büyüklerimizin izlerini taşıyan ortak bir değerdir.
-</p>
-
-<p>
-Bu portalın amacı da geçmişten günümüze Alınca'nın
-hikâyesini, insanlarını, fotoğraflarını ve haberlerini
-gelecek nesillere aktarabilmektir.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
+<!-- =====================================================
      MUHTARIMIZ
-========================= -->
+===================================================== -->
 
 <section class="mukhtar" id="muhtar">
 
-<div class="container">
+    <div class="container">
 
-<div class="section-title">
+        <div class="section-title">
 
-<h2>👤 Muhtarımız</h2>
+            <h2>
+                👤 Muhtarımız
+            </h2>
 
-<p>Alınca Köyü Muhtarlığı</p>
+            <p>
+                Alınca Köyü Muhtarlığı
+            </p>
 
-</div>
-
-<div class="mukhtar-card">
-
-<div class="mukhtar-icon">
-
-<img
-    src="https://eyqpegahskmqvwtojlxw.supabase.co/storage/v1/object/public/muhtar/huseyin-bayraktar.jpeg"
-    alt="Hüseyin Bayraktar - Terzi Hüseyin"
->
-
-</div>
-
-<h3>Hüseyin BAYRAKTAR</h3>
-
-<div class="mukhtar-nickname">
-“Terzi Hüseyin”
-</div>
-
-<div class="mukhtar-details">
-
-<div>
-
-<strong>📅 Görev Dönemi</strong>
-
-<p>
-2014 – Günümüz
-</p>
-
-</div>
-
-<div>
-
-<strong>📍 Görev Yeri</strong>
-
-<p>
-Alınca Köyü Muhtarlığı
-</p>
-
-</div>
-
-<div>
-
-<strong>📞 Telefon</strong>
-
-<p>
-<a href="tel:+905356902422">
-0535 690 24 22
-</a>
-</p>
-
-</div>
-
-</div>
+        </div>
 
 
-<div class="mukhtar-about">
+        <div class="mukhtar-card">
 
-<h4>Muhtarımız Hakkında</h4>
 
-<p>
-Hayatını Alınca Köyü, Giresun ve Giresunspor’a adayan,
-özü sözü bir insan olarak bilinen ve doğru bildiğini
-söylemekten asla çekinmeyen Hüseyin Bayraktar,
-yerelde ve basında “Terzi Hüseyin” olarak tanınmaktadır.
-</p>
+            <div class="mukhtar-icon">
 
-</div>
+                <img
+                    src="https://eyqpegahskmqvwtojlxw.supabase.co/storage/v1/object/public/muhtar/huseyin-bayraktar.jpeg"
+                    alt="Hüseyin Bayraktar - Terzi Hüseyin"
+                >
 
-<a href="tel:+905356902422" class="mukhtar-button">
-📞 Muhtarı Ara
-</a>
+            </div>
 
-</div>
 
-</div>
+            <h3>
+                Hüseyin BAYRAKTAR
+            </h3>
+
+
+            <div class="mukhtar-nickname">
+                “Terzi Hüseyin”
+            </div>
+
+
+            <div class="mukhtar-details">
+
+
+                <div>
+
+                    <strong>
+                        📅 Görev Dönemi
+                    </strong>
+
+                    <p>
+                        2014 – Günümüz
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        📍 Görev Yeri
+                    </strong>
+
+                    <p>
+                        Alınca Köyü Muhtarlığı
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        📞 Telefon
+                    </strong>
+
+                    <p>
+
+                        <a href="tel:+905356902422">
+                            0535 690 24 22
+                        </a>
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="mukhtar-about">
+
+                <h4>
+                    Muhtarımız Hakkında
+                </h4>
+
+                <p>
+                    Hayatını Alınca Köyü, Giresun ve
+                    Giresunspor’a adayan, özü sözü bir
+                    insan olarak bilinen ve doğru bildiğini
+                    söylemekten asla çekinmeyen Hüseyin
+                    Bayraktar, yerelde ve basında
+                    “Terzi Hüseyin” olarak tanınmaktadır.
+                </p>
+
+            </div>
+
+
+            <a
+                href="tel:+905356902422"
+                class="mukhtar-button"
+            >
+                📞 Muhtarı Ara
+            </a>
+
+
+        </div>
+
+    </div>
 
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      İLETİŞİM
-========================= -->
+===================================================== -->
 
 <section class="contact" id="iletisim">
 
-<div class="container">
+    <div class="container">
 
-<div class="contact-box">
+        <div class="contact-box">
 
-<h2>📩 Bizimle İletişime Geçin</h2>
+            <h2>
+                📩 Bizimle İletişime Geçin
+            </h2>
 
-<p>
-Köyümüzle ilgili haber, fotoğraf veya
-önerilerinizi bizimle paylaşabilirsiniz.
-</p>
+            <p>
+                Köyümüzle ilgili haber, fotoğraf veya
+                önerilerinizi bizimle paylaşabilirsiniz.
+            </p>
 
-<a href="mailto:alinca@ornek.com" class="contact-button">
-E-posta Gönder
-</a>
+            <a
+                href="mailto:alinca@ornek.com"
+                class="contact-button"
+            >
+                E-posta Gönder
+            </a>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      FOOTER
-========================= -->
+===================================================== -->
 
 <footer>
 
-<div class="footer-logo">
-Alınca Köyü Portalı
-</div>
+    <div class="footer-logo">
+        Alınca Köyü Portalı
+    </div>
 
-<p>
-Köyümüzün haber, duyuru, fotoğraf ve anı arşivi
-</p>
+    <p>
+        Köyümüzün haber, duyuru, fotoğraf ve anı arşivi
+    </p>
 
-<p>
-© 2026 Alınca Köyü Portalı
-</p>
+    <p>
+        © 2026 Alınca Köyü Portalı
+    </p>
 
 </footer>
 
 
 <script>
+
 
 /* =====================================================
    SUPABASE AYARLARI
@@ -1293,35 +1528,39 @@ const SUPABASE_KEY =
 ===================================================== */
 
 const gallery =
-    document.getElementById("gallery-container");
+    document.getElementById(
+        "gallery-container"
+    );
 
 
 async function loadGallery() {
 
     try {
 
-        const response = await fetch(
-            `${SUPABASE_URL}/storage/v1/object/list/galeri`,
-            {
-                method: "POST",
+        const response =
+            await fetch(
+                `${SUPABASE_URL}/storage/v1/object/list/galeri`,
+                {
+                    method: "POST",
 
-                headers: {
-                    "Content-Type": "application/json",
-                    "apikey": SUPABASE_KEY,
-                    "Authorization": `Bearer ${SUPABASE_KEY}`
-                },
+                    headers: {
+                        "Content-Type": "application/json",
+                        "apikey": SUPABASE_KEY,
+                        "Authorization":
+                            `Bearer ${SUPABASE_KEY}`
+                    },
 
-                body: JSON.stringify({
-                    prefix: "",
-                    limit: 100,
+                    body: JSON.stringify({
+                        prefix: "",
+                        limit: 100,
 
-                    sortBy: {
-                        column: "created_at",
-                        order: "desc"
-                    }
-                })
-            }
-        );
+                        sortBy: {
+                            column: "created_at",
+                            order: "desc"
+                        }
+                    })
+                }
+            );
 
 
         if (!response.ok) {
@@ -1330,7 +1569,8 @@ async function loadGallery() {
                 await response.text();
 
             throw new Error(
-                errorText || "Galerideki fotoğraflar alınamadı."
+                errorText ||
+                "Galerideki fotoğraflar alınamadı."
             );
 
         }
@@ -1340,41 +1580,45 @@ async function loadGallery() {
             await response.json();
 
 
-        gallery.innerHTML = "";
+        gallery.innerHTML =
+            "";
 
 
         const imageFiles =
-            files.filter(file => {
+            files.filter(
+                file => {
 
-                if (!file.name) {
-                    return false;
+                    if (!file.name) {
+                        return false;
+                    }
+
+                    const extension =
+                        file.name
+                            .split(".")
+                            .pop()
+                            .toLowerCase();
+
+                    return [
+                        "jpg",
+                        "jpeg",
+                        "png",
+                        "webp",
+                        "gif"
+                    ].includes(
+                        extension
+                    );
+
                 }
-
-                const extension =
-                    file.name
-                        .split(".")
-                        .pop()
-                        .toLowerCase();
-
-                return [
-                    "jpg",
-                    "jpeg",
-                    "png",
-                    "webp",
-                    "gif"
-                ].includes(extension);
-
-            });
+            );
 
 
         if (!imageFiles.length) {
 
-            gallery.innerHTML =
-                `
+            gallery.innerHTML = `
                 <div class="gallery-item">
                     Henüz fotoğraf yok 📸
                 </div>
-                `;
+            `;
 
             return;
         }
@@ -1388,20 +1632,21 @@ async function loadGallery() {
 
 
                 const item =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
 
                 item.className =
                     "gallery-item";
 
 
-                item.innerHTML =
-                    `
+                item.innerHTML = `
                     <img
                         src="${imageUrl}"
                         alt="Alınca Köyü"
                     >
-                    `;
+                `;
 
 
                 item.addEventListener(
@@ -1417,7 +1662,9 @@ async function loadGallery() {
                 );
 
 
-                gallery.appendChild(item);
+                gallery.appendChild(
+                    item
+                );
 
             }
         );
@@ -1431,12 +1678,11 @@ async function loadGallery() {
         );
 
 
-        gallery.innerHTML =
-            `
+        gallery.innerHTML = `
             <div class="gallery-item">
                 Galeride fotoğraflar yüklenemedi.
             </div>
-            `;
+        `;
 
     }
 
@@ -1457,7 +1703,9 @@ function openGalleryViewer(
 
 
     const viewer =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     viewer.style.position =
@@ -1494,8 +1742,7 @@ function openGalleryViewer(
         "20px";
 
 
-    viewer.innerHTML =
-        `
+    viewer.innerHTML = `
 
         <button
             id="closeGallery"
@@ -1573,7 +1820,7 @@ function openGalleryViewer(
             ›
         </button>
 
-        `;
+    `;
 
 
     document.body.appendChild(
@@ -1587,9 +1834,7 @@ function openGalleryViewer(
         );
 
 
-    function showPhoto(
-        index
-    ) {
+    function showPhoto(index) {
 
         if (index < 0) {
 
@@ -1735,8 +1980,7 @@ async function loadNews() {
 
         if (!news.length) {
 
-            newsContainer.innerHTML =
-                `
+            newsContainer.innerHTML = `
                 <div class="news-card">
 
                     <div class="news-image">
@@ -1757,10 +2001,9 @@ async function loadNews() {
                     </div>
 
                 </div>
-                `;
+            `;
 
             return;
-
         }
 
 
@@ -1776,8 +2019,6 @@ async function loadNews() {
                 newsCard.className =
                     "news-card";
 
-
-                /* TARİH */
 
                 let formattedDate =
                     "";
@@ -1804,8 +2045,6 @@ async function loadNews() {
                 }
 
 
-                /* FOTOĞRAF */
-
                 let imageContent =
                     "📰";
 
@@ -1823,8 +2062,7 @@ async function loadNews() {
                             : `${SUPABASE_URL}/storage/v1/object/public/haberler/${encodeURIComponent(item.resim)}`;
 
 
-                    imageContent =
-                        `
+                    imageContent = `
                         <img
                             src="${imageUrl}"
                             alt="${
@@ -1836,12 +2074,10 @@ async function loadNews() {
                                 this.parentElement.innerHTML='📰';
                             "
                         >
-                        `;
+                    `;
 
                 }
 
-
-                /* YENİ KONTROLÜ */
 
                 let isNew =
                     false;
@@ -1852,7 +2088,6 @@ async function loadNews() {
                     const today =
                         new Date();
 
-
                     const newsDate =
                         new Date(
                             item.tarih
@@ -1860,18 +2095,11 @@ async function loadNews() {
 
 
                     today.setHours(
-                        0,
-                        0,
-                        0,
-                        0
+                        0, 0, 0, 0
                     );
 
-
                     newsDate.setHours(
-                        0,
-                        0,
-                        0,
-                        0
+                        0, 0, 0, 0
                     );
 
 
@@ -1895,18 +2123,14 @@ async function loadNews() {
                         daysPassed <= 7
                     ) {
 
-                        isNew =
-                            true;
+                        isNew = true;
 
                     }
 
                 }
 
 
-                /* HABER KARTI */
-
-                newsCard.innerHTML =
-                    `
+                newsCard.innerHTML = `
 
                     <div class="news-image">
 
@@ -1917,7 +2141,6 @@ async function loadNews() {
 
                     <div class="news-content">
 
-
                         <div
                             style="
                                 display:flex;
@@ -1927,9 +2150,7 @@ async function loadNews() {
                             "
                         >
 
-                            <div
-                                class="card-icon"
-                            >
+                            <div class="card-icon">
                                 📰
                             </div>
 
@@ -1950,7 +2171,7 @@ async function loadNews() {
                                     >
                                         🆕 YENİ
                                     </span>
-                                  `
+                                `
                                 : ""
                             }
 
@@ -1963,7 +2184,7 @@ async function loadNews() {
                                 <div class="date">
                                     ${formattedDate}
                                 </div>
-                              `
+                            `
                             : ""
                         }
 
@@ -1980,7 +2201,7 @@ async function loadNews() {
 
                     </div>
 
-                    `;
+                `;
 
 
                 newsContainer.appendChild(
@@ -1999,8 +2220,7 @@ async function loadNews() {
         );
 
 
-        newsContainer.innerHTML =
-            `
+        newsContainer.innerHTML = `
             <div class="news-card">
 
                 <div class="news-image">
@@ -2030,7 +2250,7 @@ async function loadNews() {
                 </div>
 
             </div>
-            `;
+        `;
 
     }
 
@@ -2091,8 +2311,7 @@ async function loadAnnouncements() {
 
         if (!announcements.length) {
 
-            announcementsContainer.innerHTML =
-                `
+            announcementsContainer.innerHTML = `
                 <div class="card">
 
                     <div class="card-icon">
@@ -2109,10 +2328,9 @@ async function loadAnnouncements() {
                     </p>
 
                 </div>
-                `;
+            `;
 
             return;
-
         }
 
 
@@ -2136,8 +2354,6 @@ async function loadAnnouncements() {
                 let isNew =
                     false;
 
-
-                /* TARİH */
 
                 if (item.tarih) {
 
@@ -2163,18 +2379,11 @@ async function loadAnnouncements() {
 
 
                     today.setHours(
-                        0,
-                        0,
-                        0,
-                        0
+                        0, 0, 0, 0
                     );
 
-
                     announcementDate.setHours(
-                        0,
-                        0,
-                        0,
-                        0
+                        0, 0, 0, 0
                     );
 
 
@@ -2206,10 +2415,7 @@ async function loadAnnouncements() {
                 }
 
 
-                /* DUYURU KARTI */
-
-                card.innerHTML =
-                    `
+                card.innerHTML = `
 
                     <div
                         style="
@@ -2220,9 +2426,7 @@ async function loadAnnouncements() {
                         "
                     >
 
-                        <div
-                            class="card-icon"
-                        >
+                        <div class="card-icon">
                             📢
                         </div>
 
@@ -2243,7 +2447,7 @@ async function loadAnnouncements() {
                                 >
                                     🆕 YENİ
                                 </span>
-                              `
+                            `
                             : ""
                         }
 
@@ -2262,7 +2466,7 @@ async function loadAnnouncements() {
                             >
                                 ${formattedDate}
                             </small>
-                          `
+                        `
                         : ""
                     }
 
@@ -2276,7 +2480,7 @@ async function loadAnnouncements() {
                         ${item.icerik || ""}
                     </p>
 
-                    `;
+                `;
 
 
                 announcementsContainer.appendChild(
@@ -2295,8 +2499,7 @@ async function loadAnnouncements() {
         );
 
 
-        announcementsContainer.innerHTML =
-            `
+        announcementsContainer.innerHTML = `
 
             <div class="card">
 
@@ -2324,7 +2527,7 @@ async function loadAnnouncements() {
 
             </div>
 
-            `;
+        `;
 
     }
 
@@ -2332,42 +2535,45 @@ async function loadAnnouncements() {
 
 
 /* =====================================================
-   SAYFA AÇILINCA VERİLERİ YÜKLE
+   ETKİNLİKLER
 ===================================================== */
 
-loadGallery();
-
-loadNews();
-
-loadAnnouncements();
-   // =========================
-// ETKİNLİKLERİ SUPABASE'DEN ÇEK
-// =========================
-
 const eventsContainer =
-    document.getElementById("events-container");
+    document.getElementById(
+        "events-container"
+    );
+
 
 async function loadEvents() {
 
     try {
 
         if (!eventsContainer) {
-            console.error("events-container bulunamadı.");
+
+            console.error(
+                "events-container bulunamadı."
+            );
+
             return;
         }
 
-        const response = await fetch(
-            SUPABASE_URL +
-            "/rest/v1/etkinlikler?select=*&order=tarih.asc,saat.asc",
-            {
-                method: "GET",
 
-                headers: {
-                    "apikey": SUPABASE_KEY,
-                    "Authorization": "Bearer " + SUPABASE_KEY
+        const response =
+            await fetch(
+                `${SUPABASE_URL}/rest/v1/etkinlikler?select=*&order=tarih.asc,saat.asc`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Authorization":
+                            `Bearer ${SUPABASE_KEY}`
+                    }
                 }
-            }
-        );
+            );
+
 
         if (!response.ok) {
 
@@ -2378,16 +2584,22 @@ async function loadEvents() {
                 errorText ||
                 "Etkinlikler alınamadı."
             );
+
         }
+
 
         const events =
             await response.json();
 
-        eventsContainer.innerHTML = "";
+
+        eventsContainer.innerHTML =
+            "";
+
 
         if (!events.length) {
 
             eventsContainer.innerHTML = `
+
                 <div class="card">
 
                     <div class="card-icon">
@@ -2404,158 +2616,190 @@ async function loadEvents() {
                     </p>
 
                 </div>
+
             `;
 
             return;
         }
 
-        events.forEach(function(event) {
 
-            const eventCard =
-                document.createElement("div");
+        events.forEach(
+            function(event) {
 
-            eventCard.className =
-                "event-card";
-
-
-            // =========================
-            // TARİH
-            // =========================
-
-            let formattedDate = "";
-
-            if (event.tarih) {
-
-                const date =
-                    new Date(event.tarih);
-
-                formattedDate =
-                    date.toLocaleDateString(
-                        "tr-TR",
-                        {
-                            day: "numeric",
-                            month: "long",
-                            year: "numeric"
-                        }
+                const eventCard =
+                    document.createElement(
+                        "div"
                     );
-            }
 
 
-            // =========================
-            // YAKLAŞIYOR KONTROLÜ
-            // =========================
+                eventCard.className =
+                    "event-card";
 
-            let newBadge = "";
 
-            if (event.tarih) {
+                /* TARİH */
 
-                const today =
-                    new Date();
+                let formattedDate =
+                    "";
 
-                const eventDate =
-                    new Date(event.tarih);
 
-                today.setHours(0, 0, 0, 0);
-                eventDate.setHours(0, 0, 0, 0);
+                if (event.tarih) {
 
-                const difference =
-                    eventDate - today;
+                    const date =
+                        new Date(
+                            event.tarih
+                        );
 
-                const daysUntil =
-                    difference /
-                    (1000 * 60 * 60 * 24);
 
-                if (
-                    daysUntil >= 0 &&
-                    daysUntil <= 7
-                ) {
+                    formattedDate =
+                        date.toLocaleDateString(
+                            "tr-TR",
+                            {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric"
+                            }
+                        );
 
-                    newBadge = `
-                        <span class="event-new">
-                            🆕 YAKLAŞIYOR
-                        </span>
-                    `;
                 }
-            }
 
 
-            // =========================
-            // ETKİNLİK KARTI
-            // =========================
+                /* YAKLAŞIYOR */
 
-            eventCard.innerHTML = `
+                let newBadge =
+                    "";
 
-                <div class="event-top">
 
-                    <div>
+                if (event.tarih) {
 
-                        <div class="card-icon">
-                            🎉
+                    const today =
+                        new Date();
+
+                    const eventDate =
+                        new Date(
+                            event.tarih
+                        );
+
+
+                    today.setHours(
+                        0, 0, 0, 0
+                    );
+
+                    eventDate.setHours(
+                        0, 0, 0, 0
+                    );
+
+
+                    const difference =
+                        eventDate -
+                        today;
+
+
+                    const daysUntil =
+                        difference /
+                        (
+                            1000 *
+                            60 *
+                            60 *
+                            24
+                        );
+
+
+                    if (
+                        daysUntil >= 0 &&
+                        daysUntil <= 7
+                    ) {
+
+                        newBadge = `
+                            <span class="event-new">
+                                🆕 YAKLAŞIYOR
+                            </span>
+                        `;
+
+                    }
+
+                }
+
+
+                /* ETKİNLİK KARTI */
+
+                eventCard.innerHTML = `
+
+                    <div class="event-top">
+
+                        <div>
+
+                            <div class="card-icon">
+                                🎉
+                            </div>
+
+                            <h3>
+                                ${event.baslik || ""}
+                            </h3>
+
                         </div>
 
-                        <h3>
-                            ${event.baslik || ""}
-                        </h3>
+                        ${newBadge}
 
                     </div>
 
-                    ${newBadge}
 
-                </div>
+                    <div class="event-info">
+
+                        ${
+                            formattedDate
+                            ? `
+                                <span>
+                                    📅 ${formattedDate}
+                                </span>
+                            `
+                            : ""
+                        }
 
 
-                <div class="event-info">
+                        ${
+                            event.saat
+                            ? `
+                                <span>
+                                    🕐 ${event.saat}
+                                </span>
+                            `
+                            : ""
+                        }
+
+
+                        ${
+                            event.yer
+                            ? `
+                                <span>
+                                    📍 ${event.yer}
+                                </span>
+                            `
+                            : ""
+                        }
+
+                    </div>
+
 
                     ${
-                        formattedDate
+                        event.aciklama
                         ? `
-                            <span>
-                                📅 ${formattedDate}
-                            </span>
-                          `
+                            <p>
+                                ${event.aciklama}
+                            </p>
+                        `
                         : ""
                     }
 
-                    ${
-                        event.saat
-                        ? `
-                            <span>
-                                🕐 ${event.saat}
-                            </span>
-                          `
-                        : ""
-                    }
-
-                    ${
-                        event.yer
-                        ? `
-                            <span>
-                                📍 ${event.yer}
-                            </span>
-                          `
-                        : ""
-                    }
-
-                </div>
+                `;
 
 
-                ${
-                    event.aciklama
-                    ? `
-                        <p>
-                            ${event.aciklama}
-                        </p>
-                      `
-                    : ""
-                }
+                eventsContainer.appendChild(
+                    eventCard
+                );
 
-            `;
+            }
+        );
 
-            eventsContainer.appendChild(
-                eventCard
-            );
-
-        });
 
     } catch (error) {
 
@@ -2563,6 +2807,7 @@ async function loadEvents() {
             "Etkinlik hatası:",
             error
         );
+
 
         if (eventsContainer) {
 
@@ -2579,27 +2824,46 @@ async function loadEvents() {
                     </h3>
 
                     <p>
+                        Etkinlikler şu anda alınamıyor.
+                    </p>
+
+                    <p
+                        style="
+                            margin-top:10px;
+                            color:#a33;
+                            font-size:13px;
+                        "
+                    >
                         ${error.message}
                     </p>
 
                 </div>
 
             `;
+
         }
+
     }
+
 }
 
 
-// =========================
-// SAYFA AÇILINCA ÇALIŞTIR
-// =========================
+/* =====================================================
+   SAYFA AÇILINCA VERİLERİ YÜKLE
+===================================================== */
 
-loadEvents();
+loadGallery();
+
+loadNews();
+
+loadAnnouncements();
+
 loadEvents();
 
 
 </script>
 
+
 </body>
+
 </html>
-```
