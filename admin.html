@@ -313,6 +313,104 @@ class="publish-button"
 </form>
 
 <div id="news-list" style="margin-top:30px;"></div>
+    <hr style="
+    margin:40px 0;
+    border:none;
+    border-top:1px solid #d8e1dd;
+">
+
+<h2 style="
+    color:#176b52;
+    margin-bottom:20px;
+">
+    📢 Duyuru Yönetimi
+</h2>
+
+<form id="announcementForm">
+
+    <input
+        type="hidden"
+        id="editing-announcement-id"
+    >
+
+    <div class="form-group">
+
+        <label for="duyuru-baslik">
+            Duyuru Başlığı
+        </label>
+
+        <input
+            type="text"
+            id="duyuru-baslik"
+            placeholder="Duyuru başlığını yazın"
+            required
+        >
+
+    </div>
+
+    <div class="form-group">
+
+        <label for="duyuru-icerik">
+            Duyuru İçeriği
+        </label>
+
+        <textarea
+            id="duyuru-icerik"
+            placeholder="Duyuru içeriğini yazın"
+            required
+        ></textarea>
+
+    </div>
+
+    <div class="form-group">
+
+        <label for="duyuru-tarih">
+            Duyuru Tarihi
+        </label>
+
+        <input
+            type="date"
+            id="duyuru-tarih"
+            required
+        >
+
+    </div>
+
+    <button
+        type="submit"
+        id="announcement-submit"
+        class="publish-button"
+    >
+        📢 Duyuruyu Yayınla
+    </button>
+
+    <button
+        type="button"
+        id="cancel-announcement-edit"
+        class="logout-button"
+        style="display:none;"
+    >
+        Düzenlemeyi İptal Et
+    </button>
+
+    <div
+        id="announcement-status"
+        class="status">
+    </div>
+
+</form>
+
+<h3 style="
+    margin-top:35px;
+    margin-bottom:15px;
+    color:#176b52;
+">
+    📋 Yayındaki Duyurular
+</h3>
+
+<div id="admin-announcements">
+    Duyurular yükleniyor...
+</div>
 <button
 id="logout-button"
 class="logout-button"
@@ -339,6 +437,28 @@ const SUPABASE_URL =
 
 const SUPABASE_KEY =
 "sb_publishable_xhj_vA_46DIlOkgrbTTeqQ_hsstSUYG";
+    
+    /* =========================
+   DUYURU ELEMANLARI
+========================= */
+
+const announcementForm =
+document.getElementById("announcementForm");
+
+const announcementStatus =
+document.getElementById("announcement-status");
+
+const announcementSubmit =
+document.getElementById("announcement-submit");
+
+const adminAnnouncements =
+document.getElementById("admin-announcements");
+
+const editingAnnouncementId =
+document.getElementById("editing-announcement-id");
+
+const cancelAnnouncementEdit =
+document.getElementById("cancel-announcement-edit");
 
 
 const loginScreen =
@@ -1426,7 +1546,509 @@ newsForm.addEventListener(
         }
     );
 
+ /* =========================
+    DUYURU YÖNETİMİ
+ ========================= */
 
+async function loadAnnouncements() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${SUPABASE_URL}/rest/v1/duyurular?select=*&order=tarih.desc`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Authorization":
+                            `Bearer ${SUPABASE_KEY}`
+                    }
+                }
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Duyurular alınamadı."
+            );
+        }
+
+        const announcements =
+            await response.json();
+
+        adminAnnouncements.innerHTML = "";
+
+        if (!announcements.length) {
+
+            adminAnnouncements.innerHTML =
+                `
+                <div class="news-card">
+                    Henüz yayınlanmış duyuru yok.
+                </div>
+                `;
+
+            return;
+        }
+
+        announcements.forEach(
+            announcement => {
+
+                const item =
+                    document.createElement("div");
+
+                item.className =
+                    "news-card";
+
+                const date =
+                    announcement.tarih
+                        ? new Date(
+                            announcement.tarih
+                          ).toLocaleDateString(
+                            "tr-TR",
+                            {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric"
+                            }
+                          )
+                        : "";
+
+                item.innerHTML = `
+
+                    <div class="news-content">
+
+                        <div class="date">
+                            ${date}
+                        </div>
+
+                        <h3>
+                            ${announcement.baslik}
+                        </h3>
+
+                        <p>
+                            ${announcement.icerik}
+                        </p>
+
+                        <button
+                            class="publish-button"
+                            style="margin-top:15px;"
+                            onclick="editAnnouncement(${announcement.id})"
+                        >
+                            ✏️ Düzenle
+                        </button>
+
+                        <button
+                            class="logout-button"
+                            onclick="deleteAnnouncement(${announcement.id})"
+                        >
+                            🗑️ Sil
+                        </button>
+
+                    </div>
+                `;
+
+                adminAnnouncements.appendChild(
+                    item
+                );
+
+            }
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        adminAnnouncements.innerHTML =
+            `
+            <div class="news-card">
+                Duyurular yüklenemedi.
+            </div>
+            `;
+    }
+}
+
+
+/* =========================
+   DUYURU EKLE / GÜNCELLE
+========================= */
+
+announcementForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        const accessToken =
+            getToken();
+
+        if (!accessToken) {
+
+            announcementStatus.className =
+                "status error";
+
+            announcementStatus.textContent =
+                "❌ Oturum bulunamadı.";
+
+            showLoginScreen();
+
+            return;
+        }
+
+        const baslik =
+            document
+                .getElementById("duyuru-baslik")
+                .value
+                .trim();
+
+        const icerik =
+            document
+                .getElementById("duyuru-icerik")
+                .value
+                .trim();
+
+        const tarih =
+            document
+                .getElementById("duyuru-tarih")
+                .value;
+
+        const editingId =
+            editingAnnouncementId.value;
+
+        announcementStatus.className =
+            "status";
+
+        announcementStatus.textContent =
+            editingId
+                ? "Duyuru güncelleniyor..."
+                : "Duyuru yayınlanıyor...";
+
+        try {
+
+            let response;
+
+            if (editingId) {
+
+                response =
+                    await fetch(
+                        `${SUPABASE_URL}/rest/v1/duyurular?id=eq.${editingId}`,
+                        {
+                            method: "PATCH",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json",
+
+                                "apikey":
+                                    SUPABASE_KEY,
+
+                                "Authorization":
+                                    `Bearer ${accessToken}`,
+
+                                "Prefer":
+                                    "return=minimal"
+                            },
+
+                            body: JSON.stringify({
+
+                                baslik:
+                                    baslik,
+
+                                icerik:
+                                    icerik,
+
+                                tarih:
+                                    tarih
+
+                            })
+                        }
+                    );
+
+            } else {
+
+                response =
+                    await fetch(
+                        `${SUPABASE_URL}/rest/v1/duyurular`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json",
+
+                                "apikey":
+                                    SUPABASE_KEY,
+
+                                "Authorization":
+                                    `Bearer ${accessToken}`,
+
+                                "Prefer":
+                                    "return=minimal"
+                            },
+
+                            body: JSON.stringify({
+
+                                baslik:
+                                    baslik,
+
+                                icerik:
+                                    icerik,
+
+                                tarih:
+                                    tarih
+
+                            })
+                        }
+                    );
+            }
+
+            if (!response.ok) {
+
+                const errorText =
+                    await response.text();
+
+                throw new Error(
+                    errorText
+                );
+            }
+
+            announcementStatus.className =
+                "status success";
+
+            announcementStatus.textContent =
+                editingId
+                    ? "✅ Duyuru başarıyla güncellendi!"
+                    : "✅ Duyuru başarıyla yayınlandı!";
+
+            announcementForm.reset();
+
+            editingAnnouncementId.value =
+                "";
+
+            announcementSubmit.textContent =
+                "📢 Duyuruyu Yayınla";
+
+            cancelAnnouncementEdit.style.display =
+                "none";
+
+            loadAnnouncements();
+
+        } catch (error) {
+
+            console.error(error);
+
+            announcementStatus.className =
+                "status error";
+
+            announcementStatus.textContent =
+                "❌ İşlem başarısız: " +
+                error.message;
+        }
+
+    }
+);
+
+
+/* =========================
+   DUYURU DÜZENLE
+========================= */
+
+async function editAnnouncement(id) {
+
+    try {
+
+        const accessToken =
+            getToken();
+
+        const response =
+            await fetch(
+                `${SUPABASE_URL}/rest/v1/duyurular?id=eq.${id}&select=*`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Authorization":
+                            `Bearer ${accessToken}`
+                    }
+                }
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Duyuru alınamadı."
+            );
+        }
+
+        const data =
+            await response.json();
+
+        if (!data.length) {
+
+            throw new Error(
+                "Duyuru bulunamadı."
+            );
+        }
+
+        const announcement =
+            data[0];
+
+        document
+            .getElementById("duyuru-baslik")
+            .value =
+                announcement.baslik || "";
+
+        document
+            .getElementById("duyuru-icerik")
+            .value =
+                announcement.icerik || "";
+
+        document
+            .getElementById("duyuru-tarih")
+            .value =
+                announcement.tarih || "";
+
+        editingAnnouncementId.value =
+            announcement.id;
+
+        announcementSubmit.textContent =
+            "💾 Değişiklikleri Kaydet";
+
+        cancelAnnouncementEdit.style.display =
+            "inline-block";
+
+        announcementForm.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "❌ Duyuru düzenlenemedi:\n" +
+            error.message
+        );
+
+    }
+}
+
+
+/* =========================
+   DUYURU SİL
+========================= */
+
+async function deleteAnnouncement(id) {
+
+    const accessToken =
+        getToken();
+
+    if (!accessToken) {
+
+        alert(
+            "Oturum bulunamadı."
+        );
+
+        return;
+    }
+
+    if (
+        !confirm(
+            "Bu duyuruyu silmek istediğinize emin misiniz?"
+        )
+    ) {
+
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch(
+                `${SUPABASE_URL}/rest/v1/duyurular?id=eq.${id}`,
+                {
+                    method: "DELETE",
+
+                    headers: {
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Authorization":
+                            `Bearer ${accessToken}`
+                    }
+                }
+            );
+
+        if (!response.ok) {
+
+            const errorText =
+                await response.text();
+
+            throw new Error(
+                errorText
+            );
+        }
+
+        alert(
+            "✅ Duyuru silindi."
+        );
+
+        loadAnnouncements();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "❌ Duyuru silinemedi:\n" +
+            error.message
+        );
+
+    }
+}
+
+
+/* =========================
+   DÜZENLEMEYİ İPTAL ET
+========================= */
+
+cancelAnnouncementEdit.addEventListener(
+    "click",
+    function() {
+
+        announcementForm.reset();
+
+        editingAnnouncementId.value =
+            "";
+
+        announcementSubmit.textContent =
+            "📢 Duyuruyu Yayınla";
+
+        cancelAnnouncementEdit.style.display =
+            "none";
+
+        announcementStatus.className =
+            "status";
+
+        announcementStatus.textContent =
+            "";
+
+    }
+);
+
+
+/* =========================
+   DUYURULARI BAŞLAT
+========================= */
+
+loadAnnouncements();
+    
 /* ÇIKIŞ */
 
 logoutButton.addEventListener(
