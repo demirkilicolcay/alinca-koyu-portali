@@ -206,6 +206,41 @@ section {
 .card p {
     color: #667;
 }
+<!-- =========================
+     ETKİNLİKLER
+========================= -->
+
+<section class="events" id="etkinlikler">
+
+```
+<div class="container">
+
+    <div class="section-title">
+
+        <h2>🎉 Etkinlikler</h2>
+
+        <p>Alınca Köyü'nde yaklaşan etkinlikler</p>
+
+    </div>
+
+    <div id="events-container">
+
+        <div class="card">
+
+            <div class="card-icon">🎉</div>
+
+            <h3>Etkinlikler yükleniyor...</h3>
+
+            <p>Lütfen bekleyin.</p>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
 
 /* =========================
    HABERLER
@@ -605,6 +640,85 @@ footer p {
         padding: 25px;
     }
 }
+/* =========================
+ETKİNLİKLER
+========================= */
+
+.events {
+background: #eef5f2;
+}
+
+#events-container {
+max-width: 900px;
+margin: 30px auto 0;
+}
+
+.event-card {
+background: white;
+border-radius: 16px;
+padding: 25px;
+margin-bottom: 18px;
+box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+border: 1px solid #e1e9e5;
+}
+
+.event-top {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+gap: 15px;
+margin-bottom: 12px;
+}
+
+.event-card h3 {
+color: #176b52;
+font-size: 22px;
+margin-bottom: 8px;
+}
+
+.event-info {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+margin: 15px 0;
+}
+
+.event-info span {
+background: #f1f6f3;
+color: #176b52;
+padding: 7px 12px;
+border-radius: 20px;
+font-size: 14px;
+font-weight: bold;
+}
+
+.event-card p {
+color: #59636a;
+}
+
+.event-new {
+background: #176b52;
+color: white;
+padding: 6px 12px;
+border-radius: 20px;
+font-size: 12px;
+font-weight: bold;
+white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+
+```
+.event-card {
+    padding: 20px;
+}
+
+.event-top {
+    flex-direction: column;
+}
+```
+
+}
 
 </style>
 </head>
@@ -627,6 +741,7 @@ footer p {
 <nav>
     <a href="#anasayfa">Ana Sayfa</a>
     <a href="#duyurular">Duyurular</a>
+    <a href="#etkinlikler">Etkinlikler</a>
     <a href="#haberler">Haberler</a>
     <a href="#galeri">Galeri</a>
     <a href="#koyumuz">Köyümüz</a>
@@ -2125,6 +2240,241 @@ loadGallery();
 loadNews();
 
 loadAnnouncements();
+    // =========================
+// ETKİNLİKLERİ SUPABASE'DEN ÇEK
+// =========================
+
+const eventsContainer =
+document.getElementById("events-container");
+
+async function loadEvents() {
+
+```
+try {
+
+    const response = await fetch(
+        `${SUPABASE_URL}/rest/v1/etkinlikler?select=*&order=tarih.asc,saat.asc`,
+        {
+            method: "GET",
+
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`
+            }
+        }
+    );
+
+    if (!response.ok) {
+
+        const errorText =
+            await response.text();
+
+        throw new Error(errorText);
+    }
+
+    const events =
+        await response.json();
+
+    eventsContainer.innerHTML = "";
+
+    if (!events.length) {
+
+        eventsContainer.innerHTML = `
+            <div class="card">
+
+                <div class="card-icon">
+                    🎉
+                </div>
+
+                <h3>
+                    Henüz etkinlik yok
+                </h3>
+
+                <p>
+                    Köyümüzde yapılacak etkinlikler
+                    burada yayınlanacak.
+                </p>
+
+            </div>
+        `;
+
+        return;
+    }
+
+    events.forEach(event => {
+
+        const eventCard =
+            document.createElement("div");
+
+        eventCard.className =
+            "event-card";
+
+        let formattedDate = "";
+
+        if (event.tarih) {
+
+            const date =
+                new Date(event.tarih);
+
+            formattedDate =
+                date.toLocaleDateString(
+                    "tr-TR",
+                    {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    }
+                );
+        }
+
+        // =========================
+        // YENİ KONTROLÜ
+        // =========================
+
+        let isNew = false;
+
+        if (event.tarih) {
+
+            const today =
+                new Date();
+
+            const eventDate =
+                new Date(event.tarih);
+
+            today.setHours(0, 0, 0, 0);
+            eventDate.setHours(0, 0, 0, 0);
+
+            const difference =
+                eventDate - today;
+
+            const daysUntil =
+                difference /
+                (1000 * 60 * 60 * 24);
+
+            if (
+                daysUntil >= 0 &&
+                daysUntil <= 7
+            ) {
+
+                isNew = true;
+
+            }
+        }
+
+        eventCard.innerHTML = `
+
+            <div class="event-top">
+
+                <div>
+
+                    <div class="card-icon">
+                        🎉
+                    </div>
+
+                    <h3>
+                        ${event.baslik || ""}
+                    </h3>
+
+                </div>
+
+                ${
+                    isNew
+                    ? `
+                        <span class="event-new">
+                            🆕 YAKLAŞIYOR
+                        </span>
+                      `
+                    : ""
+                }
+
+            </div>
+
+            <div class="event-info">
+
+                ${
+                    formattedDate
+                    ? `
+                        <span>
+                            📅 ${formattedDate}
+                        </span>
+                      `
+                    : ""
+                }
+
+                ${
+                    event.saat
+                    ? `
+                        <span>
+                            🕐 ${event.saat}
+                        </span>
+                      `
+                    : ""
+                }
+
+                ${
+                    event.yer
+                    ? `
+                        <span>
+                            📍 ${event.yer}
+                        </span>
+                      `
+                    : ""
+                }
+
+            </div>
+
+            ${
+                event.aciklama
+                ? `
+                    <p>
+                        ${event.aciklama}
+                    </p>
+                  `
+                : ""
+            }
+
+        `;
+
+        eventsContainer.appendChild(
+            eventCard
+        );
+
+    });
+
+} catch (error) {
+
+    console.error(
+        "Etkinlik hatası:",
+        error
+    );
+
+    eventsContainer.innerHTML = `
+
+        <div class="card">
+
+            <div class="card-icon">
+                ⚠️
+            </div>
+
+            <h3>
+                Etkinlikler yüklenemedi
+            </h3>
+
+            <p>
+                Etkinlikler şu anda alınamıyor.
+            </p>
+
+        </div>
+
+    `;
+
+}
+```
+
+}
+
+loadEvents();
+
 
 </script>
 
