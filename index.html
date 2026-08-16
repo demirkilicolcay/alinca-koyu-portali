@@ -1424,29 +1424,84 @@ news.forEach(item => {
     `;
 }
 
-    newsCard.innerHTML = `
+let isNew = false;
 
-        <div class="news-image">
-            ${imageContent}
+if (item.tarih) {
+
+    const announcementDate =
+        new Date(item.tarih);
+
+    const today =
+        new Date();
+
+    const difference =
+        today - announcementDate;
+
+    const daysPassed =
+        difference / (1000 * 60 * 60 * 24);
+
+    if (daysPassed <= 7) {
+        isNew = true;
+    }
+
+}
+
+card.innerHTML = `
+
+    <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-start;
+        gap:15px;
+    ">
+
+        <div class="card-icon">
+            📢
         </div>
 
-        <div class="news-content">
+        ${
+            isNew
+            ? `
+                <span style="
+                    background:#176b52;
+                    color:white;
+                    padding:6px 12px;
+                    border-radius:20px;
+                    font-size:12px;
+                    font-weight:bold;
+                    white-space:nowrap;
+                ">
+                    🆕 YENİ
+                </span>
+              `
+            : ""
+        }
 
-            <div class="date">
+    </div>
+
+    ${
+        formattedDate
+        ? `
+            <small style="
+                display:block;
+                margin-bottom:8px;
+                color:#777;
+            ">
                 ${formattedDate}
-            </div>
+            </small>
+          `
+        : ""
+    }
 
-            <h3>
-                ${item.baslik || ""}
-            </h3>
+    <h3>
+        ${item.baslik || ""}
+    </h3>
 
-            <p>
-                ${item.icerik || ""}
-            </p>
+    <p>
+        ${item.icerik || ""}
+    </p>
 
-        </div>
-
-    `;
+`;
 
     newsContainer.appendChild(newsCard);
 
