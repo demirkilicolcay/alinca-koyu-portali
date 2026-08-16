@@ -285,7 +285,7 @@ class="publish-button"
 
 </form>
 
-
+<div id="news-list" style="margin-top:30px;"></div>
 <button
 id="logout-button"
 class="logout-button"
@@ -334,8 +334,232 @@ document.getElementById("newsForm");
 
 const statusBox =
 document.getElementById("status");
+    
+const newsList =
+    document.getElementById("news-list");
 
+    async function loadAdminNews() {
 
+    const accessToken = getToken();
+
+    if (!accessToken) {
+        return;
+    }
+
+    newsList.innerHTML = `
+        <p style="color:#176b52;font-weight:bold;">
+            Haberler yükleniyor...
+        </p>
+    `;
+
+    try {
+
+        const response = await fetch(
+            `${SUPABASE_URL}/rest/v1/haberler?select=*&order=tarih.desc`,
+            {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${accessToken}`
+                }
+            }
+        );
+
+        if (!response.ok) {
+
+            const errorText =
+                await response.text();
+
+            throw new Error(errorText);
+        }
+
+        const news =
+            await response.json();
+
+        newsList.innerHTML = `
+            <h2 style="
+                color:#176b52;
+                margin-bottom:20px;
+            ">
+                📰 Yayındaki Haberler
+            </h2>
+        `;
+
+        if (!news.length) {
+
+            newsList.innerHTML += `
+                <p>
+                    Henüz yayınlanmış haber yok.
+                </p>
+            `;
+
+            return;
+        }
+
+        news.forEach(item => {
+
+            const card =
+                document.createElement("div");
+
+            card.style.cssText = `
+                background:#f8faf9;
+                border:1px solid #d8e1dd;
+                border-radius:12px;
+                padding:18px;
+                margin-bottom:15px;
+            `;
+
+            const date =
+                item.tarih
+                    ? new Date(item.tarih)
+                        .toLocaleDateString("tr-TR")
+                    : "";
+
+            card.innerHTML = `
+
+                <h3 style="
+                    color:#176b52;
+                    margin-bottom:8px;
+                ">
+                    ${item.baslik || ""}
+                </h3>
+
+                <p style="
+                    color:#666;
+                    margin-bottom:12px;
+                ">
+                    📅 ${date}
+                </p>
+
+                <p style="
+                    margin-bottom:15px;
+                ">
+                    ${item.icerik || ""}
+                </p>
+
+                <button
+                    class="delete-news-button"
+                    data-id="${item.id}"
+                    style="
+                        border:none;
+                        background:#b33;
+                        color:white;
+                        padding:9px 15px;
+                        border-radius:8px;
+                        cursor:pointer;
+                        font-weight:bold;
+                    "
+                >
+                    🗑️ Haberi Sil
+                </button>
+
+            `;
+
+            newsList.appendChild(card);
+
+        });
+
+        document
+            .querySelectorAll(".delete-news-button")
+            .forEach(button => {
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        const id =
+                            this.dataset.id;
+
+                        deleteNews(id);
+
+                    }
+                );
+
+            });
+
+    } catch (error) {
+
+        console.error(error);
+
+        newsList.innerHTML = `
+            <p style="color:#a33;">
+                ❌ Haberler yüklenemedi:
+                ${error.message}
+            </p>
+        `;
+
+    }
+
+}
+
+    async function deleteNews(id) {
+
+    const confirmed =
+        confirm(
+            "Bu haberi silmek istediğinize emin misiniz?"
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    const accessToken =
+        getToken();
+
+    if (!accessToken) {
+
+        alert(
+            "Oturumunuz sona ermiş. Lütfen tekrar giriş yapın."
+        );
+
+        showLoginScreen();
+
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch(
+                `${SUPABASE_URL}/rest/v1/haberler?id=eq.${id}`,
+                {
+                    method: "DELETE",
+
+                    headers: {
+                        "apikey": SUPABASE_KEY,
+                        "Authorization":
+                            `Bearer ${accessToken}`
+                    }
+                }
+            );
+
+        if (!response.ok) {
+
+            const errorText =
+                await response.text();
+
+            throw new Error(errorText);
+
+        }
+
+        alert(
+            "✅ Haber başarıyla silindi."
+        );
+
+        loadAdminNews();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "❌ Haber silinemedi:\n" +
+            error.message
+        );
+
+    }
+
+}
 function getToken() {
 
 return localStorage.getItem(
@@ -351,6 +575,7 @@ loginScreen.style.display = "none";
 
 adminContainer.style.display = "block";
 
+    loadAdminNews();
 }
 
 
