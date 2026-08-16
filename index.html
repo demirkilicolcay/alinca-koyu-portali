@@ -297,7 +297,47 @@ section {
     font-size: 13px;
     margin-bottom: 8px;
 }
+<!-- =========================
+     ETKİNLİKLER
+========================= -->
 
+<section class="events" id="etkinlikler">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>🎉 Etkinlikler</h2>
+
+            <p>
+                Alınca Köyü'nde yaklaşan etkinlikler
+            </p>
+
+        </div>
+
+        <div id="events-container">
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🎉
+                </div>
+
+                <h3>
+                    Etkinlikler yükleniyor...
+                </h3>
+
+                <p>
+                    Lütfen bekleyin.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 /* =========================
    GALERİ
 ========================= */
@@ -719,7 +759,67 @@ white-space: nowrap;
 ```
 
 }
+/* =========================
+   ETKİNLİKLER
+========================= */
 
+.events {
+    background: #eef5f2;
+}
+
+#events-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: min(900px, calc(100vw - 40px));
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.event-card {
+    background: white;
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    border: 1px solid #e7ece9;
+}
+
+.event-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.event-card h3 {
+    color: #176b52;
+    margin-bottom: 12px;
+    font-size: 22px;
+}
+
+.event-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 10px 0 15px;
+    color: #555;
+    font-size: 14px;
+}
+
+.event-card p {
+    color: #59636a;
+    margin-top: 10px;
+}
+
+.event-new {
+    background: #176b52;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
 </style>
 </head>
 
