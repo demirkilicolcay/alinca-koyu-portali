@@ -2240,239 +2240,261 @@ loadGallery();
 loadNews();
 
 loadAnnouncements();
-    // =========================
+   // =========================
 // ETKİNLİKLERİ SUPABASE'DEN ÇEK
 // =========================
 
 const eventsContainer =
-document.getElementById("events-container");
+    document.getElementById("events-container");
 
 async function loadEvents() {
 
-```
-try {
+    try {
 
-    const response = await fetch(
-        `${SUPABASE_URL}/rest/v1/etkinlikler?select=*&order=tarih.asc,saat.asc`,
-        {
-            method: "GET",
+        if (!eventsContainer) {
+            console.error("events-container bulunamadı.");
+            return;
+        }
 
-            headers: {
-                "apikey": SUPABASE_KEY,
-                "Authorization": `Bearer ${SUPABASE_KEY}`
+        const response = await fetch(
+            SUPABASE_URL +
+            "/rest/v1/etkinlikler?select=*&order=tarih.asc,saat.asc",
+            {
+                method: "GET",
+
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": "Bearer " + SUPABASE_KEY
+                }
             }
-        }
-    );
+        );
 
-    if (!response.ok) {
+        if (!response.ok) {
 
-        const errorText =
-            await response.text();
+            const errorText =
+                await response.text();
 
-        throw new Error(errorText);
-    }
-
-    const events =
-        await response.json();
-
-    eventsContainer.innerHTML = "";
-
-    if (!events.length) {
-
-        eventsContainer.innerHTML = `
-            <div class="card">
-
-                <div class="card-icon">
-                    🎉
-                </div>
-
-                <h3>
-                    Henüz etkinlik yok
-                </h3>
-
-                <p>
-                    Köyümüzde yapılacak etkinlikler
-                    burada yayınlanacak.
-                </p>
-
-            </div>
-        `;
-
-        return;
-    }
-
-    events.forEach(event => {
-
-        const eventCard =
-            document.createElement("div");
-
-        eventCard.className =
-            "event-card";
-
-        let formattedDate = "";
-
-        if (event.tarih) {
-
-            const date =
-                new Date(event.tarih);
-
-            formattedDate =
-                date.toLocaleDateString(
-                    "tr-TR",
-                    {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric"
-                    }
-                );
+            throw new Error(
+                errorText ||
+                "Etkinlikler alınamadı."
+            );
         }
 
-        // =========================
-        // YENİ KONTROLÜ
-        // =========================
+        const events =
+            await response.json();
 
-        let isNew = false;
+        eventsContainer.innerHTML = "";
 
-        if (event.tarih) {
+        if (!events.length) {
 
-            const today =
-                new Date();
-
-            const eventDate =
-                new Date(event.tarih);
-
-            today.setHours(0, 0, 0, 0);
-            eventDate.setHours(0, 0, 0, 0);
-
-            const difference =
-                eventDate - today;
-
-            const daysUntil =
-                difference /
-                (1000 * 60 * 60 * 24);
-
-            if (
-                daysUntil >= 0 &&
-                daysUntil <= 7
-            ) {
-
-                isNew = true;
-
-            }
-        }
-
-        eventCard.innerHTML = `
-
-            <div class="event-top">
-
-                <div>
+            eventsContainer.innerHTML = `
+                <div class="card">
 
                     <div class="card-icon">
                         🎉
                     </div>
 
                     <h3>
-                        ${event.baslik || ""}
+                        Henüz etkinlik yok
                     </h3>
 
-                </div>
+                    <p>
+                        Köyümüzde yapılacak etkinlikler
+                        burada yayınlanacak.
+                    </p>
 
-                ${
-                    isNew
-                    ? `
+                </div>
+            `;
+
+            return;
+        }
+
+        events.forEach(function(event) {
+
+            const eventCard =
+                document.createElement("div");
+
+            eventCard.className =
+                "event-card";
+
+
+            // =========================
+            // TARİH
+            // =========================
+
+            let formattedDate = "";
+
+            if (event.tarih) {
+
+                const date =
+                    new Date(event.tarih);
+
+                formattedDate =
+                    date.toLocaleDateString(
+                        "tr-TR",
+                        {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric"
+                        }
+                    );
+            }
+
+
+            // =========================
+            // YAKLAŞIYOR KONTROLÜ
+            // =========================
+
+            let newBadge = "";
+
+            if (event.tarih) {
+
+                const today =
+                    new Date();
+
+                const eventDate =
+                    new Date(event.tarih);
+
+                today.setHours(0, 0, 0, 0);
+                eventDate.setHours(0, 0, 0, 0);
+
+                const difference =
+                    eventDate - today;
+
+                const daysUntil =
+                    difference /
+                    (1000 * 60 * 60 * 24);
+
+                if (
+                    daysUntil >= 0 &&
+                    daysUntil <= 7
+                ) {
+
+                    newBadge = `
                         <span class="event-new">
                             🆕 YAKLAŞIYOR
                         </span>
-                      `
-                    : ""
+                    `;
                 }
-
-            </div>
-
-            <div class="event-info">
-
-                ${
-                    formattedDate
-                    ? `
-                        <span>
-                            📅 ${formattedDate}
-                        </span>
-                      `
-                    : ""
-                }
-
-                ${
-                    event.saat
-                    ? `
-                        <span>
-                            🕐 ${event.saat}
-                        </span>
-                      `
-                    : ""
-                }
-
-                ${
-                    event.yer
-                    ? `
-                        <span>
-                            📍 ${event.yer}
-                        </span>
-                      `
-                    : ""
-                }
-
-            </div>
-
-            ${
-                event.aciklama
-                ? `
-                    <p>
-                        ${event.aciklama}
-                    </p>
-                  `
-                : ""
             }
 
-        `;
 
-        eventsContainer.appendChild(
-            eventCard
+            // =========================
+            // ETKİNLİK KARTI
+            // =========================
+
+            eventCard.innerHTML = `
+
+                <div class="event-top">
+
+                    <div>
+
+                        <div class="card-icon">
+                            🎉
+                        </div>
+
+                        <h3>
+                            ${event.baslik || ""}
+                        </h3>
+
+                    </div>
+
+                    ${newBadge}
+
+                </div>
+
+
+                <div class="event-info">
+
+                    ${
+                        formattedDate
+                        ? `
+                            <span>
+                                📅 ${formattedDate}
+                            </span>
+                          `
+                        : ""
+                    }
+
+                    ${
+                        event.saat
+                        ? `
+                            <span>
+                                🕐 ${event.saat}
+                            </span>
+                          `
+                        : ""
+                    }
+
+                    ${
+                        event.yer
+                        ? `
+                            <span>
+                                📍 ${event.yer}
+                            </span>
+                          `
+                        : ""
+                    }
+
+                </div>
+
+
+                ${
+                    event.aciklama
+                    ? `
+                        <p>
+                            ${event.aciklama}
+                        </p>
+                      `
+                    : ""
+                }
+
+            `;
+
+            eventsContainer.appendChild(
+                eventCard
+            );
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Etkinlik hatası:",
+            error
         );
 
-    });
+        if (eventsContainer) {
 
-} catch (error) {
+            eventsContainer.innerHTML = `
 
-    console.error(
-        "Etkinlik hatası:",
-        error
-    );
+                <div class="card">
 
-    eventsContainer.innerHTML = `
+                    <div class="card-icon">
+                        ⚠️
+                    </div>
 
-        <div class="card">
+                    <h3>
+                        Etkinlikler yüklenemedi
+                    </h3>
 
-            <div class="card-icon">
-                ⚠️
-            </div>
+                    <p>
+                        ${error.message}
+                    </p>
 
-            <h3>
-                Etkinlikler yüklenemedi
-            </h3>
+                </div>
 
-            <p>
-                Etkinlikler şu anda alınamıyor.
-            </p>
-
-        </div>
-
-    `;
-
-}
-```
-
+            `;
+        }
+    }
 }
 
+
+// =========================
+// SAYFA AÇILINCA ÇALIŞTIR
+// =========================
+
+loadEvents();
 loadEvents();
 
 
