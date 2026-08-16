@@ -1598,14 +1598,20 @@ async function loadAnnouncements() {
             card.className = "card";
 
             let formattedDate = "";
+            let isNew = false;
+
+
+            /* =========================
+               TARİH
+            ========================= */
 
             if (item.tarih) {
 
-                const date =
+                const announcementDate =
                     new Date(item.tarih);
 
                 formattedDate =
-                    date.toLocaleDateString(
+                    announcementDate.toLocaleDateString(
                         "tr-TR",
                         {
                             day: "numeric",
@@ -1614,29 +1620,100 @@ async function loadAnnouncements() {
                         }
                     );
 
+
+                /* =========================
+                   YENİ KONTROLÜ
+                ========================= */
+
+                const today = new Date();
+
+                today.setHours(0, 0, 0, 0);
+
+                announcementDate.setHours(
+                    0,
+                    0,
+                    0,
+                    0
+                );
+
+                const difference =
+                    today - announcementDate;
+
+                const daysPassed =
+                    difference /
+                    (1000 * 60 * 60 * 24);
+
+
+                if (
+                    daysPassed >= 0 &&
+                    daysPassed <= 7
+                ) {
+
+                    isNew = true;
+
+                }
+
             }
+
+
+            /* =========================
+               DUYURU KARTI
+            ========================= */
 
             card.innerHTML = `
 
-                <div class="card-icon">
-                    📢
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:flex-start;
+                    gap:15px;
+                ">
+
+                    <div class="card-icon">
+                        📢
+                    </div>
+
+
+                    ${
+                        isNew
+                        ? `
+                            <span style="
+                                background:#176b52;
+                                color:white;
+                                padding:6px 12px;
+                                border-radius:20px;
+                                font-size:12px;
+                                font-weight:bold;
+                                white-space:nowrap;
+                            ">
+                                🆕 YENİ
+                            </span>
+                          `
+                        : ""
+                    }
+
                 </div>
+
 
                 ${
                     formattedDate
-                    ? `<small style="
+                    ? `
+                        <small style="
                             display:block;
                             margin-bottom:8px;
-                            opacity:0.7;
+                            color:#777;
                         ">
                             ${formattedDate}
-                       </small>`
+                        </small>
+                      `
                     : ""
                 }
+
 
                 <h3>
                     ${item.baslik || ""}
                 </h3>
+
 
                 <p>
                     ${item.icerik || ""}
@@ -1644,9 +1721,13 @@ async function loadAnnouncements() {
 
             `;
 
-            announcementsContainer.appendChild(card);
+
+            announcementsContainer.appendChild(
+                card
+            );
 
         });
+
 
     } catch (error) {
 
@@ -1655,7 +1736,9 @@ async function loadAnnouncements() {
             error
         );
 
+
         announcementsContainer.innerHTML = `
+
             <div class="card">
 
                 <div class="card-icon">
@@ -1671,6 +1754,7 @@ async function loadAnnouncements() {
                 </p>
 
             </div>
+
         `;
 
     }
