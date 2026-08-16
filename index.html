@@ -1426,13 +1426,16 @@ news.forEach(item => {
 
 let isNew = false;
 
+let isNew = false;
+
 if (item.tarih) {
 
-    const announcementDate =
-        new Date(item.tarih);
+    const today = new Date();
 
-    const today =
-        new Date();
+    const announcementDate = new Date(item.tarih);
+
+    today.setHours(0, 0, 0, 0);
+    announcementDate.setHours(0, 0, 0, 0);
 
     const difference =
         today - announcementDate;
@@ -1440,7 +1443,7 @@ if (item.tarih) {
     const daysPassed =
         difference / (1000 * 60 * 60 * 24);
 
-    if (daysPassed <= 7) {
+    if (daysPassed >= 0 && daysPassed <= 7) {
         isNew = true;
     }
 
