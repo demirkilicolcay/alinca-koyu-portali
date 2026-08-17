@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -21,7 +22,7 @@ body {
 }
 
 .admin-container {
-    max-width: 800px;
+    max-width: 850px;
     margin: auto;
 }
 
@@ -38,14 +39,15 @@ body {
 }
 
 .admin-header p {
-    opacity: 0.9;
+    opacity: .9;
 }
 
 .admin-card {
     background: white;
     padding: 30px;
     border-radius: 18px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    margin-bottom: 25px;
 }
 
 .form-group {
@@ -70,7 +72,7 @@ body {
 }
 
 .form-group textarea {
-    min-height: 160px;
+    min-height: 150px;
     resize: vertical;
 }
 
@@ -84,6 +86,42 @@ body {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.publish-button:hover {
+    background: #125640;
+}
+
+.secondary-button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #777;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.delete-button {
+    border: none;
+    background: #b33;
+    color: white;
+    padding: 9px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.edit-button {
+    border: none;
+    background: #176b52;
+    color: white;
+    padding: 9px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .status {
@@ -105,12 +143,51 @@ body {
     color: #a33;
 }
 
-.back-link {
-    display: inline-block;
-    margin-top: 20px;
+.item-card {
+    background: #f8faf9;
+    border: 1px solid #d8e1dd;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 15px;
+}
+
+.item-card h3 {
     color: #176b52;
-    text-decoration: none;
-    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.item-date {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.item-content {
+    line-height: 1.6;
+    margin-bottom: 15px;
+    white-space: pre-wrap;
+}
+
+.item-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.item-actions button {
+    flex: 1;
+    min-width: 120px;
+}
+
+.section-title {
+    color: #176b52;
+    margin-bottom: 20px;
+}
+
+.section-divider {
+    margin: 40px 0;
+    border: none;
+    border-top: 1px solid #dfe6e3;
 }
 
 .logout-button {
@@ -124,721 +201,658 @@ body {
     font-weight: bold;
     cursor: pointer;
 }
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #176b52;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-box {
+    max-width: 500px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.login-box h2 {
+    color: #176b52;
+    margin-bottom: 20px;
+}
+
+.login-input {
+    width: 100%;
+    padding: 13px;
+    margin-bottom: 12px;
+    border: 1px solid #d8e1dd;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.loading {
+    color: #176b52;
+    font-weight: bold;
+}
+
+.empty {
+    color: #777;
+    padding: 15px 0;
+}
+
+.file-info {
+    font-size: 13px;
+    color: #777;
+    margin-top: 6px;
+}
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px 10px;
+    }
+
+    .admin-card,
+    .admin-header,
+    .login-box {
+        padding: 20px;
+    }
+
+    .admin-header h1 {
+        font-size: 23px;
+    }
+
+    .item-actions {
+        flex-direction: column;
+    }
+
+    .item-actions button {
+        width: 100%;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<!-- GİRİŞ -->
+<!-- =========================================================
+     GİRİŞ EKRANI
+========================================================= -->
 
-<div id="login-screen"
-style="
-max-width:500px;
-margin:50px auto;
-background:white;
-padding:30px;
-border-radius:18px;
-box-shadow:0 5px 20px rgba(0,0,0,0.08);
-">
+<div id="login-screen" class="login-box">
 
-<h2 style="color:#176b52; margin-bottom:20px;">
-🔐 Yönetici Girişi
-</h2>
+    <h2>🔐 Yönetici Girişi</h2>
 
-<input
-type="email"
-id="login-email"
-placeholder="E-posta adresiniz"
-style="
-width:100%;
-padding:13px;
-margin-bottom:12px;
-border:1px solid #d8e1dd;
-border-radius:10px;
-">
+    <input
+        type="email"
+        id="login-email"
+        class="login-input"
+        placeholder="E-posta adresiniz"
+        autocomplete="email"
+    >
 
-<input
-type="password"
-id="login-password"
-placeholder="Şifreniz"
-style="
-width:100%;
-padding:13px;
-margin-bottom:15px;
-border:1px solid #d8e1dd;
-border-radius:10px;
-">
+    <input
+        type="password"
+        id="login-password"
+        class="login-input"
+        placeholder="Şifreniz"
+        autocomplete="current-password"
+    >
 
-<button
-id="login-button"
-style="
-width:100%;
-padding:14px;
-border:none;
-border-radius:10px;
-background:#176b52;
-color:white;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-">
-Giriş Yap
-</button>
+    <button
+        id="login-button"
+        class="publish-button"
+    >
+        Giriş Yap
+    </button>
 
-<p id="login-status" style="margin-top:15px;"></p>
+    <p id="login-status" style="margin-top:15px;"></p>
 
 </div>
 
 
-<!-- ADMIN PANELİ -->
+<!-- =========================================================
+     YÖNETİM PANELİ
+========================================================= -->
 
 <div
-class="admin-container"
-id="admin-container"
-style="display:none;"
+    class="admin-container"
+    id="admin-container"
+    style="display:none;"
 >
 
-<div class="admin-header">
+    <div class="admin-header">
 
-<h1>🛠️ Alınca Köyü Yönetim Paneli</h1>
+        <h1>🛠️ Alınca Köyü Yönetim Paneli</h1>
 
-<p>Yeni haber yayınlama alanı</p>
+        <p>
+            Haber, duyuru ve etkinlikleri buradan yönetebilirsiniz.
+        </p>
 
-</div>
-
-
-<div class="admin-card">
-    
-    <input
-    type="hidden"
-    id="editing-news-id"
-    value=""
->
-
-<form id="newsForm">
-<input
-    type="hidden"
-    id="editing-news-id"
-    value=""
->
-<div class="form-group">
-
-<label for="baslik">
-Haber Başlığı
-</label>
-
-<input
-type="text"
-id="baslik"
-placeholder="Haber başlığını yazın"
-required
->
-
-</div>
+    </div>
 
 
-<div class="form-group">
+    <!-- =====================================================
+         HABER YÖNETİMİ
+    ====================================================== -->
 
-<label for="icerik">
-Haber İçeriği
-</label>
+    <div class="admin-card">
 
-<textarea
-id="icerik"
-placeholder="Haber içeriğini yazın"
-required
-></textarea>
+        <h2 class="section-title">
+            📰 Haber Yönetimi
+        </h2>
 
-</div>
+        <form id="newsForm">
 
+            <input
+                type="hidden"
+                id="editing-news-id"
+                value=""
+            >
 
-<div class="form-group">
+            <div class="form-group">
 
-<label for="tarih">
-Haber Tarihi
-</label>
+                <label for="baslik">
+                    Haber Başlığı
+                </label>
 
-<input
-type="date"
-id="tarih"
-required
->
+                <input
+                    type="text"
+                    id="baslik"
+                    placeholder="Haber başlığını yazın"
+                    required
+                >
 
-</div>
-
-
-<div class="form-group">
-
-<label for="resim">
-Haber Fotoğrafı
-</label>
-
-<input
-type="file"
-id="resim"
-accept="image/jpeg,image/png,image/webp"
->
-
-</div>
+            </div>
 
 
-<button
-type="submit"
-class="publish-button"
->
-📰 Haberi Yayınla
-</button>
-    
-<button
-    type="button"
-    id="cancel-edit-button"
-    style="
-        display:none;
-        width:100%;
-        margin-top:10px;
-        padding:12px;
-        border:none;
-        border-radius:10px;
-        background:#777;
-        color:white;
-        font-weight:bold;
-        cursor:pointer;
-    "
->
-    ❌ Düzenlemeyi İptal Et
-</button>
+            <div class="form-group">
 
-<div id="status" class="status"></div>
+                <label for="icerik">
+                    Haber İçeriği
+                </label>
 
-</form>
+                <textarea
+                    id="icerik"
+                    placeholder="Haber içeriğini yazın"
+                    required
+                ></textarea>
 
-<div id="news-list" style="margin-top:30px;"></div>
-    <hr style="
-    margin:40px 0;
-    border:none;
-    border-top:1px solid #d8e1dd;
-">
+            </div>
 
-<h2 style="
-    color:#176b52;
-    margin-bottom:20px;
-">
-    📢 Duyuru Yönetimi
-</h2>
 
-<form id="announcementForm">
+            <div class="form-group">
 
-    <input
-        type="hidden"
-        id="editing-announcement-id"
-    >
+                <label for="tarih">
+                    Haber Tarihi
+                </label>
 
-    <div class="form-group">
+                <input
+                    type="date"
+                    id="tarih"
+                    required
+                >
 
-        <label for="duyuru-baslik">
-            Duyuru Başlığı
-        </label>
+            </div>
 
-        <input
-            type="text"
-            id="duyuru-baslik"
-            placeholder="Duyuru başlığını yazın"
-            required
+
+            <div class="form-group">
+
+                <label for="resim">
+                    Haber Fotoğrafı
+                </label>
+
+                <input
+                    type="file"
+                    id="resim"
+                    accept="image/jpeg,image/png,image/webp"
+                >
+
+                <div class="file-info">
+                    Yeni haberlerde fotoğraf zorunludur.
+                    Düzenleme sırasında fotoğraf seçmek isteğe bağlıdır.
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                id="news-submit"
+                class="publish-button"
+            >
+                📰 Haberi Yayınla
+            </button>
+
+
+            <button
+                type="button"
+                id="cancel-edit-button"
+                class="secondary-button"
+                style="display:none;"
+            >
+                ❌ Düzenlemeyi İptal Et
+            </button>
+
+
+            <div
+                id="status"
+                class="status"
+            ></div>
+
+        </form>
+
+
+        <div
+            id="news-list"
+            style="margin-top:30px;"
         >
+            <p class="loading">
+                Haberler yükleniyor...
+            </p>
+        </div>
 
     </div>
 
-    <div class="form-group">
 
-        <label for="duyuru-icerik">
-            Duyuru İçeriği
-        </label>
+    <!-- =====================================================
+         DUYURU YÖNETİMİ
+    ====================================================== -->
 
-        <textarea
-            id="duyuru-icerik"
-            placeholder="Duyuru içeriğini yazın"
-            required
-        ></textarea>
+    <div class="admin-card">
 
-    </div>
+        <h2 class="section-title">
+            📢 Duyuru Yönetimi
+        </h2>
 
-    <div class="form-group">
+        <form id="announcementForm">
 
-        <label for="duyuru-tarih">
-            Duyuru Tarihi
-        </label>
+            <input
+                type="hidden"
+                id="editing-announcement-id"
+            >
 
-        <input
-            type="date"
-            id="duyuru-tarih"
-            required
+
+            <div class="form-group">
+
+                <label for="duyuru-baslik">
+                    Duyuru Başlığı
+                </label>
+
+                <input
+                    type="text"
+                    id="duyuru-baslik"
+                    placeholder="Duyuru başlığını yazın"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="duyuru-icerik">
+                    Duyuru İçeriği
+                </label>
+
+                <textarea
+                    id="duyuru-icerik"
+                    placeholder="Duyuru içeriğini yazın"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="duyuru-tarih">
+                    Duyuru Tarihi
+                </label>
+
+                <input
+                    type="date"
+                    id="duyuru-tarih"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                id="announcement-submit"
+                class="publish-button"
+            >
+                📢 Duyuruyu Yayınla
+            </button>
+
+
+            <button
+                type="button"
+                id="cancel-announcement-edit"
+                class="secondary-button"
+                style="display:none;"
+            >
+                ❌ Düzenlemeyi İptal Et
+            </button>
+
+
+            <div
+                id="announcement-status"
+                class="status"
+            ></div>
+
+        </form>
+
+
+        <h3
+            style="
+                margin-top:35px;
+                margin-bottom:15px;
+                color:#176b52;
+            "
         >
+            📋 Yayındaki Duyurular
+        </h3>
+
+
+        <div id="admin-announcements">
+            <p class="loading">
+                Duyurular yükleniyor...
+            </p>
+        </div>
 
     </div>
 
-    <button
-        type="submit"
-        id="announcement-submit"
-        class="publish-button"
-    >
-        📢 Duyuruyu Yayınla
-    </button>
 
-    <button
-        type="button"
-        id="cancel-announcement-edit"
-        class="logout-button"
-        style="display:none;"
-    >
-        Düzenlemeyi İptal Et
-    </button>
+    <!-- =====================================================
+         ETKİNLİK YÖNETİMİ
+    ====================================================== -->
+
+    <div class="admin-card">
+
+        <h2 class="section-title">
+            📅 Etkinlik Yönetimi
+        </h2>
+
+
+        <form id="eventForm">
+
+            <input
+                type="hidden"
+                id="editing-event-id"
+            >
+
+
+            <div class="form-group">
+
+                <label for="event-baslik">
+                    Etkinlik Başlığı
+                </label>
+
+                <input
+                    type="text"
+                    id="event-baslik"
+                    placeholder="Örn: Köy Bayramlaşması"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="event-aciklama">
+                    Açıklama
+                </label>
+
+                <textarea
+                    id="event-aciklama"
+                    placeholder="Etkinlik hakkında bilgi yazın"
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="event-tarih">
+                    Etkinlik Tarihi
+                </label>
+
+                <input
+                    type="date"
+                    id="event-tarih"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="event-saat">
+                    Saat
+                </label>
+
+                <input
+                    type="time"
+                    id="event-saat"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="event-yer">
+                    Yer
+                </label>
+
+                <input
+                    type="text"
+                    id="event-yer"
+                    placeholder="Örn: Alınca Köyü Camii"
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                id="event-submit"
+                class="publish-button"
+            >
+                📅 Etkinliği Yayınla
+            </button>
+
+
+            <button
+                type="button"
+                id="cancel-event-edit"
+                class="secondary-button"
+                style="display:none;"
+            >
+                ❌ Düzenlemeyi İptal Et
+            </button>
+
+
+            <div
+                id="event-status"
+                class="status"
+            ></div>
+
+        </form>
+
+
+        <h3
+            style="
+                margin-top:35px;
+                margin-bottom:15px;
+                color:#176b52;
+            "
+        >
+            📋 Yayındaki Etkinlikler
+        </h3>
+
+
+        <div id="admin-events">
+            <p class="loading">
+                Etkinlikler yükleniyor...
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ALT MENÜ
+    ====================================================== -->
 
     <div
-        id="announcement-status"
-        class="status">
-    </div>
-
-</form>
-
-<h3 style="
-    margin-top:35px;
-    margin-bottom:15px;
-    color:#176b52;
-">
-    📋 Yayındaki Duyurular
-</h3>
-
-<div id="admin-announcements">
-    Duyurular yükleniyor...
-</div>
-    <hr style="
-    margin:40px 0;
-    border:none;
-    border-top:1px solid #e0e6e3;
-">
-
-<h2 style="
-    color:#176b52;
-    margin-bottom:20px;
-">
-    📅 Etkinlik Yönetimi
-</h2>
-
-<form id="eventForm">
-
-    <input
-        type="hidden"
-        id="editing-event-id"
+        class="admin-card"
+        style="text-align:center;"
     >
 
-    <div class="form-group">
-
-        <label for="event-baslik">
-            Etkinlik Başlığı
-        </label>
-
-        <input
-            type="text"
-            id="event-baslik"
-            placeholder="Örn: Köy Bayramlaşması"
-            required
+        <button
+            id="logout-button"
+            class="logout-button"
         >
+            Çıkış Yap
+        </button>
 
-    </div>
 
-    <div class="form-group">
+        <br>
 
-        <label for="event-aciklama">
-            Açıklama
-        </label>
 
-        <textarea
-            id="event-aciklama"
-            placeholder="Etkinlik hakkında bilgi yazın"
-        ></textarea>
-
-    </div>
-
-    <div class="form-group">
-
-        <label for="event-tarih">
-            Etkinlik Tarihi
-        </label>
-
-        <input
-            type="date"
-            id="event-tarih"
-            required
+        <a
+            href="index.html"
+            class="back-link"
         >
+            ← Ana sayfaya dön
+        </a>
 
     </div>
-
-    <div class="form-group">
-
-        <label for="event-saat">
-            Saat
-        </label>
-
-        <input
-            type="time"
-            id="event-saat"
-        >
-
-    </div>
-
-    <div class="form-group">
-
-        <label for="event-yer">
-            Yer
-        </label>
-
-        <input
-            type="text"
-            id="event-yer"
-            placeholder="Örn: Alınca Köyü Camii"
-        >
-
-    </div>
-
-    <button
-        type="submit"
-        id="event-submit"
-        class="publish-button"
-    >
-        📅 Etkinliği Yayınla
-    </button>
-
-    <button
-        type="button"
-        id="cancel-event-edit"
-        class="logout-button"
-        style="display:none;"
-    >
-        Düzenlemeyi İptal Et
-    </button>
-
-    <div
-        id="event-status"
-        class="status">
-    </div>
-
-</form>
-
-<h3 style="
-    margin-top:35px;
-    margin-bottom:15px;
-    color:#176b52;
-">
-    📋 Yayındaki Etkinlikler
-</h3>
-
-<div id="admin-events">
-    Etkinlikler yükleniyor...
-</div>
-<button
-id="logout-button"
-class="logout-button"
->
-Çıkış Yap
-</button>
-
-
-<br>
-
-<a href="index.html" class="back-link">
-← Ana sayfaya dön
-</a>
-
-</div>
 
 </div>
 
 
 <script>
 
+/* =========================================================
+   SUPABASE AYARLARI
+========================================================= */
+
 const SUPABASE_URL =
-"https://eyqpegahskmqvwtojlxw.supabase.co";
+    "https://eyqpegahskmqvwtojlxw.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_xhj_vA_46DIlOkgrbTTeqQ_hsstSUYG";
-    
-    /* =========================
-   DUYURU ELEMANLARI
-========================= */
+    "sb_publishable_xhj_vA_46DIlOkgrbTTeqQ_hsstSUYG";
 
-const announcementForm =
-document.getElementById("announcementForm");
 
-const announcementStatus =
-document.getElementById("announcement-status");
-
-const announcementSubmit =
-document.getElementById("announcement-submit");
-
-const adminAnnouncements =
-document.getElementById("admin-announcements");
-
-const editingAnnouncementId =
-document.getElementById("editing-announcement-id");
-
-const cancelAnnouncementEdit =
-document.getElementById("cancel-announcement-edit");
-
+/* =========================================================
+   GENEL ELEMANLAR
+========================================================= */
 
 const loginScreen =
-document.getElementById("login-screen");
+    document.getElementById("login-screen");
 
 const adminContainer =
-document.getElementById("admin-container");
+    document.getElementById("admin-container");
 
 const loginButton =
-document.getElementById("login-button");
+    document.getElementById("login-button");
 
 const loginStatus =
-document.getElementById("login-status");
+    document.getElementById("login-status");
 
 const logoutButton =
-document.getElementById("logout-button");
+    document.getElementById("logout-button");
 
-const newsForm =
-document.getElementById("newsForm");
 
-const statusBox =
-document.getElementById("status");
-    
-const newsList =
-    document.getElementById("news-list");
+/* =========================================================
+   TOKEN
+========================================================= */
 
-    async function loadAdminNews() {
+function getToken() {
 
-    const accessToken = getToken();
-
-    if (!accessToken) {
-        return;
-    }
-
-    newsList.innerHTML = `
-        <p style="color:#176b52;font-weight:bold;">
-            Haberler yükleniyor...
-        </p>
-    `;
-
-    try {
-
-        const response = await fetch(
-            `${SUPABASE_URL}/rest/v1/haberler?select=*&order=tarih.desc`,
-            {
-                method: "GET",
-                headers: {
-                    "apikey": SUPABASE_KEY,
-                    "Authorization": `Bearer ${accessToken}`
-                }
-            }
-        );
-
-        if (!response.ok) {
-
-            const errorText =
-                await response.text();
-
-            throw new Error(errorText);
-        }
-
-        const news =
-            await response.json();
-
-        newsList.innerHTML = `
-            <h2 style="
-                color:#176b52;
-                margin-bottom:20px;
-            ">
-                📰 Yayındaki Haberler
-            </h2>
-        `;
-
-        if (!news.length) {
-
-            newsList.innerHTML += `
-                <p>
-                    Henüz yayınlanmış haber yok.
-                </p>
-            `;
-
-            return;
-        }
-
-        news.forEach(item => {
-
-            const card =
-                document.createElement("div");
-
-            card.style.cssText = `
-                background:#f8faf9;
-                border:1px solid #d8e1dd;
-                border-radius:12px;
-                padding:18px;
-                margin-bottom:15px;
-            `;
-
-            const date =
-                item.tarih
-                    ? new Date(item.tarih)
-                        .toLocaleDateString("tr-TR")
-                    : "";
-
-            card.innerHTML = `
-
-                <h3 style="
-                    color:#176b52;
-                    margin-bottom:8px;
-                ">
-                    ${item.baslik || ""}
-                </h3>
-
-                <p style="
-                    color:#666;
-                    margin-bottom:12px;
-                ">
-                    📅 ${date}
-                </p>
-
-                <p style="
-                    margin-bottom:15px;
-                ">
-                    ${item.icerik || ""}
-                </p>
-
-<div style="
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-">
-
-    <button
-        class="edit-news-button"
-        data-id="${item.id}"
-        style="
-            border:none;
-            background:#176b52;
-            color:white;
-            padding:9px 15px;
-            border-radius:8px;
-            cursor:pointer;
-            font-weight:bold;
-        "
-    >
-        ✏️ Haberi Düzenle
-    </button>
-
-    <button
-        class="delete-news-button"
-        data-id="${item.id}"
-        style="
-            border:none;
-            background:#b33;
-            color:white;
-            padding:9px 15px;
-            border-radius:8px;
-            cursor:pointer;
-            font-weight:bold;
-        "
-    >
-        🗑️ Haberi Sil
-    </button>
-
-</div>
-
-            `;
-
-            newsList.appendChild(card);
-
-        });
-
-        document
-            .querySelectorAll(".delete-news-button")
-            .forEach(button => {
-
-                button.addEventListener(
-                    "click",
-                    function() {
-
-                        const id =
-                            this.dataset.id;
-
-                        deleteNews(id);
-
-                    }
-                );
-
-            });
-        document
-    .querySelectorAll(".edit-news-button")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            function() {
-
-                const id =
-                    this.dataset.id;
-
-                editNews(id);
-
-            }
-        );
-
-    });
-
-    } catch (error) {
-
-        console.error(error);
-
-        newsList.innerHTML = `
-            <p style="color:#a33;">
-                ❌ Haberler yüklenemedi:
-                ${error.message}
-            </p>
-        `;
-
-    }
+    return localStorage.getItem(
+        "supabase_access_token"
+    );
 
 }
 
-async function deleteNews(id) {
 
-    const accessToken = getToken();
+/* =========================================================
+   ORTAK SUPABASE HEADER
+========================================================= */
 
-    if (!accessToken) {
+function authHeaders(includeContentType = false) {
 
-        alert(
-            "Oturumunuz sona ermiş. Lütfen tekrar giriş yapın."
-        );
+    const token = getToken();
 
-        showLoginScreen();
+    const headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${token}`
+    };
 
-        return;
+    if (includeContentType) {
+
+        headers["Content-Type"] =
+            "application/json";
+
     }
 
-    const confirmed =
-        confirm(
-            "Bu haberi ve haber fotoğrafını silmek istediğinize emin misiniz?"
-        );
+    return headers;
 
-    if (!confirmed) {
-        return;
+}
+
+
+/* =========================================================
+   LOGIN / LOGOUT
+========================================================= */
+
+function showAdminPanel() {
+
+    loginScreen.style.display = "none";
+
+    adminContainer.style.display = "block";
+
+    loadAdminNews();
+    loadAnnouncements();
+    loadAdminEvents();
+
+}
+
+
+function showLoginScreen() {
+
+    loginScreen.style.display = "block";
+
+    adminContainer.style.display = "none";
+
+}
+
+
+async function checkAdmin() {
+
+    const token = getToken();
+
+    if (!token) {
+
+        return false;
+
     }
 
     try {
 
-        /*
-        =========================
-        1. HABER BİLGİSİNİ AL
-        =========================
-        */
-
-        const newsResponse =
+        const response =
             await fetch(
-                `${SUPABASE_URL}/rest/v1/haberler?id=eq.${id}&select=*`,
+                `${SUPABASE_URL}/auth/v1/user`,
                 {
                     method: "GET",
 
@@ -847,441 +861,331 @@ async function deleteNews(id) {
                             SUPABASE_KEY,
 
                         "Authorization":
-                            `Bearer ${accessToken}`
+                            `Bearer ${token}`
                     }
                 }
             );
 
-        if (!newsResponse.ok) {
 
-            const errorText =
-                await newsResponse.text();
+        if (!response.ok) {
 
-            throw new Error(
-                errorText
-            );
-        }
-
-        const news =
-            await newsResponse.json();
-
-        if (!news.length) {
-
-            throw new Error(
-                "Haber bulunamadı."
-            );
-        }
-
-        const haber =
-            news[0];
-
-        /*
-        =========================
-        2. FOTOĞRAF DOSYA ADINI BUL
-        =========================
-        */
-
-let dosyaAdi = null;
-
-if (haber.resim) {
-
-    try {
-
-        const imageUrl =
-            new URL(haber.resim);
-
-        const marker =
-            "/storage/v1/object/public/haberler/";
-
-        const index =
-            imageUrl.pathname.indexOf(marker);
-
-        if (index !== -1) {
-
-            dosyaAdi =
-                decodeURIComponent(
-                    imageUrl.pathname.substring(
-                        index + marker.length
-                    )
-                );
-
-        }
-
-    } catch (error) {
-
-        console.warn(
-            "Fotoğraf URL'si çözülemedi:",
-            haber.resim
-        );
-
-    }
-}
-
-        /*
-        =========================
-        3. FOTOĞRAFI STORAGE'DAN SİL
-        =========================
-        */
-
-        if (dosyaAdi) {
-
-            const storageResponse =
-                await fetch(
-                    `${SUPABASE_URL}/storage/v1/object/haberler/${encodeURIComponent(dosyaAdi)}`,
-                    {
-                        method: "DELETE",
-
-                        headers: {
-                            "apikey":
-                                SUPABASE_KEY,
-
-                            "Authorization":
-                                `Bearer ${accessToken}`
-                        }
-                    }
-                );
-
-            if (!storageResponse.ok) {
-
-                const storageError =
-                    await storageResponse.text();
-
-                throw new Error(
-                    "Fotoğraf silinemedi: " +
-                    storageError
-                );
-            }
-        }
-
-        /*
-        =========================
-        4. HABERİ VERİTABANINDAN SİL
-        =========================
-        */
-
-        const deleteResponse =
-            await fetch(
-                `${SUPABASE_URL}/rest/v1/haberler?id=eq.${id}`,
-                {
-                    method: "DELETE",
-
-                    headers: {
-                        "apikey":
-                            SUPABASE_KEY,
-
-                        "Authorization":
-                            `Bearer ${accessToken}`
-                    }
-                }
+            localStorage.removeItem(
+                "supabase_access_token"
             );
 
-        if (!deleteResponse.ok) {
+            return false;
 
-            const errorText =
-                await deleteResponse.text();
-
-            throw new Error(
-                errorText
-            );
         }
 
-        /*
-        =========================
-        5. BAŞARILI
-        =========================
-        */
 
-        alert(
-            "✅ Haber ve fotoğrafı başarıyla silindi."
-        );
+        const user =
+            await response.json();
 
-        loadAdminNews();
+
+        return !!user.id;
 
     } catch (error) {
 
         console.error(error);
 
-        alert(
-            "❌ Silme işlemi başarısız:\n" +
-            error.message
-        );
+        return false;
 
     }
 
 }
-    async function editNews(id) {
 
-    const accessToken = getToken();
 
-    if (!accessToken) {
+/* =========================================================
+   GİRİŞ
+========================================================= */
 
-        alert(
-            "Oturumunuz sona ermiş. Lütfen tekrar giriş yapın."
-        );
+loginButton.addEventListener(
+    "click",
+    async function() {
 
-        showLoginScreen();
+        const email =
+            document
+                .getElementById("login-email")
+                .value
+                .trim();
+
+        const password =
+            document
+                .getElementById("login-password")
+                .value;
+
+
+        if (!email || !password) {
+
+            loginStatus.textContent =
+                "⚠️ E-posta ve şifre gerekli.";
+
+            loginStatus.style.color =
+                "#a33";
+
+            return;
+
+        }
+
+
+        loginStatus.textContent =
+            "Giriş yapılıyor...";
+
+        loginStatus.style.color =
+            "#176b52";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json",
+
+                            "apikey":
+                                SUPABASE_KEY
+                        },
+
+                        body:
+                            JSON.stringify({
+                                email: email,
+                                password: password
+                            })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.msg ||
+                    data.error_description ||
+                    data.message ||
+                    "Giriş başarısız."
+                );
+
+            }
+
+
+            localStorage.setItem(
+                "supabase_access_token",
+                data.access_token
+            );
+
+
+            loginStatus.textContent = "";
+
+            showAdminPanel();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            loginStatus.textContent =
+                "❌ " + error.message;
+
+            loginStatus.style.color =
+                "#a33";
+
+        }
+
+    }
+);
+
+
+/* ENTER İLE GİRİŞ */
+
+document
+    .getElementById("login-password")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                loginButton.click();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   HABERLER
+========================================================= */
+
+const newsForm =
+    document.getElementById("newsForm");
+
+const newsList =
+    document.getElementById("news-list");
+
+const newsStatus =
+    document.getElementById("status");
+
+const newsSubmit =
+    document.getElementById("news-submit");
+
+const cancelNewsEdit =
+    document.getElementById(
+        "cancel-edit-button"
+    );
+
+
+async function loadAdminNews() {
+
+    const token = getToken();
+
+    if (!token) {
 
         return;
+
     }
+
+
+    newsList.innerHTML =
+        `<p class="loading">Haberler yükleniyor...</p>`;
+
 
     try {
 
-        const response = await fetch(
-            `${SUPABASE_URL}/rest/v1/haberler?id=eq.${id}&select=*`,
-            {
-                method: "GET",
+        const response =
+            await fetch(
+                `${SUPABASE_URL}/rest/v1/haberler?select=*&order=tarih.desc`,
+                {
+                    method: "GET",
 
-                headers: {
-                    "apikey": SUPABASE_KEY,
-                    "Authorization":
-                        `Bearer ${accessToken}`
+                    headers:
+                        authHeaders()
                 }
-            }
-        );
+            );
+
 
         if (!response.ok) {
 
-            const errorText =
-                await response.text();
+            throw new Error(
+                await response.text()
+            );
 
-            throw new Error(errorText);
         }
+
 
         const news =
             await response.json();
 
+
+        newsList.innerHTML = `
+            <h3 style="
+                color:#176b52;
+                margin-bottom:15px;
+            ">
+                📋 Yayındaki Haberler
+            </h3>
+        `;
+
+
         if (!news.length) {
 
-            alert("Haber bulunamadı.");
+            newsList.innerHTML +=
+                `<p class="empty">
+                    Henüz yayınlanmış haber yok.
+                </p>`;
 
             return;
+
         }
 
-        const item = news[0];
 
-        document.getElementById("editing-news-id").value =
-            item.id;
+        news.forEach(item => {
 
-        document.getElementById("baslik").value =
-            item.baslik || "";
+            const card =
+                document.createElement("div");
 
-        document.getElementById("icerik").value =
-            item.icerik || "";
+            card.className =
+                "item-card";
 
-        document.getElementById("tarih").value =
-            item.tarih || "";
 
-        document.getElementById("resim").value =
-            "";
+            const date =
+                item.tarih
+                    ? new Date(
+                        item.tarih
+                    ).toLocaleDateString(
+                        "tr-TR"
+                    )
+                    : "";
 
-        const publishButton =
-            document.querySelector(".publish-button");
 
-        publishButton.textContent =
-            "💾 Değişiklikleri Kaydet";
+            card.innerHTML = `
 
-        document.getElementById(
-            "cancel-edit-button"
-        ).style.display = "block";
+                <h3>
+                    ${escapeHtml(item.baslik || "")}
+                </h3>
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
+                <div class="item-date">
+                    📅 ${date}
+                </div>
+
+                <div class="item-content">
+                    ${escapeHtml(item.icerik || "")}
+                </div>
+
+                <div class="item-actions">
+
+                    <button
+                        type="button"
+                        class="edit-button"
+                        onclick="editNews('${item.id}')"
+                    >
+                        ✏️ Haberi Düzenle
+                    </button>
+
+                    <button
+                        type="button"
+                        class="delete-button"
+                        onclick="deleteNews('${item.id}')"
+                    >
+                        🗑️ Haberi Sil
+                    </button>
+
+                </div>
+            `;
+
+
+            newsList.appendChild(card);
+
         });
+
 
     } catch (error) {
 
         console.error(error);
 
-        alert(
-            "❌ Haber bilgileri alınamadı:\n" +
-            error.message
-        );
+        newsList.innerHTML = `
+            <p style="color:#a33;">
+                ❌ Haberler yüklenemedi:<br>
+                ${escapeHtml(error.message)}
+            </p>
+        `;
 
     }
 
 }
-function getToken() {
 
-return localStorage.getItem(
-"supabase_access_token"
-);
 
-}
-
-
-function showAdminPanel() {
-
-loginScreen.style.display = "none";
-
-adminContainer.style.display = "block";
-
-    loadAdminNews();
-}
-
-
-function showLoginScreen() {
-
-loginScreen.style.display = "block";
-
-adminContainer.style.display = "none";
-
-}
-
-
-/* OTURUM KONTROLÜ */
-
-async function checkAdmin() {
-
-const token = getToken();
-
-if (!token) {
-
-return false;
-
-}
-
-try {
-
-const response = await fetch(
-`${SUPABASE_URL}/auth/v1/user`,
-{
-headers: {
-"apikey": SUPABASE_KEY,
-"Authorization": `Bearer ${token}`
-}
-}
-);
-
-if (!response.ok) {
-
-localStorage.removeItem(
-"supabase_access_token"
-);
-
-return false;
-
-}
-
-const user =
-await response.json();
-
-return !!user.id;
-
-} catch (error) {
-
-console.error(error);
-
-return false;
-
-}
-
-}
-
-
-checkAdmin().then(function(isAdmin) {
-
-if (isAdmin) {
-
-showAdminPanel();
-
-} else {
-
-showLoginScreen();
-
-}
-
-});
-
-
-/* GİRİŞ */
-
-loginButton.addEventListener(
-"click",
-async function() {
-
-const email =
-document
-.getElementById("login-email")
-.value
-.trim();
-
-const password =
-document
-.getElementById("login-password")
-.value;
-
-if (!email || !password) {
-
-loginStatus.textContent =
-"⚠️ E-posta ve şifre gerekli.";
-
-loginStatus.style.color = "#a33";
-
-return;
-
-}
-
-loginStatus.textContent =
-"Giriş yapılıyor...";
-
-try {
-
-const response = await fetch(
-`${SUPABASE_URL}/auth/v1/token?grant_type=password`,
-{
-method: "POST",
-
-headers: {
-"Content-Type": "application/json",
-"apikey": SUPABASE_KEY
-},
-
-body: JSON.stringify({
-email: email,
-password: password
-})
-}
-);
-
-const data =
-await response.json();
-
-if (!response.ok) {
-
-throw new Error(
-data.msg ||
-data.error_description ||
-data.message ||
-"Giriş başarısız."
-);
-
-}
-
-localStorage.setItem(
-"supabase_access_token",
-data.access_token
-);
-
-showAdminPanel();
-
-loginStatus.textContent = "";
-
-} catch (error) {
-
-console.error(error);
-
-loginStatus.textContent =
-"❌ " + error.message;
-
-loginStatus.style.color = "#a33";
-
-}
-
-});
-
-
-/* HABER YAYINLAMA */
+/* =========================================================
+   HABER EKLE / GÜNCELLE
+========================================================= */
 
 newsForm.addEventListener(
     "submit",
@@ -1289,113 +1193,233 @@ newsForm.addEventListener(
 
         event.preventDefault();
 
-        const accessToken = getToken();
 
-        if (!accessToken) {
+        const token = getToken();
 
-            statusBox.className =
-                "status error";
-
-            statusBox.textContent =
-                "❌ Oturum bulunamadı. Lütfen tekrar giriş yapın.";
+        if (!token) {
 
             showLoginScreen();
 
             return;
+
         }
 
-        statusBox.className = "status";
-        statusBox.textContent =
+
+        newsStatus.className =
+            "status";
+
+        newsStatus.style.display =
+            "block";
+
+        newsStatus.textContent =
             "Haber kaydediliyor...";
 
+
         const baslik =
-            document.getElementById("baslik")
-                .value.trim();
+            document
+                .getElementById("baslik")
+                .value
+                .trim();
 
         const icerik =
-            document.getElementById("icerik")
-                .value.trim();
+            document
+                .getElementById("icerik")
+                .value
+                .trim();
 
         const tarih =
-            document.getElementById("tarih")
+            document
+                .getElementById("tarih")
                 .value;
 
+        const fileInput =
+            document.getElementById("resim");
+
         const resimDosyasi =
-            document.getElementById("resim")
-                .files[0];
+            fileInput.files[0];
 
         const editingId =
-            document.getElementById(
-                "editing-news-id"
-            ).value;
+            document
+                .getElementById(
+                    "editing-news-id"
+                )
+                .value;
+
 
         try {
 
-            /*
-             =========================
-             DÜZENLEME Mİ, YENİ HABER Mİ?
-             =========================
-            */
+            let resimUrl = null;
+
+
+            /* -----------------------------------------
+               DÜZENLEMEDE ESKİ HABERİ AL
+            ----------------------------------------- */
+
+            let eskiHaber = null;
 
             if (editingId) {
 
-                let resimUrl = null;
+                const oldResponse =
+                    await fetch(
+                        `${SUPABASE_URL}/rest/v1/haberler?id=eq.${editingId}&select=*`,
+                        {
+                            method: "GET",
+                            headers: authHeaders()
+                        }
+                    );
 
-                /*
-                 Fotoğraf seçilmişse
-                 yeni fotoğraf yükle
-                */
 
-                if (resimDosyasi) {
+                if (!oldResponse.ok) {
 
-                    const dosyaAdi =
-                        Date.now() +
-                        "-" +
-                        resimDosyasi.name;
-
-                    const uploadResponse =
-                        await fetch(
-                            `${SUPABASE_URL}/storage/v1/object/haberler/${dosyaAdi}`,
-                            {
-                                method: "POST",
-
-                                headers: {
-                                    "apikey":
-                                        SUPABASE_KEY,
-
-                                    "Authorization":
-                                        `Bearer ${accessToken}`,
-
-                                    "Content-Type":
-                                        resimDosyasi.type
-                                },
-
-                                body:
-                                    resimDosyasi
-                            }
-                        );
-
-                    if (!uploadResponse.ok) {
-
-                        const uploadError =
-                            await uploadResponse.text();
-
-                        throw new Error(
-                            "Fotoğraf yüklenemedi: " +
-                            uploadError
-                        );
-                    }
-
-                    resimUrl =
-                        `${SUPABASE_URL}/storage/v1/object/public/haberler/${dosyaAdi}`;
+                    throw new Error(
+                        "Mevcut haber alınamadı."
+                    );
 
                 }
 
-                /*
-                 =========================
-                 HABERİ GÜNCELLE
-                 =========================
-                */
+
+                const oldData =
+                    await oldResponse.json();
+
+
+                if (!oldData.length) {
+
+                    throw new Error(
+                        "Haber bulunamadı."
+                    );
+
+                }
+
+
+                eskiHaber =
+                    oldData[0];
+
+            }
+
+
+            /* -----------------------------------------
+               YENİ FOTOĞRAF YÜKLE
+            ----------------------------------------- */
+
+            if (resimDosyasi) {
+
+                const guvenliDosyaAdi =
+                    createFileName(
+                        resimDosyasi.name
+                    );
+
+
+                const uploadResponse =
+                    await fetch(
+                        `${SUPABASE_URL}/storage/v1/object/haberler/${guvenliDosyaAdi}`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "apikey":
+                                    SUPABASE_KEY,
+
+                                "Authorization":
+                                    `Bearer ${token}`,
+
+                                "Content-Type":
+                                    resimDosyasi.type,
+
+                                "x-upsert":
+                                    "false"
+                            },
+
+                            body:
+                                resimDosyasi
+                        }
+                    );
+
+
+                if (!uploadResponse.ok) {
+
+                    throw new Error(
+                        "Fotoğraf yüklenemedi: " +
+                        await uploadResponse.text()
+                    );
+
+                }
+
+
+                resimUrl =
+                    `${SUPABASE_URL}/storage/v1/object/public/haberler/${encodeURIComponent(guvenliDosyaAdi)}`;
+
+            }
+
+
+            /* -----------------------------------------
+               YENİ HABER
+            ----------------------------------------- */
+
+            if (!editingId) {
+
+                if (!resimUrl) {
+
+                    throw new Error(
+                        "Lütfen haber için bir fotoğraf seçin."
+                    );
+
+                }
+
+
+                const response =
+                    await fetch(
+                        `${SUPABASE_URL}/rest/v1/haberler`,
+                        {
+                            method: "POST",
+
+                            headers:
+                                {
+                                    ...authHeaders(true),
+                                    "Prefer":
+                                        "return=minimal"
+                                },
+
+                            body:
+                                JSON.stringify({
+                                    baslik:
+                                        baslik,
+
+                                    icerik:
+                                        icerik,
+
+                                    tarih:
+                                        tarih,
+
+                                    resim:
+                                        resimUrl
+                                })
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        await response.text()
+                    );
+
+                }
+
+
+                newsStatus.className =
+                    "status success";
+
+                newsStatus.textContent =
+                    "✅ Haber başarıyla yayınlandı!";
+
+            }
+
+
+            /* -----------------------------------------
+               HABER GÜNCELLE
+            ----------------------------------------- */
+
+            else {
 
                 const updateData = {
 
@@ -1410,10 +1434,6 @@ newsForm.addEventListener(
 
                 };
 
-                /*
-                 Yeni fotoğraf seçildiyse
-                 resim alanını da güncelle
-                */
 
                 if (resimUrl) {
 
@@ -1422,219 +1442,87 @@ newsForm.addEventListener(
 
                 }
 
+
                 const response =
                     await fetch(
                         `${SUPABASE_URL}/rest/v1/haberler?id=eq.${editingId}`,
                         {
                             method: "PATCH",
 
-                            headers: {
-
-                                "Content-Type":
-                                    "application/json",
-
-                                "apikey":
-                                    SUPABASE_KEY,
-
-                                "Authorization":
-                                    `Bearer ${accessToken}`,
-
-                                "Prefer":
-                                    "return=minimal"
-
-                            },
+                            headers:
+                                {
+                                    ...authHeaders(true),
+                                    "Prefer":
+                                        "return=minimal"
+                                },
 
                             body:
                                 JSON.stringify(
                                     updateData
                                 )
-
                         }
                     );
 
+
                 if (!response.ok) {
 
-                    const errorText =
-                        await response.text();
-
                     throw new Error(
-                        errorText
+                        await response.text()
                     );
 
                 }
 
-                statusBox.className =
-                    "status success";
 
-                statusBox.textContent =
-                    "✅ Haber başarıyla güncellendi!";
+                /* -------------------------------------
+                   ESKİ FOTOĞRAFI SİL
+                   SADECE YENİ FOTOĞRAF YÜKLENDİYSE
+                ------------------------------------- */
 
-            }
+                if (
+                    resimUrl &&
+                    eskiHaber &&
+                    eskiHaber.resim
+                ) {
 
-            /*
-             =========================
-             YENİ HABER
-             =========================
-            */
-
-            else {
-
-                let resimUrl = null;
-
-                if (resimDosyasi) {
-
-                    const dosyaAdi =
-                        Date.now() +
-                        "-" +
-                        resimDosyasi.name;
-
-                    const uploadResponse =
-                        await fetch(
-                            `${SUPABASE_URL}/storage/v1/object/haberler/${dosyaAdi}`,
-                            {
-                                method: "POST",
-
-                                headers: {
-
-                                    "apikey":
-                                        SUPABASE_KEY,
-
-                                    "Authorization":
-                                        `Bearer ${accessToken}`,
-
-                                    "Content-Type":
-                                        resimDosyasi.type
-                                },
-
-                                body:
-                                    resimDosyasi
-
-                            }
+                    const oldFile =
+                        getStorageFileName(
+                            eskiHaber.resim
                         );
 
-                    if (!uploadResponse.ok) {
 
-                        const uploadError =
-                            await uploadResponse.text();
+                    if (oldFile) {
 
-                        throw new Error(
-                            "Fotoğraf yüklenemedi: " +
-                            uploadError
+                        await deleteStorageFile(
+                            oldFile
                         );
 
                     }
 
-                    resimUrl =
-                        `${SUPABASE_URL}/storage/v1/object/public/haberler/${dosyaAdi}`;
-
                 }
 
-                /*
-                 Fotoğraf zorunlu olduğu için
-                 fotoğraf seçilmemişse uyar
-                */
 
-                if (!resimUrl) {
-
-                    throw new Error(
-                        "Lütfen haber için bir fotoğraf seçin."
-                    );
-
-                }
-
-                const response =
-                    await fetch(
-                        `${SUPABASE_URL}/rest/v1/haberler`,
-                        {
-                            method: "POST",
-
-                            headers: {
-
-                                "Content-Type":
-                                    "application/json",
-
-                                "apikey":
-                                    SUPABASE_KEY,
-
-                                "Authorization":
-                                    `Bearer ${accessToken}`,
-
-                                "Prefer":
-                                    "return=minimal"
-
-                            },
-
-                            body:
-                                JSON.stringify({
-
-                                    baslik:
-                                        baslik,
-
-                                    icerik:
-                                        icerik,
-
-                                    tarih:
-                                        tarih,
-
-                                    resim:
-                                        resimUrl
-
-                                })
-
-                        }
-                    );
-
-                if (!response.ok) {
-
-                    const errorText =
-                        await response.text();
-
-                    throw new Error(
-                        errorText
-                    );
-
-                }
-
-                statusBox.className =
+                newsStatus.className =
                     "status success";
 
-                statusBox.textContent =
-                    "✅ Haber başarıyla yayınlandı!";
+                newsStatus.textContent =
+                    "✅ Haber başarıyla güncellendi!";
 
             }
 
-            /*
-             =========================
-             FORMU TEMİZLE
-             =========================
-            */
 
-            newsForm.reset();
+            resetNewsForm();
 
-            document.getElementById(
-                "editing-news-id"
-            ).value = "";
+            await loadAdminNews();
 
-            document.querySelector(
-                ".publish-button"
-            ).textContent =
-                "📰 Haberi Yayınla";
-
-            document.getElementById(
-                "cancel-edit-button"
-            ).style.display =
-                "none";
-
-            loadAdminNews();
 
         } catch (error) {
 
             console.error(error);
 
-            statusBox.className =
+            newsStatus.className =
                 "status error";
 
-            statusBox.textContent =
+            newsStatus.textContent =
                 "❌ Haber kaydedilemedi: " +
                 error.message;
 
@@ -1642,39 +1530,425 @@ newsForm.addEventListener(
 
     }
 );
-    document
-    .getElementById("cancel-edit-button")
-    .addEventListener(
-        "click",
-        function() {
 
-            newsForm.reset();
 
-            document.getElementById(
-                "editing-news-id"
-            ).value = "";
+/* =========================================================
+   HABER DÜZENLE
+========================================================= */
 
-            document.querySelector(
-                ".publish-button"
-            ).textContent =
-                "📰 Haberi Yayınla";
+async function editNews(id) {
 
-            this.style.display =
-                "none";
+    try {
 
-            statusBox.className =
-                "status";
+        const response =
+            await fetch(
+                `${SUPABASE_URL}/rest/v1/haberler?id=eq.${id}&select=*`,
+                {
+                    method: "GET",
+                    headers: authHeaders()
+                }
+            );
 
-            statusBox.textContent = "";
+
+        if (!response.ok) {
+
+            throw new Error(
+                await response.text()
+            );
 
         }
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.length) {
+
+            throw new Error(
+                "Haber bulunamadı."
+            );
+
+        }
+
+
+        const item =
+            data[0];
+
+
+        document
+            .getElementById(
+                "editing-news-id"
+            )
+            .value =
+                item.id;
+
+
+        document
+            .getElementById("baslik")
+            .value =
+                item.baslik || "";
+
+
+        document
+            .getElementById("icerik")
+            .value =
+                item.icerik || "";
+
+
+        document
+            .getElementById("tarih")
+            .value =
+                item.tarih || "";
+
+
+        document
+            .getElementById("resim")
+            .value =
+                "";
+
+
+        newsSubmit.textContent =
+            "💾 Değişiklikleri Kaydet";
+
+
+        cancelNewsEdit.style.display =
+            "block";
+
+
+        newsStatus.className =
+            "status";
+
+        newsStatus.style.display =
+            "block";
+
+        newsStatus.textContent =
+            "✏️ Düzenleme modu aktif.";
+
+
+        newsForm.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "❌ Haber düzenlenemedi:\n" +
+            error.message
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   HABER DÜZENLEMEYİ İPTAL
+========================================================= */
+
+cancelNewsEdit.addEventListener(
+    "click",
+    function() {
+
+        resetNewsForm();
+
+    }
+);
+
+
+function resetNewsForm() {
+
+    newsForm.reset();
+
+    document
+        .getElementById(
+            "editing-news-id"
+        )
+        .value = "";
+
+
+    newsSubmit.textContent =
+        "📰 Haberi Yayınla";
+
+
+    cancelNewsEdit.style.display =
+        "none";
+
+
+    newsStatus.className =
+        "status";
+
+    newsStatus.style.display =
+        "none";
+
+    newsStatus.textContent =
+        "";
+
+}
+
+
+/* =========================================================
+   HABER SİL
+========================================================= */
+
+async function deleteNews(id) {
+
+    if (!confirm(
+        "Bu haberi ve varsa fotoğrafını silmek istediğinize emin misiniz?"
+    )) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${SUPABASE_URL}/rest/v1/haberler?id=eq.${id}&select=*`,
+                {
+                    method: "GET",
+                    headers: authHeaders()
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                await response.text()
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.length) {
+
+            throw new Error(
+                "Haber bulunamadı."
+            );
+
+        }
+
+
+        const haber =
+            data[0];
+
+
+        if (haber.resim) {
+
+            const fileName =
+                getStorageFileName(
+                    haber.resim
+                );
+
+
+            if (fileName) {
+
+                await deleteStorageFile(
+                    fileName
+                );
+
+            }
+
+        }
+
+
+        const deleteResponse =
+            await fetch(
+                `${SUPABASE_URL}/rest/v1/haberler?id=eq.${id}`,
+                {
+                    method: "DELETE",
+                    headers: authHeaders()
+                }
+            );
+
+
+        if (!deleteResponse.ok) {
+
+            throw new Error(
+                await deleteResponse.text()
+            );
+
+        }
+
+
+        alert(
+            "✅ Haber ve fotoğrafı başarıyla silindi."
+        );
+
+
+        await loadAdminNews();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "❌ Haber silinemedi:\n" +
+            error.message
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   STORAGE DOSYA ADI
+========================================================= */
+
+function getStorageFileName(url) {
+
+    try {
+
+        const parsed =
+            new URL(url);
+
+
+        const marker =
+            "/storage/v1/object/public/haberler/";
+
+
+        const index =
+            parsed.pathname.indexOf(
+                marker
+            );
+
+
+        if (index === -1) {
+
+            return null;
+
+        }
+
+
+        return decodeURIComponent(
+            parsed.pathname.substring(
+                index + marker.length
+            )
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        return null;
+
+    }
+
+}
+
+
+/* =========================================================
+   STORAGE DOSYA SİL
+========================================================= */
+
+async function deleteStorageFile(fileName) {
+
+    const token = getToken();
+
+    if (!token) {
+
+        return;
+
+    }
+
+
+    const response =
+        await fetch(
+            `${SUPABASE_URL}/storage/v1/object/haberler/${fileName
+                .split("/")
+                .map(
+                    part =>
+                        encodeURIComponent(part)
+                )
+                .join("/")}`,
+            {
+                method: "DELETE",
+
+                headers: {
+                    "apikey":
+                        SUPABASE_KEY,
+
+                    "Authorization":
+                        `Bearer ${token}`
+                }
+            }
+        );
+
+
+    if (!response.ok) {
+
+        console.warn(
+            "Storage dosyası silinemedi:",
+            await response.text()
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DUYURULAR
+========================================================= */
+
+const announcementForm =
+    document.getElementById(
+        "announcementForm"
     );
 
- /* =========================
-    DUYURU YÖNETİMİ
- ========================= */
+const announcementStatus =
+    document.getElementById(
+        "announcement-status"
+    );
+
+const announcementSubmit =
+    document.getElementById(
+        "announcement-submit"
+    );
+
+const adminAnnouncements =
+    document.getElementById(
+        "admin-announcements"
+    );
+
+const editingAnnouncementId =
+    document.getElementById(
+        "editing-announcement-id"
+    );
+
+const cancelAnnouncementEdit =
+    document.getElementById(
+        "cancel-announcement-edit"
+    );
+
 
 async function loadAnnouncements() {
+
+    const token = getToken();
+
+    if (!token) {
+
+        return;
+
+    }
+
+
+    adminAnnouncements.innerHTML =
+        `<p class="loading">Duyurular yükleniyor...</p>`;
+
 
     try {
 
@@ -1684,48 +1958,52 @@ async function loadAnnouncements() {
                 {
                     method: "GET",
 
-                    headers: {
-                        "apikey":
-                            SUPABASE_KEY,
-
-                        "Authorization":
-                            `Bearer ${SUPABASE_KEY}`
-                    }
+                    headers:
+                        authHeaders()
                 }
             );
+
 
         if (!response.ok) {
 
             throw new Error(
-                "Duyurular alınamadı."
+                await response.text()
             );
+
         }
+
 
         const announcements =
             await response.json();
 
+
         adminAnnouncements.innerHTML = "";
+
 
         if (!announcements.length) {
 
             adminAnnouncements.innerHTML =
-                `
-                <div class="news-card">
+                `<p class="empty">
                     Henüz yayınlanmış duyuru yok.
-                </div>
-                `;
+                </p>`;
 
             return;
+
         }
+
 
         announcements.forEach(
             announcement => {
 
                 const item =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
+
 
                 item.className =
-                    "news-card";
+                    "item-card";
+
 
                 const date =
                     announcement.tarih
@@ -1741,39 +2019,46 @@ async function loadAnnouncements() {
                           )
                         : "";
 
+
                 item.innerHTML = `
 
-                    <div class="news-content">
+                    <h3>
+                        ${escapeHtml(
+                            announcement.baslik || ""
+                        )}
+                    </h3>
 
-                        <div class="date">
-                            ${date}
-                        </div>
+                    <div class="item-date">
+                        📅 ${date}
+                    </div>
 
-                        <h3>
-                            ${announcement.baslik}
-                        </h3>
+                    <div class="item-content">
+                        ${escapeHtml(
+                            announcement.icerik || ""
+                        )}
+                    </div>
 
-                        <p>
-                            ${announcement.icerik}
-                        </p>
+                    <div class="item-actions">
 
                         <button
-                            class="publish-button"
-                            style="margin-top:15px;"
-                            onclick="editAnnouncement(${announcement.id})"
+                            type="button"
+                            class="edit-button"
+                            onclick="editAnnouncement('${announcement.id}')"
                         >
                             ✏️ Düzenle
                         </button>
 
                         <button
-                            class="logout-button"
-                            onclick="deleteAnnouncement(${announcement.id})"
+                            type="button"
+                            class="delete-button"
+                            onclick="deleteAnnouncement('${announcement.id}')"
                         >
                             🗑️ Sil
                         </button>
 
                     </div>
                 `;
+
 
                 adminAnnouncements.appendChild(
                     item
@@ -1782,23 +2067,24 @@ async function loadAnnouncements() {
             }
         );
 
+
     } catch (error) {
 
         console.error(error);
 
         adminAnnouncements.innerHTML =
-            `
-            <div class="news-card">
-                Duyurular yüklenemedi.
-            </div>
-            `;
+            `<p style="color:#a33;">
+                ❌ Duyurular yüklenemedi.
+            </p>`;
+
     }
+
 }
 
 
-/* =========================
+/* =========================================================
    DUYURU EKLE / GÜNCELLE
-========================= */
+========================================================= */
 
 announcementForm.addEventListener(
     "submit",
@@ -1806,53 +2092,64 @@ announcementForm.addEventListener(
 
         event.preventDefault();
 
-        const accessToken =
-            getToken();
 
-        if (!accessToken) {
+        const token = getToken();
 
-            announcementStatus.className =
-                "status error";
-
-            announcementStatus.textContent =
-                "❌ Oturum bulunamadı.";
+        if (!token) {
 
             showLoginScreen();
 
             return;
+
         }
+
 
         const baslik =
             document
-                .getElementById("duyuru-baslik")
+                .getElementById(
+                    "duyuru-baslik"
+                )
                 .value
                 .trim();
+
 
         const icerik =
             document
-                .getElementById("duyuru-icerik")
+                .getElementById(
+                    "duyuru-icerik"
+                )
                 .value
                 .trim();
 
+
         const tarih =
             document
-                .getElementById("duyuru-tarih")
+                .getElementById(
+                    "duyuru-tarih"
+                )
                 .value;
+
 
         const editingId =
             editingAnnouncementId.value;
 
+
         announcementStatus.className =
             "status";
+
+        announcementStatus.style.display =
+            "block";
 
         announcementStatus.textContent =
             editingId
                 ? "Duyuru güncelleniyor..."
                 : "Duyuru yayınlanıyor...";
 
+
         try {
 
             let response;
+
 
             if (editingId) {
 
@@ -1862,32 +2159,24 @@ announcementForm.addEventListener(
                         {
                             method: "PATCH",
 
-                            headers: {
-                                "Content-Type":
-                                    "application/json",
+                            headers:
+                                {
+                                    ...authHeaders(true),
+                                    "Prefer":
+                                        "return=minimal"
+                                },
 
-                                "apikey":
-                                    SUPABASE_KEY,
+                            body:
+                                JSON.stringify({
+                                    baslik:
+                                        baslik,
 
-                                "Authorization":
-                                    `Bearer ${accessToken}`,
+                                    icerik:
+                                        icerik,
 
-                                "Prefer":
-                                    "return=minimal"
-                            },
-
-                            body: JSON.stringify({
-
-                                baslik:
-                                    baslik,
-
-                                icerik:
-                                    icerik,
-
-                                tarih:
-                                    tarih
-
-                            })
+                                    tarih:
+                                        tarih
+                                })
                         }
                     );
 
@@ -1899,66 +2188,55 @@ announcementForm.addEventListener(
                         {
                             method: "POST",
 
-                            headers: {
-                                "Content-Type":
-                                    "application/json",
+                            headers:
+                                {
+                                    ...authHeaders(true),
+                                    "Prefer":
+                                        "return=minimal"
+                                },
 
-                                "apikey":
-                                    SUPABASE_KEY,
+                            body:
+                                JSON.stringify({
+                                    baslik:
+                                        baslik,
 
-                                "Authorization":
-                                    `Bearer ${accessToken}`,
+                                    icerik:
+                                        icerik,
 
-                                "Prefer":
-                                    "return=minimal"
-                            },
-
-                            body: JSON.stringify({
-
-                                baslik:
-                                    baslik,
-
-                                icerik:
-                                    icerik,
-
-                                tarih:
-                                    tarih
-
-                            })
+                                    tarih:
+                                        tarih
+                                })
                         }
                     );
+
             }
+
 
             if (!response.ok) {
 
-                const errorText =
-                    await response.text();
-
                 throw new Error(
-                    errorText
+                    await response.text()
                 );
+
             }
+
 
             announcementStatus.className =
                 "status success";
+
+            announcementStatus.style.display =
+                "block";
 
             announcementStatus.textContent =
                 editingId
                     ? "✅ Duyuru başarıyla güncellendi!"
                     : "✅ Duyuru başarıyla yayınlandı!";
 
-            announcementForm.reset();
 
-            editingAnnouncementId.value =
-                "";
+            resetAnnouncementForm();
 
-            announcementSubmit.textContent =
-                "📢 Duyuruyu Yayınla";
+            await loadAnnouncements();
 
-            cancelAnnouncementEdit.style.display =
-                "none";
-
-            loadAnnouncements();
 
         } catch (error) {
 
@@ -1967,89 +2245,104 @@ announcementForm.addEventListener(
             announcementStatus.className =
                 "status error";
 
+            announcementStatus.style.display =
+                "block";
+
             announcementStatus.textContent =
                 "❌ İşlem başarısız: " +
                 error.message;
+
         }
 
     }
 );
 
 
-/* =========================
+/* =========================================================
    DUYURU DÜZENLE
-========================= */
+========================================================= */
 
 async function editAnnouncement(id) {
 
     try {
-
-        const accessToken =
-            getToken();
 
         const response =
             await fetch(
                 `${SUPABASE_URL}/rest/v1/duyurular?id=eq.${id}&select=*`,
                 {
                     method: "GET",
-
-                    headers: {
-                        "apikey":
-                            SUPABASE_KEY,
-
-                        "Authorization":
-                            `Bearer ${accessToken}`
-                    }
+                    headers: authHeaders()
                 }
             );
+
 
         if (!response.ok) {
 
             throw new Error(
-                "Duyuru alınamadı."
+                await response.text()
             );
+
         }
+
 
         const data =
             await response.json();
+
 
         if (!data.length) {
 
             throw new Error(
                 "Duyuru bulunamadı."
             );
+
         }
 
-        const announcement =
+
+        const item =
             data[0];
 
-        document
-            .getElementById("duyuru-baslik")
-            .value =
-                announcement.baslik || "";
 
         document
-            .getElementById("duyuru-icerik")
+            .getElementById(
+                "duyuru-baslik"
+            )
             .value =
-                announcement.icerik || "";
+                item.baslik || "";
+
 
         document
-            .getElementById("duyuru-tarih")
+            .getElementById(
+                "duyuru-icerik"
+            )
             .value =
-                announcement.tarih || "";
+                item.icerik || "";
+
+
+        document
+            .getElementById(
+                "duyuru-tarih"
+            )
+            .value =
+                item.tarih || "";
+
 
         editingAnnouncementId.value =
-            announcement.id;
+            item.id;
+
 
         announcementSubmit.textContent =
             "💾 Değişiklikleri Kaydet";
 
+
         cancelAnnouncementEdit.style.display =
-            "inline-block";
+            "block";
+
 
         announcementForm.scrollIntoView({
-            behavior: "smooth"
+            behavior: "smooth",
+            block: "start"
         });
+
 
     } catch (error) {
 
@@ -2061,35 +2354,24 @@ async function editAnnouncement(id) {
         );
 
     }
+
 }
 
 
-/* =========================
+/* =========================================================
    DUYURU SİL
-========================= */
+========================================================= */
 
 async function deleteAnnouncement(id) {
 
-    const accessToken =
-        getToken();
-
-    if (!accessToken) {
-
-        alert(
-            "Oturum bulunamadı."
-        );
+    if (!confirm(
+        "Bu duyuruyu silmek istediğinize emin misiniz?"
+    )) {
 
         return;
+
     }
 
-    if (
-        !confirm(
-            "Bu duyuruyu silmek istediğinize emin misiniz?"
-        )
-    ) {
-
-        return;
-    }
 
     try {
 
@@ -2098,32 +2380,27 @@ async function deleteAnnouncement(id) {
                 `${SUPABASE_URL}/rest/v1/duyurular?id=eq.${id}`,
                 {
                     method: "DELETE",
-
-                    headers: {
-                        "apikey":
-                            SUPABASE_KEY,
-
-                        "Authorization":
-                            `Bearer ${accessToken}`
-                    }
+                    headers: authHeaders()
                 }
             );
 
+
         if (!response.ok) {
 
-            const errorText =
-                await response.text();
-
             throw new Error(
-                errorText
+                await response.text()
             );
+
         }
+
 
         alert(
             "✅ Duyuru silindi."
         );
 
-        loadAnnouncements();
+
+        await loadAnnouncements();
+
 
     } catch (error) {
 
@@ -2135,86 +2412,91 @@ async function deleteAnnouncement(id) {
         );
 
     }
+
 }
 
 
-/* =========================
-   DÜZENLEMEYİ İPTAL ET
-========================= */
+/* =========================================================
+   DUYURU İPTAL
+========================================================= */
 
 cancelAnnouncementEdit.addEventListener(
     "click",
     function() {
 
-        announcementForm.reset();
-
-        editingAnnouncementId.value =
-            "";
-
-        announcementSubmit.textContent =
-            "📢 Duyuruyu Yayınla";
-
-        cancelAnnouncementEdit.style.display =
-            "none";
-
-        announcementStatus.className =
-            "status";
-
-        announcementStatus.textContent =
-            "";
+        resetAnnouncementForm();
 
     }
 );
 
 
-/* =========================
-   DUYURULARI BAŞLAT
-========================= */
+function resetAnnouncementForm() {
 
-loadAnnouncements();
-    //
-// =========================
-// ETKİNLİK YÖNETİMİ
-// =========================
-//
+    announcementForm.reset();
+
+    editingAnnouncementId.value =
+        "";
+
+    announcementSubmit.textContent =
+        "📢 Duyuruyu Yayınla";
+
+    cancelAnnouncementEdit.style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   ETKİNLİKLER
+========================================================= */
 
 const eventForm =
-    document.getElementById("eventForm");
+    document.getElementById(
+        "eventForm"
+    );
 
 const eventStatus =
-    document.getElementById("event-status");
+    document.getElementById(
+        "event-status"
+    );
 
 const adminEvents =
-    document.getElementById("admin-events");
+    document.getElementById(
+        "admin-events"
+    );
 
 const eventSubmit =
-    document.getElementById("event-submit");
+    document.getElementById(
+        "event-submit"
+    );
 
 const cancelEventEdit =
-    document.getElementById("cancel-event-edit");
+    document.getElementById(
+        "cancel-event-edit"
+    );
 
 const editingEventId =
-    document.getElementById("editing-event-id");
+    document.getElementById(
+        "editing-event-id"
+    );
 
-
-//
-// =========================
-// ETKİNLİKLERİ YÜKLE
-// =========================
-//
 
 async function loadAdminEvents() {
 
+    const token = getToken();
+
+    if (!token) {
+
+        return;
+
+    }
+
+
+    adminEvents.innerHTML =
+        `<p class="loading">Etkinlikler yükleniyor...</p>`;
+
+
     try {
-
-        const accessToken =
-            getToken();
-
-        if (!accessToken) {
-
-            return;
-
-        }
 
         const response =
             await fetch(
@@ -2222,11 +2504,8 @@ async function loadAdminEvents() {
                 {
                     method: "GET",
 
-                    headers: {
-                        "apikey": SUPABASE_KEY,
-                        "Authorization":
-                            `Bearer ${accessToken}`
-                    }
+                    headers:
+                        authHeaders()
                 }
             );
 
@@ -2234,7 +2513,7 @@ async function loadAdminEvents() {
         if (!response.ok) {
 
             throw new Error(
-                "Etkinlikler alınamadı."
+                await response.text()
             );
 
         }
@@ -2249,131 +2528,107 @@ async function loadAdminEvents() {
 
         if (!events.length) {
 
-            adminEvents.innerHTML = `
-                <div class="card">
-
-                    <div class="card-icon">
-                        📅
-                    </div>
-
-                    <h3>
-                        Henüz etkinlik yok
-                    </h3>
-
-                    <p>
-                        Henüz yayınlanmış bir etkinlik bulunmuyor.
-                    </p>
-
-                </div>
-            `;
+            adminEvents.innerHTML =
+                `<p class="empty">
+                    Henüz yayınlanmış etkinlik yok.
+                </p>`;
 
             return;
 
         }
 
 
-        events.forEach(event => {
+        events.forEach(item => {
 
             const card =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
-            card.className = "card";
 
-            let formattedDate = "";
+            card.className =
+                "item-card";
 
-            if (event.tarih) {
 
-                formattedDate =
-                    new Date(
-                        event.tarih
-                    ).toLocaleDateString(
+            const date =
+                item.tarih
+                    ? new Date(
+                        item.tarih
+                      ).toLocaleDateString(
                         "tr-TR",
                         {
                             day: "numeric",
                             month: "long",
                             year: "numeric"
                         }
-                    );
-
-            }
+                      )
+                    : "";
 
 
             card.innerHTML = `
 
-                <div class="card-icon">
-                    📅
-                </div>
-
-                <small style="
-                    display:block;
-                    margin-bottom:8px;
-                    color:#777;
-                ">
-                    ${formattedDate}
-                </small>
-
                 <h3>
-                    ${event.baslik || ""}
+                    ${escapeHtml(
+                        item.baslik || ""
+                    )}
                 </h3>
 
+                <div class="item-date">
+                    📅 ${date}
+                </div>
+
                 ${
-                    event.saat
+                    item.saat
                     ? `
-                        <p>
+                        <p style="margin-bottom:8px;">
                             🕐 <strong>Saat:</strong>
-                            ${event.saat.substring(0,5)}
+                            ${escapeHtml(
+                                item.saat.substring(0,5)
+                            )}
                         </p>
                     `
                     : ""
                 }
 
                 ${
-                    event.yer
+                    item.yer
                     ? `
-                        <p>
+                        <p style="margin-bottom:8px;">
                             📍 <strong>Yer:</strong>
-                            ${event.yer}
+                            ${escapeHtml(
+                                item.yer
+                            )}
                         </p>
                     `
                     : ""
                 }
 
                 ${
-                    event.aciklama
+                    item.aciklama
                     ? `
-                        <p>
-                            ${event.aciklama}
-                        </p>
+                        <div class="item-content">
+                            ${escapeHtml(
+                                item.aciklama
+                            )}
+                        </div>
                     `
                     : ""
                 }
 
-                <div style="
-                    display:flex;
-                    gap:10px;
-                    margin-top:20px;
-                ">
+                <div class="item-actions">
 
                     <button
                         type="button"
-                        class="publish-button"
-                        style="
-                            flex:1;
-                            background:#176b52;
-                        "
-                        onclick="editEvent('${event.id}')"
+                        class="edit-button"
+                        onclick="editEvent('${item.id}')"
                     >
                         ✏️ Düzenle
                     </button>
 
                     <button
                         type="button"
-                        class="logout-button"
-                        style="
-                            flex:1;
-                            margin-top:0;
-                        "
-                        onclick="deleteEvent('${event.id}')"
+                        class="delete-button"
+                        onclick="deleteEvent('${item.id}')"
                     >
                         🗑️ Sil
                     </button>
@@ -2392,39 +2647,21 @@ async function loadAdminEvents() {
 
     } catch (error) {
 
-        console.error(
-            "Etkinlik yükleme hatası:",
-            error
-        );
+        console.error(error);
 
-        adminEvents.innerHTML = `
-            <div class="card">
-
-                <div class="card-icon">
-                    ⚠️
-                </div>
-
-                <h3>
-                    Etkinlikler yüklenemedi
-                </h3>
-
-                <p>
-                    ${error.message}
-                </p>
-
-            </div>
-        `;
+        adminEvents.innerHTML =
+            `<p style="color:#a33;">
+                ❌ Etkinlikler yüklenemedi.
+            </p>`;
 
     }
 
 }
 
 
-//
-// =========================
-// ETKİNLİK EKLE / GÜNCELLE
-// =========================
-//
+/* =========================================================
+   ETKİNLİK EKLE / GÜNCELLE
+========================================================= */
 
 eventForm.addEventListener(
     "submit",
@@ -2433,65 +2670,72 @@ eventForm.addEventListener(
         event.preventDefault();
 
 
-        const accessToken =
-            getToken();
+        const token = getToken();
 
+        if (!token) {
 
-        if (!accessToken) {
-
-            eventStatus.className =
-                "status error";
-
-            eventStatus.textContent =
-                "❌ Oturum bulunamadı.";
+            showLoginScreen();
 
             return;
 
         }
 
 
-        eventStatus.className =
-            "status";
-
-        eventStatus.textContent =
-            "Etkinlik kaydediliyor...";
-
-
         const baslik =
             document
-            .getElementById("event-baslik")
-            .value
-            .trim();
+                .getElementById(
+                    "event-baslik"
+                )
+                .value
+                .trim();
 
 
         const aciklama =
             document
-            .getElementById("event-aciklama")
-            .value
-            .trim();
+                .getElementById(
+                    "event-aciklama"
+                )
+                .value
+                .trim();
 
 
         const tarih =
             document
-            .getElementById("event-tarih")
-            .value;
+                .getElementById(
+                    "event-tarih"
+                )
+                .value;
 
 
         const saat =
             document
-            .getElementById("event-saat")
-            .value;
+                .getElementById(
+                    "event-saat"
+                )
+                .value;
 
 
         const yer =
             document
-            .getElementById("event-yer")
-            .value
-            .trim();
+                .getElementById(
+                    "event-yer"
+                )
+                .value
+                .trim();
 
 
         const editingId =
             editingEventId.value;
+
+
+        eventStatus.className =
+            "status";
+
+        eventStatus.style.display =
+            "block";
+
+        eventStatus.textContent =
+            "Etkinlik kaydediliyor...";
 
 
         const eventData = {
@@ -2519,10 +2763,6 @@ eventForm.addEventListener(
             let response;
 
 
-            //
-            // GÜNCELLEME
-            //
-
             if (editingId) {
 
                 response =
@@ -2531,39 +2771,21 @@ eventForm.addEventListener(
                         {
                             method: "PATCH",
 
-                            headers: {
-
-                                "Content-Type":
-                                    "application/json",
-
-                                "apikey":
-                                    SUPABASE_KEY,
-
-                                "Authorization":
-                                    `Bearer ${accessToken}`,
-
-                                "Prefer":
-                                    "return=minimal"
-
-                            },
+                            headers:
+                                {
+                                    ...authHeaders(true),
+                                    "Prefer":
+                                        "return=minimal"
+                                },
 
                             body:
                                 JSON.stringify(
                                     eventData
                                 )
-
                         }
                     );
 
-
-            }
-
-
-            //
-            // YENİ ETKİNLİK
-            //
-
-            else {
+            } else {
 
                 response =
                     await fetch(
@@ -2571,27 +2793,17 @@ eventForm.addEventListener(
                         {
                             method: "POST",
 
-                            headers: {
-
-                                "Content-Type":
-                                    "application/json",
-
-                                "apikey":
-                                    SUPABASE_KEY,
-
-                                "Authorization":
-                                    `Bearer ${accessToken}`,
-
-                                "Prefer":
-                                    "return=minimal"
-
-                            },
+                            headers:
+                                {
+                                    ...authHeaders(true),
+                                    "Prefer":
+                                        "return=minimal"
+                                },
 
                             body:
                                 JSON.stringify(
                                     eventData
                                 )
-
                         }
                     );
 
@@ -2600,11 +2812,8 @@ eventForm.addEventListener(
 
             if (!response.ok) {
 
-                const errorText =
-                    await response.text();
-
                 throw new Error(
-                    errorText
+                    await response.text()
                 );
 
             }
@@ -2613,23 +2822,16 @@ eventForm.addEventListener(
             eventStatus.className =
                 "status success";
 
+            eventStatus.style.display =
+                "block";
 
             eventStatus.textContent =
                 editingId
-                ? "✅ Etkinlik güncellendi!"
-                : "✅ Etkinlik başarıyla yayınlandı!";
+                    ? "✅ Etkinlik güncellendi!"
+                    : "✅ Etkinlik başarıyla yayınlandı!";
 
 
-            eventForm.reset();
-
-            editingEventId.value = "";
-
-            eventSubmit.textContent =
-                "📅 Etkinliği Yayınla";
-
-            cancelEventEdit.style.display =
-                "none";
-
+            resetEventForm();
 
             await loadAdminEvents();
 
@@ -2641,6 +2843,9 @@ eventForm.addEventListener(
             eventStatus.className =
                 "status error";
 
+            eventStatus.style.display =
+                "block";
+
             eventStatus.textContent =
                 "❌ Etkinlik kaydedilemedi: " +
                 error.message;
@@ -2651,36 +2856,20 @@ eventForm.addEventListener(
 );
 
 
-//
-// =========================
-// ETKİNLİK DÜZENLE
-// =========================
-//
+/* =========================================================
+   ETKİNLİK DÜZENLE
+========================================================= */
 
 async function editEvent(id) {
 
     try {
-
-        const accessToken =
-            getToken();
-
 
         const response =
             await fetch(
                 `${SUPABASE_URL}/rest/v1/etkinlikler?id=eq.${id}&select=*`,
                 {
                     method: "GET",
-
-                    headers: {
-
-                        "apikey":
-                            SUPABASE_KEY,
-
-                        "Authorization":
-                            `Bearer ${accessToken}`
-
-                    }
-
+                    headers: authHeaders()
                 }
             );
 
@@ -2688,17 +2877,17 @@ async function editEvent(id) {
         if (!response.ok) {
 
             throw new Error(
-                "Etkinlik bilgileri alınamadı."
+                await response.text()
             );
 
         }
 
 
-        const events =
+        const data =
             await response.json();
 
 
-        if (!events.length) {
+        if (!data.length) {
 
             throw new Error(
                 "Etkinlik bulunamadı."
@@ -2707,44 +2896,54 @@ async function editEvent(id) {
         }
 
 
-        const event =
-            events[0];
+        const item =
+            data[0];
 
 
         editingEventId.value =
-            event.id;
+            item.id;
 
 
         document
-            .getElementById("event-baslik")
+            .getElementById(
+                "event-baslik"
+            )
             .value =
-                event.baslik || "";
+                item.baslik || "";
 
 
         document
-            .getElementById("event-aciklama")
+            .getElementById(
+                "event-aciklama"
+            )
             .value =
-                event.aciklama || "";
+                item.aciklama || "";
 
 
         document
-            .getElementById("event-tarih")
+            .getElementById(
+                "event-tarih"
+            )
             .value =
-                event.tarih || "";
+                item.tarih || "";
 
 
         document
-            .getElementById("event-saat")
+            .getElementById(
+                "event-saat"
+            )
             .value =
-                event.saat
-                ? event.saat.substring(0,5)
-                : "";
+                item.saat
+                    ? item.saat.substring(0,5)
+                    : "";
 
 
         document
-            .getElementById("event-yer")
+            .getElementById(
+                "event-yer"
+            )
             .value =
-                event.yer || "";
+                item.yer || "";
 
 
         eventSubmit.textContent =
@@ -2752,20 +2951,22 @@ async function editEvent(id) {
 
 
         cancelEventEdit.style.display =
-            "inline-block";
+            "block";
 
 
         eventStatus.className =
             "status";
 
+        eventStatus.style.display =
+            "block";
 
         eventStatus.textContent =
             "✏️ Düzenleme modu aktif.";
 
 
-        window.scrollTo({
-            top: eventForm.offsetTop - 30,
-            behavior: "smooth"
+        eventForm.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
         });
 
 
@@ -2773,67 +2974,59 @@ async function editEvent(id) {
 
         console.error(error);
 
-        eventStatus.className =
-            "status error";
-
-        eventStatus.textContent =
-            "❌ " + error.message;
+        alert(
+            "❌ Etkinlik düzenlenemedi:\n" +
+            error.message
+        );
 
     }
 
 }
 
 
-//
-// =========================
-// DÜZENLEMEYİ İPTAL ET
-// =========================
-//
+/* =========================================================
+   ETKİNLİK İPTAL
+========================================================= */
 
 cancelEventEdit.addEventListener(
     "click",
     function() {
 
-        eventForm.reset();
-
-        editingEventId.value = "";
-
-        eventSubmit.textContent =
-            "📅 Etkinliği Yayınla";
-
-        cancelEventEdit.style.display =
-            "none";
-
-        eventStatus.className =
-            "status";
-
-        eventStatus.textContent = "";
+        resetEventForm();
 
     }
 );
 
 
-//
-// =========================
-// ETKİNLİK SİL
-// =========================
-//
+function resetEventForm() {
+
+    eventForm.reset();
+
+    editingEventId.value =
+        "";
+
+    eventSubmit.textContent =
+        "📅 Etkinliği Yayınla";
+
+    cancelEventEdit.style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   ETKİNLİK SİL
+========================================================= */
 
 async function deleteEvent(id) {
 
-    if (
-        !confirm(
-            "Bu etkinliği silmek istediğinizden emin misiniz?"
-        )
-    ) {
+    if (!confirm(
+        "Bu etkinliği silmek istediğinize emin misiniz?"
+    )) {
 
         return;
 
     }
-
-
-    const accessToken =
-        getToken();
 
 
     try {
@@ -2843,28 +3036,15 @@ async function deleteEvent(id) {
                 `${SUPABASE_URL}/rest/v1/etkinlikler?id=eq.${id}`,
                 {
                     method: "DELETE",
-
-                    headers: {
-
-                        "apikey":
-                            SUPABASE_KEY,
-
-                        "Authorization":
-                            `Bearer ${accessToken}`
-
-                    }
-
+                    headers: authHeaders()
                 }
             );
 
 
         if (!response.ok) {
 
-            const errorText =
-                await response.text();
-
             throw new Error(
-                errorText
+                await response.text()
             );
 
         }
@@ -2872,6 +3052,9 @@ async function deleteEvent(id) {
 
         eventStatus.className =
             "status success";
+
+        eventStatus.style.display =
+            "block";
 
         eventStatus.textContent =
             "✅ Etkinlik silindi!";
@@ -2887,6 +3070,9 @@ async function deleteEvent(id) {
         eventStatus.className =
             "status error";
 
+        eventStatus.style.display =
+            "block";
+
         eventStatus.textContent =
             "❌ Etkinlik silinemedi: " +
             error.message;
@@ -2896,36 +3082,104 @@ async function deleteEvent(id) {
 }
 
 
-//
-// =========================
-// SAYFA AÇILIŞINDA YÜKLE
-// =========================
-//
+/* =========================================================
+   DOSYA ADI OLUŞTUR
+========================================================= */
 
-loadAdminEvents();
-/* ÇIKIŞ */
+function createFileName(originalName) {
+
+    const extension =
+        originalName.includes(".")
+            ? originalName
+                .substring(
+                    originalName.lastIndexOf(".")
+                )
+                .toLowerCase()
+            : "";
+
+
+    const random =
+        Math.random()
+            .toString(36)
+            .substring(2,10);
+
+
+    return `
+        ${Date.now()}-${random}${extension}
+    `.replace(/\s/g, "");
+
+}
+
+
+/* =========================================================
+   HTML GÜVENLİK
+========================================================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   ÇIKIŞ
+========================================================= */
 
 logoutButton.addEventListener(
-"click",
-function() {
+    "click",
+    function() {
 
-localStorage.removeItem(
-"supabase_access_token"
+        localStorage.removeItem(
+            "supabase_access_token"
+        );
+
+
+        newsForm.reset();
+        announcementForm.reset();
+        eventForm.reset();
+
+
+        showLoginScreen();
+
+
+        loginStatus.textContent =
+            "Çıkış yapıldı.";
+
+        loginStatus.style.color =
+            "#176b52";
+
+    }
 );
 
-newsForm.reset();
 
-showLoginScreen();
+/* =========================================================
+   SAYFA AÇILIŞI
+========================================================= */
 
-loginStatus.textContent =
-"Çıkış yapıldı.";
+checkAdmin().then(
+    function(isAdmin) {
 
-loginStatus.style.color =
-"#176b52";
+        if (isAdmin) {
 
-});
+            showAdminPanel();
+
+        } else {
+
+            showLoginScreen();
+
+        }
+
+    }
+);
 
 </script>
 
 </body>
 </html>
+```
