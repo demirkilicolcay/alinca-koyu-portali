@@ -272,6 +272,64 @@ body {
         width: 100%;
     }
 }
+    /* =========================
+   DASHBOARD
+========================= */
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.dashboard-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #d8e1dd;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(0,0,0,0.10);
+}
+
+.dashboard-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.dashboard-title {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.dashboard-number {
+    color: #176b52;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+@media (max-width: 700px) {
+
+    .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 450px) {
+
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+}
 </style>
 </head>
 
@@ -322,7 +380,88 @@ body {
     id="admin-container"
     style="display:none;"
 >
+<!-- =========================
+     DASHBOARD
+========================= -->
 
+<div class="dashboard">
+
+    <div
+        class="dashboard-card"
+        onclick="document.getElementById('news-list').scrollIntoView({behavior:'smooth'})"
+    >
+        <div class="dashboard-icon">📰</div>
+
+        <div class="dashboard-title">
+            Toplam Haber
+        </div>
+
+        <div
+            class="dashboard-number"
+            id="dashboard-news-count"
+        >
+            0
+        </div>
+    </div>
+
+
+    <div
+        class="dashboard-card"
+        onclick="document.getElementById('admin-announcements').scrollIntoView({behavior:'smooth'})"
+    >
+        <div class="dashboard-icon">📢</div>
+
+        <div class="dashboard-title">
+            Toplam Duyuru
+        </div>
+
+        <div
+            class="dashboard-number"
+            id="dashboard-announcement-count"
+        >
+            0
+        </div>
+    </div>
+
+
+    <div
+        class="dashboard-card"
+        onclick="document.getElementById('admin-events').scrollIntoView({behavior:'smooth'})"
+    >
+        <div class="dashboard-icon">📅</div>
+
+        <div class="dashboard-title">
+            Toplam Etkinlik
+        </div>
+
+        <div
+            class="dashboard-number"
+            id="dashboard-event-count"
+        >
+            0
+        </div>
+    </div>
+
+
+    <div
+        class="dashboard-card"
+        onclick="window.location.href='index.html#galeri'"
+    >
+        <div class="dashboard-icon">📷</div>
+
+        <div class="dashboard-title">
+            Galeri
+        </div>
+
+        <div
+            class="dashboard-number"
+            id="dashboard-gallery-count"
+        >
+            -
+        </div>
+    </div>
+
+</div>
     <div class="admin-header">
 
         <h1>🛠️ Alınca Köyü Yönetim Paneli</h1>
@@ -822,7 +961,11 @@ function showAdminPanel() {
     adminContainer.style.display = "block";
 
     loadAdminNews();
+
+    loadDashboardCounts();
+
     loadAnnouncements();
+
     loadAdminEvents();
 
 }
@@ -3176,7 +3319,148 @@ checkAdmin().then(
 
     }
 );
+/* =========================
+   DASHBOARD SAYILARI
+========================= */
 
+async function loadDashboardCounts() {
+
+    const accessToken = getToken();
+
+    if (!accessToken) {
+        return;
+    }
+
+    try {
+
+        /* =========================
+           HABER SAYISI
+        ========================= */
+
+        const newsResponse = await fetch(
+            `${SUPABASE_URL}/rest/v1/haberler?select=id`,
+            {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${accessToken}`,
+                    "Prefer": "count=exact"
+                }
+            }
+        );
+
+        const newsCount =
+            newsResponse.headers.get("content-range");
+
+        let totalNews = 0;
+
+        if (newsCount) {
+            totalNews =
+                parseInt(
+                    newsCount.split("/")[1]
+                ) || 0;
+        }
+
+        document.getElementById(
+            "dashboard-news-count"
+        ).textContent = totalNews;
+
+
+        /* =========================
+           DUYURU SAYISI
+        ========================= */
+
+        const announcementResponse = await fetch(
+            `${SUPABASE_URL}/rest/v1/duyurular?select=id`,
+            {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${accessToken}`,
+                    "Prefer": "count=exact"
+                }
+            }
+        );
+
+        const announcementCount =
+            announcementResponse.headers.get(
+                "content-range"
+            );
+
+        let totalAnnouncements = 0;
+
+        if (announcementCount) {
+            totalAnnouncements =
+                parseInt(
+                    announcementCount.split("/")[1]
+                ) || 0;
+        }
+
+        document.getElementById(
+            "dashboard-announcement-count"
+        ).textContent = totalAnnouncements;
+
+
+        /* =========================
+           ETKİNLİK SAYISI
+        ========================= */
+
+        const eventResponse = await fetch(
+            `${SUPABASE_URL}/rest/v1/etkinlikler?select=id`,
+            {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${accessToken}`,
+                    "Prefer": "count=exact"
+                }
+            }
+        );
+
+        const eventCount =
+            eventResponse.headers.get(
+                "content-range"
+            );
+
+        let totalEvents = 0;
+
+        if (eventCount) {
+            totalEvents =
+                parseInt(
+                    eventCount.split("/")[1]
+                ) || 0;
+        }
+
+        document.getElementById(
+            "dashboard-event-count"
+        ).textContent = totalEvents;
+
+
+        /* =========================
+           GALERİ
+        ========================= */
+
+        /*
+         Galeri Supabase Storage
+         üzerinden çalıştığı için
+         burada şimdilik "-" bırakıyoruz.
+        */
+
+        document.getElementById(
+            "dashboard-gallery-count"
+        ).textContent = "-";
+
+
+    } catch (error) {
+
+        console.error(
+            "Dashboard sayıları yüklenemedi:",
+            error
+        );
+
+    }
+
+}
 </script>
 
 </body>
